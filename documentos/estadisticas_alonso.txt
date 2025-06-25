@@ -1,0 +1,4 @@
+Partidas jugadas: 16
+Partidas ganadas: 3
+Partidas perdidas: 12
+Partidas empatadas: 0
