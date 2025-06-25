@@ -114,7 +114,7 @@ inline void iniciar(const string& nombreUsuario) {
                     jugarHilo(jugador); // Juego de Hi-Lo
                 break;
             case 8:
-                jugador.mostrarHistorial(); // Muestro el historial de movimientos
+                jugador.mostrarHistorial(); // Muestro el historial de los juegos
                 break;
             case 9:
                 jugador.mostrarEstadisticas(); // Muestro estadísticas del jugador
