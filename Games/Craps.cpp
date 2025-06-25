@@ -463,8 +463,10 @@ int main()
 
     // UTF-8 encoding is a type of encoding that converts special characters so they can be read by computers.
     // SetConsoleOutputCP is a function that allows displaying special characters, ASCII, UNICODE in the console using UTF-8 encoding.
+    #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-
+     #endif
+     
     // Initialize the variable selection to 0 to ensure no previous values are stored.
     int selection = 0;
 
