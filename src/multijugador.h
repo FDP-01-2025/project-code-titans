@@ -49,6 +49,12 @@ bool estaOrdenado(int arreglo[], int tamano) {
 void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
     int opcion;
     do {
+        if (cin.fail()) {
+        // Si la entrada no es un número, limpio el error y descarto la entrada inválida
+        cin.clear(); // Limpia el estado de error
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora la línea entera
+        opcion = 0; // Para que entre al default y muestre mensaje
+    }
         // Muestro las opciones disponibles
         cout << "\n=== MENU DE MINIJUEGOS ===";
         cout << "\n1. Juego de Memoria";
