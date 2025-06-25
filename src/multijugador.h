@@ -90,67 +90,108 @@ void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
 
 // Aquí defino el juego de memoria donde deben emparejar cartas iguales
 void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
+    // Inicio el juego mostrando el título
     cout << "\n=== JUEGO DE MEMORIA ===";
-    cout << "\nEncuentra todas las parejas para ganar puntos!\n";
-    
-    // Inicializo las cartas con pares del 1 al 8
+
+    // Muestro un menú para elegir si el jugador quiere ver las reglas o comenzar a jugar
+    cout << "\n1. Ver reglas del juego";
+    cout << "\n2. Jugar\n";
+    cout << "Selecciona una opción: ";
+
+    int opcion;
+    cin >> opcion; // Leo la opción del usuario
+
+    // Valido que la entrada sea válida y que esté entre 1 y 2
+    if (cin.fail() || (opcion != 1 && opcion != 2)) {
+        cin.clear(); // Limpio el estado de error de cin
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descarto el resto de la entrada
+        cout << " Opción inválida. Volviendo al menú de minijuegos.\n";
+        return; // Salgo del juego
+    }
+
+    // Si elige ver las reglas (opción 1)
+    if (opcion == 1) {
+        // Muestro las reglas detalladamente
+        cout << "\nReglas del Juego de Memoria:\n";
+        cout << "- Se presentan 16 cartas ocultas (pares del 1 al 8).\n";
+        cout << "- Cada jugador elige dos cartas por turno.\n";
+        cout << "- Si ambas cartas coinciden, gana 10 puntos y sigue jugando.\n";
+        cout << "- Si no coinciden, las cartas se vuelven a ocultar y el turno pasa al otro jugador.\n";
+        cout << "- Gana quien tenga más puntos cuando se descubran todas las parejas.\n";
+        return; // Salgo después de mostrar las reglas
+    }
+
+    // Inicializo el arreglo de cartas con pares del 1 al 8
     int cartas[MAX_CARTAS] = {1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8};
-    bool reveladas[MAX_CARTAS] = {false}; // Todas las cartas empiezan ocultas
-    mezclarArreglo(cartas, MAX_CARTAS); // Mezclo las cartas
+    
+    // Todas las cartas están ocultas al inicio
+    bool reveladas[MAX_CARTAS] = {false};
 
-    int parejasEncontradas = 0; // Inicio el contador de parejas
-    int turno = 0; // 0 es jugador 1, 1 es jugador 2
+    // Mezclo las cartas aleatoriamente
+    mezclarArreglo(cartas, MAX_CARTAS);
 
-    while(parejasEncontradas < 8) { // El juego sigue hasta encontrar 8 parejas
-        JugadorMinijuego& jugadorActual = (turno == 0) ? j1 : j2; // Determino quién juega
-        cout << "\nTurno de " << jugadorActual.nombre << endl;
+    int parejasEncontradas = 0; // Llevo la cuenta de las parejas que ya se han encontrado
+    int turno = 0; // 0 representa al jugador 1, 1 representa al jugador 2
 
-        // Muestro el tablero
+    // Mientras no se hayan encontrado las 8 parejas
+    while (parejasEncontradas < 8) {
+        // Dependiendo del turno, selecciono al jugador actual
+        JugadorMinijuego& jugadorActual = (turno == 0) ? j1 : j2;
+
+        // Muestro de quién es el turno
+        cout << "\nTurno de " << jugadorActual.nombre << "\n";
+
+        // Muestro el tablero actual
         cout << "Tablero:\n";
-        for(int i = 0; i < MAX_CARTAS; i++) {
-            if(reveladas[i])
-                cout << cartas[i] << " "; // Si está revelada, muestro el número
+        for (int i = 0; i < MAX_CARTAS; i++) {
+            if (reveladas[i])
+                cout << cartas[i] << " "; // Si la carta ya fue revelada, la muestro
             else
-                cout << "* "; // Si está oculta, muestro asterisco
+                cout << "* "; // Si no, muestro un asterisco
 
-            if((i+1) % 4 == 0) cout << endl; // Hago salto de línea cada 4 cartas
+            if ((i + 1) % 4 == 0) cout << "\n"; // Hago salto de línea cada 4 cartas
         }
 
-        // Pido dos posiciones
         int pos1, pos2;
-        cout << "Selecciona dos cartas (0-15): ";
+        // Pido al jugador que seleccione dos posiciones
+        cout << "Selecciona dos cartas (0-15, diferentes, no reveladas): ";
         cin >> pos1 >> pos2;
 
-
-        if (cin.fail()) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada inválida. Pierdes tu turno.\n";
-        turno = 1 - turno;
-        continue;
+        // Valido la entrada: que sean enteros, dentro del rango, diferentes y no reveladas
+        if (cin.fail() || pos1 < 0 || pos1 >= MAX_CARTAS || pos2 < 0 || pos2 >= MAX_CARTAS || pos1 == pos2 || reveladas[pos1] || reveladas[pos2]) {
+            cin.clear(); // Limpio el error si se ingresó algo inválido
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio el buffer
+            cout << "Selección inválida. Pierdes tu turno.\n";
+            turno = 1 - turno; // Cambio de turno
+            continue; // Paso al siguiente ciclo del while
         }
 
-        // Revelo las cartas seleccionadas
+        // Marco ambas cartas como reveladas temporalmente
         reveladas[pos1] = true;
         reveladas[pos2] = true;
 
-        cout << "Seleccionaste: " << cartas[pos1] << " y " << cartas[pos2] << endl;
+        // Muestro qué cartas se eligieron
+        cout << "Seleccionaste: " << cartas[pos1] << " y " << cartas[pos2] << "\n";
 
-        if(cartas[pos1] == cartas[pos2]) {
-            cout << "¡Encontraste una pareja! +10 puntos\n";
-            jugadorActual.puntuacion += 10;
-            parejasEncontradas++;
+        // Si las cartas coinciden
+        if (cartas[pos1] == cartas[pos2]) {
+            cout << "¡Pareja encontrada! +10 puntos\n";
+            jugadorActual.puntuacion += 10; // Sumo 10 puntos al jugador
+            parejasEncontradas++; // Aumento el contador de parejas encontradas
         } else {
-            cout << "No es una pareja. Turno del siguiente jugador.\n";
+            // Si no coinciden, las vuelvo a ocultar
+            cout << "No coinciden. Se ocultan las cartas.\n";
             reveladas[pos1] = false;
             reveladas[pos2] = false;
             turno = 1 - turno; // Cambio de turno
         }
     }
 
-    cout << "\n¡Juego terminado!\n";
-    mostrarGanador(j1, j2); // Muestro el ganador al final del juego
+    // Cuando ya se encontraron todas las parejas, termina el juego
+    cout << "\n🎉 ¡Juego terminado!\n";
+    mostrarGanador(j1, j2); // Llamo a la función para mostrar quién ganó
 }
+
 
 // Aquí defino el juego de estrategia donde no deben pasarse de 21
 void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2) {
