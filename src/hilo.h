@@ -187,7 +187,6 @@ inline void jugarHilo(Jugador& jugador) {
     int option;                                                 // Opción de menú
 
     do {
-        limpiarConsola();
         // Muestro menú de opciones
         cout << "\n---- ¡Bienvenido al juego HI-LO! ----\n";
         cout << "1. Explicación del juego \n";
@@ -208,6 +207,7 @@ inline void jugarHilo(Jugador& jugador) {
         switch (option) {
             case 1:
                 // Explicación clara del juego
+                limpiarConsola();
                 cout << "\n¡Bienvenido al juego HI-LO!\n\n";
                 cout << "¡Este es súper fácil de jugar!\n\n";
                 cout << "1. Primero, haz tu apuesta.\n";
@@ -227,7 +227,7 @@ inline void jugarHilo(Jugador& jugador) {
             case 3:
             limpiarConsola();
                 // Muestro saldo actual
-                cout << "Tu saldo es: $" << jugador.dinero << endl;
+                cout << "Tu saldo actual es: $" << jugador.dinero << endl;
                 break;
             case 4:
             limpiarConsola();

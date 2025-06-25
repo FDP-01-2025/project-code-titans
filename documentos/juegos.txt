@@ -13,3 +13,5 @@ Jugador: alonso | Evento: Hi-Lo | Cantidad: $200 | Resultado: Ganó | Dinero res
 Jugador: alonso | Evento: Hi-Lo | Cantidad: $20 | Resultado: Ganó | Dinero restante: $570
 Jugador: alonso | Evento: Hi-Lo | Cantidad: $10 | Resultado: Perdió | Dinero restante: $560
 Jugador: alonso | Evento: Hi-Lo | Cantidad: $20 | Resultado: Perdió | Dinero restante: $540
+Jugador: alonso | Evento: Hi-Lo | Cantidad: $40 | Resultado: Ganó | Dinero restante: $580
+Jugador: alonso | Evento: Hi-Lo | Cantidad: $10 | Resultado: Perdió | Dinero restante: $570

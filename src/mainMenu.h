@@ -107,6 +107,7 @@ inline void iniciar(const string& nombreUsuario) {
                     jugarCraps(jugador); // Juego de dados (Craps)
                 break;
             case 7:
+                limpiarConsola();
                 if (jugador.dinero <= 0)
                     cout << "No tienes saldo suficiente. Deposita para jugar.\n";
                 else
