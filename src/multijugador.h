@@ -291,9 +291,10 @@ void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
             cout << "1. Se te mostrará una secuencia desordenada de números del 1 al 8.\n";
             cout << "2. Debes ordenarlos intercambiando dos posiciones por turno.\n";
             cout << "3. Las posiciones van de 0 a 7.\n";
-            cout << "4. Gana el jugador con menos intentos.\n";
-            cout << "5. Si hay empate, ambos ganan puntos.\n";
-            cout << "6. Si pones una posición inválida, el intento no cuenta.\n";
+            cout << "4. No puedes intercambiar la misma posición dos veces seguidas.\n";
+            cout << "5. Gana el jugador con menos intentos.\n";
+            cout << "6. Si hay empate, ambos ganan puntos.\n";
+            cout << "7. Si pones una posición inválida, el intento no cuenta.\n";
             cout << "---------------------------------------\n";
         }
     } while (opcion != 2); // Vuelvo a mostrar el menú hasta que elija comenzar el juego
@@ -326,6 +327,12 @@ void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
             continue; // Vuelvo a pedir posiciones
         }
 
+        // Verifico que no seleccione la misma posición dos veces
+        if (pos1 == pos2) {
+            cout << "No puedes intercambiar la misma posición. Intenta nuevamente.\n";
+            continue; // Vuelvo a pedir posiciones
+        }
+
         swap(copiaJ1[pos1], copiaJ1[pos2]); // Intercambio las posiciones elegidas
         intentosJ1++; // Sumo un intento
     }
@@ -349,6 +356,12 @@ void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
             cin.clear(); // Limpio error
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro entrada inválida
             cout << "Posiciones inválidas. Intenta nuevamente.\n";
+            continue;
+        }
+
+        // Verifico que no seleccione la misma posición dos veces
+        if (pos1 == pos2) {
+            cout << "No puedes intercambiar la misma posición. Intenta nuevamente.\n";
             continue;
         }
 
