@@ -5,6 +5,7 @@
 #include <cstdlib>  // Incluyo para funciones como rand y srand
 #include <ctime>    // Incluyo para usar time y generar números aleatorios con srand
 #include <algorithm> // Incluyo para usar funciones como swap y copy
+#include <cctype>  // para isalpha
 
 using namespace std; // Uso el espacio de nombres estándar para no escribir std:: en todo
 
@@ -262,15 +263,37 @@ void mostrarGanador(JugadorMinijuego& j1, JugadorMinijuego& j2) {
     }
 }
 
-// Esta es la función principal para el modo multijugador
+
+// Función para validar que el nombre solo tenga letras
+bool esNombreValido(const string& nombre) {
+    if (nombre.empty()) return false; // No puede estar vacío
+    for (char c : nombre) {
+        if (!isalpha(c)) return false; // Si hay algo que no sea letra, inválido
+    }
+    return true;
+}
+
+// Ejemplo de uso en modoMultijugador()
 void modoMultijugador() {
     string nombre1, nombre2;
 
     cout << "\n=== MODO MULTIJUGADOR (Minijuegos) ===";
-    cout << "\nJugador 1, ingresa tu nombre: ";
-    cin >> nombre1;
-    cout << "Jugador 2, ingresa tu nombre: ";
-    cin >> nombre2;
+
+    do {
+        cout << "\nJugador 1, ingresa tu nombre: ";
+        cin >> nombre1;
+        if (!esNombreValido(nombre1)) {
+            cout << "Nombre inválido. Usa solo letras sin espacios ni números.\n";
+        }
+    } while (!esNombreValido(nombre1));
+
+    do {
+        cout << "Jugador 2, ingresa tu nombre: ";
+        cin >> nombre2;
+        if (!esNombreValido(nombre2)) {
+            cout << "Nombre inválido. Usa solo letras sin espacios ni números.\n";
+        }
+    } while (!esNombreValido(nombre2));
 
     JugadorMinijuego j1 = {nombre1};
     JugadorMinijuego j2 = {nombre2};
@@ -281,5 +304,6 @@ void modoMultijugador() {
     cout << "\n=== RESULTADO FINAL ===";
     mostrarGanador(j1, j2); // Muestro la puntuación final
 }
+
 
 #endif // MULTIJUGADOR_H
