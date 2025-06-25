@@ -208,12 +208,13 @@ void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
         int pos1, pos2;
         cout << "Ingresa dos posiciones para intercambiar (0-7): ";
         cin >> pos1 >> pos2;
-
-        if(pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
-            cout << "Posiciones invalidas. Intenta nuevamente.\n";
-            continue;
-        }
-
+        if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Posiciones invalidas. Intenta nuevamente.\n";
+        continue;
+    }
+    
         swap(copiaJ1[pos1], copiaJ1[pos2]);
         intentosJ1++;
     }
