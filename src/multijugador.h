@@ -121,12 +121,13 @@ void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
         cout << "Selecciona dos cartas (0-15): ";
         cin >> pos1 >> pos2;
 
-        // Verifico que las posiciones sean válidas
-        if(pos1 < 0 || pos1 >= MAX_CARTAS || pos2 < 0 || pos2 >= MAX_CARTAS || 
-           pos1 == pos2 || reveladas[pos1] || reveladas[pos2]) {
-            cout << "Seleccion invalida. Pierdes tu turno.\n";
-            turno = 1 - turno; // Cambio de turno
-            continue;
+
+        if (cin.fail()) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Entrada inválida. Pierdes tu turno.\n";
+        turno = 1 - turno;
+        continue;
         }
 
         // Revelo las cartas seleccionadas
