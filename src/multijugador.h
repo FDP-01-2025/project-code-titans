@@ -268,124 +268,122 @@ void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2) {
 
 // Aquí defino el puzzle de números donde tienen que ordenar del 1 al 8
 void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    int opcion; // Guardo aquí la opción del jugador para ver reglas o comenzar
+    int opcion; // Guardo la opción para ver reglas o empezar
 
-    // Le doy al jugador un pequeño menú antes de comenzar
+    // Menú previo para mostrar reglas o iniciar juego
     do {
-        // Muestro el submenú
         cout << "\n=== PUZZLE DE NUMEROS ===";
         cout << "\n1. Ver reglas del juego";
         cout << "\n2. Empezar el juego";
         cout << "\nSelecciona una opción: ";
-        cin >> opcion; // Leo la opción
+        cin >> opcion;
 
-        // Si hay un error en la entrada o elige una opción no válida
         if (cin.fail() || (opcion != 1 && opcion != 2)) {
-            cin.clear(); // Limpio el estado de error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro basura de la entrada
-            cout << "Opción inválida. Intenta de nuevo.\n"; // Avisa que la entrada no fue válida
-        } 
-        // Si eligió la opción 1, muestro las reglas
-        else if (opcion == 1) {
+            cin.clear(); // Limpio error en cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro basura
+            cout << "Opción inválida. Intenta de nuevo.\n";
+        } else if (opcion == 1) {
+            // Aquí muestro las reglas con detalle
             cout << "\n=== REGLAS DEL PUZZLE DE NUMEROS ===\n";
             cout << "1. Se te mostrará una secuencia desordenada de números del 1 al 8.\n";
             cout << "2. Debes ordenarlos intercambiando dos posiciones por turno.\n";
-            cout << "3. Las posiciones van de 0 a 7.\n";
-            cout << "4. No puedes intercambiar la misma posición dos veces seguidas.\n";
-            cout << "5. Gana el jugador con menos intentos.\n";
-            cout << "6. Si hay empate, ambos ganan puntos.\n";
-            cout << "7. Si pones una posición inválida, el intento no cuenta.\n";
+            cout << "3. Las posiciones válidas son de 0 a 7.\n";
+            cout << "4. No puedes intercambiar la misma posición contigo mismo.\n";
+            cout << "5. Gana el jugador que ordene en menos intentos.\n";
+            cout << "6. Si pones una posición inválida, el intento no contará.\n";
             cout << "---------------------------------------\n";
         }
-    } while (opcion != 2); // Vuelvo a mostrar el menú hasta que elija comenzar el juego
+    } while (opcion != 2); // Sigo pidiendo hasta que elijan empezar
 
-    // Comienzo del juego
-    int numeros[MAX_NUMEROS] = {1,2,3,4,5,6,7,8}; // Este es el arreglo ordenado base
-    mezclarArreglo(numeros, MAX_NUMEROS); // Mezclo el arreglo para hacerlo aleatorio
+    // Creo el arreglo base ordenado
+    int numeros[MAX_NUMEROS] = {1,2,3,4,5,6,7,8};
+    mezclarArreglo(numeros, MAX_NUMEROS); // Lo mezclo para el reto
 
-    int intentosJ1 = 0, intentosJ2 = 0; // Llevo la cuenta de intentos de cada jugador
+    int intentosJ1 = 0, intentosJ2 = 0; // Contadores de intentos
 
-    // Turno del primer jugador
+    // Turno jugador 1
     cout << "\nTurno de " << j1.nombre << endl;
-    int copiaJ1[MAX_NUMEROS]; // Creo una copia para no modificar el arreglo original
-    copy(numeros, numeros + MAX_NUMEROS, copiaJ1); // Copio los números al arreglo del jugador 1
+    int copiaJ1[MAX_NUMEROS];
+    copy(numeros, numeros + MAX_NUMEROS, copiaJ1); // Copio la secuencia mezclada para el jugador 1
 
-    while(!estaOrdenado(copiaJ1, MAX_NUMEROS)) { // Mientras no estén ordenados...
+    while(!estaOrdenado(copiaJ1, MAX_NUMEROS)) {
         cout << "Secuencia actual: ";
-        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ1[i] << " "; // Muestro la secuencia
+        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ1[i] << " ";
         cout << endl;
 
         int pos1, pos2;
         cout << "Ingresa dos posiciones para intercambiar (0-7): ";
-        cin >> pos1 >> pos2; // Leo las dos posiciones a intercambiar
+        cin >> pos1 >> pos2;
 
-        // Verifico si la entrada fue válida
+        // Validación completa de entradas
         if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
-            cin.clear(); // Limpio el error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Elimino entrada basura
-            cout << "Posiciones inválidas. Intenta nuevamente.\n"; // Avisa el error
-            continue; // Vuelvo a pedir posiciones
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Posiciones inválidas. Intenta nuevamente.\n";
+            continue; // Vuelvo a pedir entrada
         }
 
-        // Verifico que no seleccione la misma posición dos veces
+        // Validación para que no sea la misma posición
         if (pos1 == pos2) {
             cout << "No puedes intercambiar la misma posición. Intenta nuevamente.\n";
-            continue; // Vuelvo a pedir posiciones
+            continue;
         }
 
-        swap(copiaJ1[pos1], copiaJ1[pos2]); // Intercambio las posiciones elegidas
-        intentosJ1++; // Sumo un intento
+        // Hago el intercambio
+        swap(copiaJ1[pos1], copiaJ1[pos2]);
+        intentosJ1++; // Sumo intento
+
+        // Opcional: mostrar arreglo después del swap para depurar
+        // cout << "Después del intercambio: ";
+        // for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ1[i] << " ";
+        // cout << endl;
     }
 
-    // Turno del segundo jugador
+    // Turno jugador 2
     cout << "\nTurno de " << j2.nombre << endl;
-    int copiaJ2[MAX_NUMEROS]; // Creo otra copia del arreglo original mezclado
-    copy(numeros, numeros + MAX_NUMEROS, copiaJ2); // Copio los números al arreglo del jugador 2
+    int copiaJ2[MAX_NUMEROS];
+    copy(numeros, numeros + MAX_NUMEROS, copiaJ2); // Copio la secuencia mezclada para jugador 2
 
-    while(!estaOrdenado(copiaJ2, MAX_NUMEROS)) { // Mientras no esté ordenado...
+    while(!estaOrdenado(copiaJ2, MAX_NUMEROS)) {
         cout << "Secuencia actual: ";
-        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ2[i] << " "; // Muestro la secuencia
+        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ2[i] << " ";
         cout << endl;
 
         int pos1, pos2;
         cout << "Ingresa dos posiciones para intercambiar (0-7): ";
-        cin >> pos1 >> pos2; // Leo las dos posiciones
+        cin >> pos1 >> pos2;
 
-        // Verifico si las posiciones son válidas
         if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
-            cin.clear(); // Limpio error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro entrada inválida
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Posiciones inválidas. Intenta nuevamente.\n";
             continue;
         }
 
-        // Verifico que no seleccione la misma posición dos veces
         if (pos1 == pos2) {
             cout << "No puedes intercambiar la misma posición. Intenta nuevamente.\n";
             continue;
         }
 
-        swap(copiaJ2[pos1], copiaJ2[pos2]); // Hago el swap
-        intentosJ2++; // Sumo un intento
+        swap(copiaJ2[pos1], copiaJ2[pos2]);
+        intentosJ2++;
     }
 
-    // Comparo quién hizo menos intentos y asigno puntos
+    // Comparo resultados para dar puntos
     if(intentosJ1 < intentosJ2) {
         cout << "\n¡" << j1.nombre << " gana con " << intentosJ1 << " intentos! +20 puntos\n";
-        j1.puntuacion += 20; // Sumo puntos al jugador 1
+        j1.puntuacion += 20;
     } else if(intentosJ2 < intentosJ1) {
         cout << "\n¡" << j2.nombre << " gana con " << intentosJ2 << " intentos! +20 puntos\n";
-        j2.puntuacion += 20; // Sumo puntos al jugador 2
+        j2.puntuacion += 20;
     } else {
-        // En caso de empate
         cout << "\n¡Empate! Ambos ganan 10 puntos\n";
         j1.puntuacion += 10;
         j2.puntuacion += 10;
     }
 
-    mostrarGanador(j1, j2); // Muestro el resultado final
+    mostrarGanador(j1, j2); // Muestro quién va ganando al final
 }
-
 
 // Función para mostrar quién va ganando
 void mostrarGanador(JugadorMinijuego& j1, JugadorMinijuego& j2) {

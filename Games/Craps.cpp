@@ -71,7 +71,7 @@ void waitMilliseconds(int ms)
 }
 
 // Function pause. Temporarily stops execution for a few seconds to display validation messages to the user. Does not return any value.
-void pause()
+void pausar()
 {
     // Call the function waitMilliseconds() passing 3000, which equals 3 seconds of wait to show messages.
     waitMilliseconds(3000);
@@ -188,7 +188,7 @@ int gameplay(int maxAttempts = 0)
     if (balance <= 0)
     {
         cout << "You have no money left to bet. Game over.\n";
-        pause();
+        pausar();
         return 0;
     }
 
@@ -218,7 +218,7 @@ int gameplay(int maxAttempts = 0)
     int point = 0;
 
     cout << "Starting the come-out roll...\n";
-    pause();
+    pausar();
 
     /* The player starts the first dice roll; we call the rollDiceAnimated function, which generates a random number
        assigned to comeOutRoll to be checked against game conditions. */
@@ -226,7 +226,7 @@ int gameplay(int maxAttempts = 0)
 
     cout << "The come-out roll is: " << comeOutRoll << "\n";
 
-    pause();
+    pausar();
 
     // Check if comeOutRoll is 2, 3, or 12; if so, print a losing message.
     if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12)
@@ -237,7 +237,7 @@ int gameplay(int maxAttempts = 0)
         cout << "║           Craps! You lost the game.               ║\n";
         cout << "║                                                   ║\n";
         cout << "╚═══════════════════════════════════════════════════╝\n";
-        pause();
+        pausar();
         clearScreen();
     }
     // Check if comeOutRoll is 7 or 11; if so, player wins immediately.
@@ -249,7 +249,7 @@ int gameplay(int maxAttempts = 0)
         cout << "║     Congratulations, you won the round!       ║\n";
         cout << "║                                               ║\n";
         cout << "╚═══════════════════════════════════════════════╝\n";
-        pause();
+        pausar();
         clearScreen();
     }
     // Check if comeOutRoll is 4,5,6,8,9,10 to set the point.
@@ -267,7 +267,7 @@ int gameplay(int maxAttempts = 0)
 
         // Set the point value for comparison in subsequent rolls.
         point = comeOutRoll;
-        pause();
+        pausar();
 
         /* Declare attempts variable, int type, initialized to 0. It counts the number of rolls the player makes.
            This is used to control the number of rolls according to difficulty level, ending the game or prompting
@@ -288,7 +288,7 @@ int gameplay(int maxAttempts = 0)
             cout << "Attempt #" << attempts << endl;
             cout << "The new come-out roll is: " << comeOutRoll << "\n";
 
-            pause();
+            pausar();
 
             // If roll equals the point, player wins.
             if (comeOutRoll == point)
@@ -299,7 +299,7 @@ int gameplay(int maxAttempts = 0)
                 cout << "║                Congratulations, you won!            ║\n";
                 cout << "║                                                     ║\n";
                 cout << "╚═════════════════════════════════════════════════════╝\n";
-                pause();
+                pausar();
                 clearScreen();
                 return 0;
             }
@@ -312,7 +312,7 @@ int gameplay(int maxAttempts = 0)
                 cout << "║               Sorry, you lost the game.             ║\n";
                 cout << "║                                                     ║\n";
                 cout << "╚═════════════════════════════════════════════════════╝\n";
-                pause();
+                pausar();
                 clearScreen();
                 return 0;
             }
@@ -326,7 +326,7 @@ int gameplay(int maxAttempts = 0)
         cout << "║                                                   ║\n";
         cout << "╚═══════════════════════════════════════════════════╝\n";
 
-        pause();
+        pausar();
         clearScreen();
     }
 }
@@ -448,7 +448,7 @@ void restartGame()
         }
 
         // Pause to display the message
-        pause();
+        pausar();
 
         cin.clear();
         // Clear the screen for a better player experience.
@@ -466,7 +466,7 @@ int main()
     #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
      #endif
-     
+
     // Initialize the variable selection to 0 to ensure no previous values are stored.
     int selection = 0;
 
