@@ -193,38 +193,78 @@ void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
 }
 
 
-// Aquí defino el juego de estrategia donde no deben pasarse de 21
+// Aquí defino el juego de estrategia donde los jugadores no deben pasarse de 21
 void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    cout << "\n=== JUEGO DE ESTRATEGIA ===";
-    cout << "\nEl ultimo en sumar menos de 21 gana!\n";
+    // Inicio el título del juego
+    cout << "\n=== JUEGO DE ESTRATEGIA ===\n";
 
-    int total = 0;
-    int turno = 0;
+    // Agrego una opción para mostrar las reglas del juego
+    int opcion;
+    do {
+        cout << "\n1. Ver reglas del juego";
+        cout << "\n2. Empezar el juego";
+        cout << "\nSelecciona una opción: ";
+        cin >> opcion;
 
-    while(total < 21) {
+        if (cin.fail() || (opcion != 1 && opcion != 2)) {
+            cin.clear(); // Limpio el flag de error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio el buffer
+            cout << " Opción inválida. Intenta nuevamente.\n";
+            opcion = 0; // Reinicio opción para que se repita
+        }
+
+        if (opcion == 1) {
+            cout << "\n REGLAS DEL JUEGO DE ESTRATEGIA:\n";
+            cout << "- Cada jugador suma un número entre 1 y 5 por turno.\n";
+            cout << "- El total acumulado no debe pasar de 21.\n";
+            cout << "- El jugador que *no* hizo que se pase o llegue a 21, gana.\n";
+        }
+
+    } while (opcion != 2); // Hasta que elija jugar
+
+    int total = 0; // Esta variable lleva el total acumulado de la suma
+    int turno = 0; // Uso esta variable para alternar entre j1 y j2 (0: j1, 1: j2)
+
+    // Mientras el total acumulado sea menor a 21, el juego continúa
+    while (total < 21) {
+        // Selecciono al jugador que tiene el turno actual
         JugadorMinijuego& jugadorActual = (turno == 0) ? j1 : j2;
-        int suma;
 
-        cout << "\nTotal acumulado: " << total << endl;
-        cout << jugadorActual.nombre << ", suma entre 1 y 5: ";
-    cin >> suma;
+        int suma; // Esta será la cantidad que el jugador sume en su turno
+
+        // Muestro el total actual acumulado
+        cout << "\n Total acumulado: " << total << endl;
+
+        // Pido al jugador que sume entre 1 y 5
+        cout << jugadorActual.nombre << ", ingresa un número entre 1 y 5: ";
+        cin >> suma;
+
+        // Valido que la entrada sea válida y esté en el rango permitido
         if (cin.fail() || suma < 1 || suma > 5) {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Suma invalida. Debe ser entre 1 y 5.\n";
-        continue;
-    }
+            cin.clear(); // Limpio el error de entrada
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descarto la entrada inválida
+            cout << " Entrada inválida. Debe ser un número entre 1 y 5.\n"; // Muestro mensaje de error
+            continue; // No cambio de turno, el jugador repite intento
+        }
 
+        // Si la entrada fue válida, la sumo al total acumulado
         total += suma;
+
+        // Cambio el turno al otro jugador
         turno = 1 - turno;
     }
 
+    // Una vez que se supera o alcanza 21, quien NO hizo la última jugada es el ganador
     JugadorMinijuego& ganador = (turno == 0) ? j1 : j2;
+
+    // Muestro quién ganó y le doy 15 puntos
     cout << "\n¡" << ganador.nombre << " gana 15 puntos por estrategia!\n";
     ganador.puntuacion += 15;
 
+    // Muestro la puntuación final de ambos jugadores
     mostrarGanador(j1, j2);
 }
+
 
 // Aquí defino el puzzle de números donde tienen que ordenar del 1 al 8
 void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
