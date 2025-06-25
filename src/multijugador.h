@@ -52,7 +52,7 @@ void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
         if (cin.fail()) {
         // Si la entrada no es un número, limpio el error y descarto la entrada inválida
         cin.clear(); // Limpia el estado de error
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignora la línea entera
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora la línea entera
         opcion = 0; // Para que entre al default y muestre mensaje
     }
         // Muestro las opciones disponibles
@@ -124,7 +124,7 @@ void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
 
         if (cin.fail()) {
         cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Entrada inválida. Pierdes tu turno.\n";
         turno = 1 - turno;
         continue;
@@ -166,12 +166,13 @@ void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2) {
 
         cout << "\nTotal acumulado: " << total << endl;
         cout << jugadorActual.nombre << ", suma entre 1 y 5: ";
-        cin >> suma;
-
-        if(suma < 1 || suma > 5) {
-            cout << "Suma invalida. Debe ser entre 1 y 5.\n";
-            continue;
-        }
+    cin >> suma;
+        if (cin.fail() || suma < 1 || suma > 5) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Suma invalida. Debe ser entre 1 y 5.\n";
+        continue;
+    }
 
         total += suma;
         turno = 1 - turno;
