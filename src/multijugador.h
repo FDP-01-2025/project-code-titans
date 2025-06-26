@@ -320,20 +320,32 @@ void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
     mostrarGanador(j1, j2); // Muestro la tabla final de puntajes
 }
 
-// Función para mostrar quién va ganando
+// Esta función la uso para mostrar quién va ganando o si están empatados
 void mostrarGanador(JugadorMinijuego& j1, JugadorMinijuego& j2) {
+    // Comienzo mostrando un encabezado bonito
     cout << "\n=== PUNTUACIONES ===";
+
+    // Muestro el nombre del jugador 1 junto con su puntuación actual
     cout << "\n" << j1.nombre << ": " << j1.puntuacion << " puntos";
+
+    // Muestro el nombre del jugador 2 y su puntuación también
     cout << "\n" << j2.nombre << ": " << j2.puntuacion << " puntos\n";
 
+    // Aquí comparo las puntuaciones para ver quién va ganando
     if(j1.puntuacion > j2.puntuacion) {
+        // Si el jugador 1 tiene más puntos, lo anuncio como quien va ganando
         cout << "\n¡" << j1.nombre << " va ganando!\n";
-    } else if(j2.puntuacion > j1.puntuacion) {
+    } 
+    else if(j2.puntuacion > j1.puntuacion) {
+        // Si el jugador 2 tiene más puntos, entonces él va ganando
         cout << "\n¡" << j2.nombre << " va ganando!\n";
-    } else {
-        cout << "\n¡Estan empatados!\n";
+    } 
+    else {
+        // Si ambos tienen los mismos puntos, anuncio que están empatados
+        cout << "\n¡Están empatados!\n";
     }
 }
+
 
 // Función para validar que el nombre solo tenga letras
 bool esNombreValido(const string& nombre) {
