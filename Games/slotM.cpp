@@ -236,11 +236,11 @@ void easyMode(){
                         break; //the game ends when i=0
                     }else{
                         //If it is false the player loss
-                        setColor(36); //color cian
+                        setColor(36); //cyan color
                         cout<<"            KEEP TRYING "<<endl;
                         resetColor();
                         losePhrases();
-                        playerLose=1;//variable takes the value of 0 to verify that the player has lost
+                        playerLose=1; //variable takes the value of 0 to verify that the player has lost
                         break; //the player will continue with his remaining rolls
                     }
                 
@@ -446,49 +446,49 @@ void mediumMode(){
                 
                 }else{
                     cout<<endl;
-                    setColor(31); //color rojo
+                    setColor(31); //red
                     cout<<"Please enter a valid option (!), try again."<<endl;
                     resetColor();
-                    //si no se envia mensaje de error 
-                    //el bucle se repite hasta que el usuario ingrese "!" 
+                    //if no error message is sent
+                    //the loop repeats until the user enters "!"
                 }
             }     
         }
 
-        if(playerLose==1){
+        if(playerLose==1){ //if variable is equal to 1 the player lost
             cout<<endl;
-            cout<<"   You'll be lucky next time."<<endl;
-            cout<<"-$200"<<endl;
+            cout<<"   You'll be lucky next time."<<endl; //motivational message
+            cout<<"-$200"<<endl; //amount the player lost
             cout<<endl;
         }
 
-        while(true){ //while infinito para validar que se ingreso un caracter valido
+        while(true){ //infinite while to validate that a valid character was entered
             cout<<"\nDo you want to play another round?"<<endl;
             cout<<"     YES (Y).        NO(N)"<<endl;
-            getline(cin,anotherRound); //jugador ingresa su opccion y se lee su respuesta
+            getline(cin,anotherRound); //player enters his choice and his answer is read
 
             if(anotherRound=="Y"||anotherRound=="y"){
                 cout<<endl;
-                setColor(32); //color verde
-                cout<<"GOOD LUCK!!"<<endl; //si se ingresa "Y" o "y" (yes) el bucle termina
+                setColor(32); //green color
+                cout<<"GOOD LUCK!!"<<endl; //if "Y" or "y" (yes) is entered the loop ends
                 resetColor();
                 anotherRound="";
                 break;
             }else if(anotherRound=="N"||anotherRound=="n"){
                 cout<<endl;
-                cout<<"Return to menu..."<<endl; //si se ingresa "N" o "n" (no) el bucle termina
+                cout<<"Return to menu..."<<endl; //if "N" or "n" is entered (no) the loop ends
                 break;
             }else{
                 cout<<endl;
-                setColor(31); //color rojo
+                setColor(31); //red
                 cout<<"Please enter a valid option (Y) or (N), try again."<<endl; 
                 resetColor();
-                //si no se envia mensaje de error y el bucle se repite
+                //if no error message is sent and the loop repeats
             }
         }
 
-        if(anotherRound=="N"||anotherRound=="n"){ //validar si el juegador eligio si o no
-            break; //si el usuario ingreso "N" o "n" (no) la funcion termina
+        if(anotherRound=="N"||anotherRound=="n"){ //validate if the player chose yes or no
+            break; //if the user entered "N" or "n" (no) the function ends
         }
     }
 }
@@ -496,7 +496,7 @@ void mediumMode(){
 //                                           HARD MODE
 
 void emptySlotsH(){
-    //Mostrar slots vacios al jugador
+    //Show empty slots to the player
     cout<<endl;
     cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
     cout<<"|                                               ."<<endl;
@@ -510,39 +510,39 @@ void emptySlotsH(){
     cout<<".    | Pull the lever (!)|                      |"<<endl;
     cout<<". . . . . . . . . . . . * - * - * - * - * - * - *"<<endl;
     cout<<endl;
-    //se le indica al jugador que debe de presionar "!" para generar los simbolos aleatorios
+    //the player is instructed to press "!" to generate the random symbols
 }
 
 char randomSymbolH (){
-    //Funcion para generar simbolos aleatorios
-    char symbol [3]= {'$','7','@'}; //arreglo con 4 simbolos
-    int randomP = rand()%3; //variable para elegir un numero entre 0 y 2
-    return symbol[randomP]; //la funcion retornara un simbolo random
+    //Function to generate random symbols
+    char symbol [3]= {'$','7','@'}; //array with 3 symbols
+    int randomP = rand()%3; //variable to choose a number from 0 to 2
+    return symbol[randomP]; //the function will return a random symbol
 }
 
 void symbolColorH(char slots[5]){
-    for(int i=0;i<5;i++){ //leer el arreglo de simbolos
-        switch(slots[i]){ //leer posisicion del arreglo
-            case '$': //asignar a '$' color azul
+    for(int i=0;i<5;i++){ //read the array of symbols
+        switch(slots[i]){ //read array position
+            case '$': //assign to '$' blue color
             setColor(34);
             cout<< slots[i];
             resetColor(); 
             cout<<"   | "<< "  ";
             break;
-            case '7': //asignar a '7' color amarillo
+            case '7': //assign yellow color to '7'
             setColor(33);
             cout<< slots[i];
             resetColor(); 
             cout<<"   | "<< "  ";
             break;
-            case '@': //asignar a '0' color magenta
+            case '@': //assign magenta color to '@'
             setColor(35);
             cout<< slots[i];
             resetColor(); 
             cout<<"   | "<< "  ";
             break;
             default:
-            setColor(36); //ante cualquier error se asignara color cian
+            setColor(36); //in case of any error, cyan color will be assigned
             cout<< slots[i];
             resetColor(); 
             cout<<"   | "<< "  ";
@@ -553,9 +553,7 @@ void symbolColorH(char slots[5]){
 }
 
 void finalSlotsH (char slots[5]){
-    //Funcion para Mostrar slots finales al jugador
-
-    //funcion para asignar un color diferente a cada simbolo
+   //Function to show final slots to the player
     
     cout<<endl;
     cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
@@ -564,7 +562,7 @@ void finalSlotsH (char slots[5]){
     cout<<"|                                               ."<<endl;
     cout<<"*    ---------------------------------------    ."<<endl;
     cout<<".   |       |       |       |       |       |   ."<< endl;
-    //En esta linea se mostraran los simbolos aleatorios
+    //Random symbols will be displayed on this line
     cout<<".   |   ";
     symbolColorH(slots);
     cout<<"." <<endl;
@@ -577,177 +575,172 @@ void finalSlotsH (char slots[5]){
 }
 
 bool jackpotH(char slots[5]){
-    //funcion para validar si los 3 simbolos son iguales
+    //function to validate if the 3 symbols are equal
     return(slots[0]==slots[1] && slots[1]==slots[2] && slots[2]==slots[3]&& slots[3]==slots[4]);
-    //si los tres son iguales = true
+    //if all three are equal = true
 }
 
 //Main game hard
 void hardMode(){
 
-    char symbols[3]; //arreglo para guardar los simbolos aletorios
+    char symbols[3]; //arrangement to save random symbols
     
-    int playerLose; //Validar si el jugador gano o perdio
-    string anotherRound; //guardar respuesta del jugador
+    int playerLose; //Validate if the player won or lost
+    string anotherRound; //save player response
 
-    while (true){ // while infinito para que el jugador decida seguir jugando
+    while (true){ //while infinite for the player to decide to continue playing
 
-        srand(time(0)); //aleatoriedad
+        srand(time(0)); //randomness
         
-         for(int i=15;i>0;i--){ //bucle for que repite 15 veces cada tiro
+         for(int i=15;i>0;i--){ //for loop that repeats each shot 15 times
 
-            while(true){ //while infinito para mostrar al jugador los tiros restantes 
+            while(true){ //while infinite to show the player the remaining shots
 
-                string nextSpin; //variable para que el jugador inicie cada juego
+                string nextSpin; //variable for the player to start each game
                 cout<<endl;
-                cout<<"You have "<< i <<" remaining chances!"<<endl; //se le muestran al jugador las oportunidades restantes
-                cout<<"(P) to continue..."<<endl; //se le indica al jugador debe de presionar "P" para continuar.
-                getline(cin,nextSpin);  //se ingresa y se lee el character ingresado
+                cout<<"You have "<< i <<" remaining chances!"<<endl; //the player is shown the remaining opportunities
+                cout<<"(P) to continue..."<<endl; //the player is instructed to press "P" to continue.
+                getline(cin,nextSpin);  //the entered character is entered and read
                 if(nextSpin=="P"|| nextSpin=="p"){
-                    break; //si se ingresa "P" o "p" el bucle while termina y se continua con el juego.
+                    break; //If "P" or "p" is entered, the while loop ends and the game continues.
                 }else{
                     cout<<endl;
-                    setColor(31); //color rojo
+                    setColor(31); //red
                     cout<<"Please enter a valid option (P), try again."<<endl; //si no se envia mensaje de error 
                     resetColor();
-                    //el bucle se repite hasta que el usuario ingrese "P" 
+                    //the loop repeats until the user enters "P" 
                 }
             }
         
             while(true){
 
                 string pull;
-                emptySlotsH(); //Se llama a la funcion Mostrar slots vacios al jugador 
-                getline(cin,pull); //el jugador debe ingresar "!" y se lee el character ingresado
+                emptySlotsH(); //The function Show empty slots to the player is called
+                getline(cin,pull); //the player must enter "!" and the entered character is read
     
                 if(pull=="!"){
-                   //si se ingresa "!" se continua con el juego.
-                    for(int i=0;i<3;i++){            //recorrer el arreglo
-                        symbols[i]= randomSymbolE(); //guardar cada simbolo aleatorio obtenido
+                    //If "!" is entered the game continues.
+                    for(int i=0;i<3;i++){            //locate the array
+                        symbols[i]= randomSymbolE(); //save each random symbol obtained
                     }
-                    finalSlotsE(symbols); //Se llama a la funcion Mostrar slots finales al jugador
+                    finalSlotsE(symbols); //The function Show final slots to the player is called
             
-                    if(jackpotE(symbols)){ //llama a la funcion comprobar si todos los simbolos son iguales
-                    //Si es true el jugador gano
-                    setColor(32); //color verde
-                    cout<<"            * JACKPOT!! *   "<<endl;
-                    resetColor();
-                    cout<<endl;
-                    cout<<" Congratulations!! you have earned: $1500"<<endl; //muestra dinero obtenido por el jugador
-                    cout<<endl;
-                    i=0; //i toma el valor de 0 para finalizar el bucle for inicial
-                    playerLose=0; //variable toma el valor de 0 para verificar que el jugador ha ganado
-                    break; //el juego termina al i=0
-
+                    if(jackpotE(symbols)){ //calls the function to check if all symbols are equal
+                        //If true, the player wins
+                        setColor(32); //green color
+                        cout<<"            * JACKPOT!! *   "<<endl;
+                        resetColor();
+                        cout<<endl;
+                        cout<<" Congratulations!! you have earned: $800"<<endl; //shows money earned by the player
+                        cout<<endl;
+                        i=0; //i takes the value 0 to end the initial for loop
+                        playerLose=0; //variable takes the value of 0 to verify that the player has won
+                        break; //the game ends when i=0
                     }else{
-                    //Si es false el jugador perdio
-                    setColor(36); //color cian
-                    cout<<"            KEEP TRYING "<<endl;
-                    resetColor();
-                    losePhrases();
-                    playerLose=1; //variable toma el valor de 0 para verificar que el jugador ha perdido
-                    break; //el jugador continuara con sus tiradas restantes
-                }
+                        //If false the player lost
+                        setColor(36); //color cian
+                        cout<<"            KEEP TRYING "<<endl;
+                        resetColor();
+                        losePhrases();
+                        playerLose=1; //variable takes the value of 0 to verify that the player has lost
+                        break; //the player will continue with his remaining rolls
+                    }
                 
                 }else{
                     cout<<endl;
-                    setColor(31); //color rojo
+                    setColor(31); //red
                     cout<<"Please enter a valid option (!), try again."<<endl;
                     resetColor();
-                    //si no se envia mensaje de error 
-                    //el bucle se repite hasta que el usuario ingrese "!" 
+                    //if no error message is sent
+                    //the loop repeats until the user enters "!"
                 }
             }         
         }
 
-        if(playerLose==1){
+        if(playerLose==1){ //if variable is equal to 1 the player lost
             cout<<endl;
-            cout<<"   You'll be lucky next time."<<endl;
-            cout<<"-$300"<<endl;
+            cout<<"   You'll be lucky next time."<<endl; //motivational message
+            cout<<"-$300"<<endl; //amount the player lost
             cout<<endl;
         }
 
-        while(true){ //while infinito para validar que se ingreso un caracter valido
+        while(true){ //infinite while to validate that a valid character was entered
             cout<<"\nDo you want to play another round?"<<endl;
             cout<<"     YES (Y).        NO(N)"<<endl;
-            getline(cin,anotherRound); //jugador ingresa su opccion y se lee su respuesta
+            getline(cin,anotherRound); //player enters his choice and his answer is read
 
             if(anotherRound=="Y"||anotherRound=="y"){
                 cout<<endl;
-                setColor(32); //color verde
-                cout<<"GOOD LUCK!!"<<endl; //si se ingresa "Y" o "y" (yes) el bucle termina
+                setColor(32); //green color
+                cout<<"GOOD LUCK!!"<<endl; //if "Y" or "y" (yes) is entered the loop ends
                 resetColor();
                 anotherRound="";
                 break;
             }else if(anotherRound=="N"||anotherRound=="n"){
                 cout<<endl;
-                cout<<"Return to menu..."<<endl; //si se ingresa "N" o "n" (no) el bucle termina
+                cout<<"Return to menu..."<<endl; //if "N" or "n" is entered (no) the loop ends
                 break;
             }else{
                 cout<<endl;
-                setColor(31); //color rojo
+                setColor(31); //red
                 cout<<"Please enter a valid option (Y) or (N), try again."<<endl; 
                 resetColor();
-                //si no se envia mensaje de error y el bucle se repite
+                //if no error message is sent and the loop repeats
             }
         }
 
-        if(anotherRound=="N"||anotherRound=="n"){ //validar si el juegador eligio si o no
-            break; //si el usuario ingreso "N" o "n" (no) la funcion termina
+        if(anotherRound=="N"||anotherRound=="n"){ //validate if the player chose yes or no
+            break; //if the user entered "N" or "n" (no) the function ends
         }   
     }
 }
 
-
-//juego principal
+//main game
 int main(){
 
-    while (true){ //while infinito para primer menu
+    while (true){ //while infinite for first menu
 
-        showSlot(); //llama a la funcion showSlot (instrucciones del juego)
+        showSlot(); //call the showSlot function (game instructions)
         string option;
-        getline(cin, option); //Usuario ingresa opccion
+        getline(cin, option); //User enters option
 
-        // verificacion de opccion ingresada
+        //verification of entered option
         if (option == "M" || option == "m"){
-
             cout<<"Returning to the main menu..."<<endl;
-            break; // si ingresa "M" o "m" entonces se rompe el bucle y finaliza el programa (volver al menu inicial)
+            break; // if you enter "M" or "m" then the loop is broken and the program ends (return to the initial menu)
         }
         else if (option == "P" || option == "p"){
-            // si ingresa "P" o "p" entonces el usuario se movera al menu de dificultades
+            // if you enter "P" or "p" then the user will move to the difficulties menu
             while (true){
 
-                showSlotmenu(); // llama a funcion mostrar menu de dificultades
+                showSlotmenu(); //call function to display difficulties menu
                 string option;
-                getline(cin, option); //usuario ingresa su opccion
+                getline(cin, option); //user enters their option
 
                 if (option == "B" || option == "b"){
-                    break; //Volver al anterior menu
+                    break; //Return to the previous menu
                 } else if (option == "E"||option=="e"){
-                    easyMode(); //llama a funcion easyMode (Juego modo facil)
+                    easyMode(); //call easyMode function (easy mode game)
                 } else if (option == "M"||option=="m"){
-                    mediumMode(); //llama a funcion mediumMode (juego modo medio)
+                    mediumMode(); //call function mediumMode (medium mode game)
                 } else if (option == "H"||option=="h"){
-                    hardMode(); //llama a funcion hardMode (juego modo dificil)
+                    hardMode(); //call hardMode function (game hard mode)
                 } else {
-                    // se muestra mensaje de error y se vuelve a pedir ingresar una opccion
-                    setColor(31); //color rojo
+                    // an error message is displayed and an option is requested again
+                    setColor(31); //red
                     cout << "Please enter a valid option (E),(M),(D) or (B), try again." << endl;
                     resetColor();
                 }
-
             }
-        }
-        else
-        {
-            // se muestra mensaje de error y se vuelve a pedir ingresar una opccion
-            setColor(31); //color rojo
+
+        } else {
+            // an error message is displayed and an option is requested again
+            setColor(31); //red
             cout << "Please enter a valid option (M) or (P), try again." << endl;
             resetColor(); 
-            
         }
     }
 
     return 0;
+
 }
