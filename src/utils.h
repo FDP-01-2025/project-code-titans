@@ -1,27 +1,22 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-// Incluyo <string> para manejar cadenas de texto fácilmente con std::string
+// Include <string> to handle text strings easily with std::string
 #include <string>
-
-// Incluyo <algorithm> para usar funciones útiles como std::transform que me ayuda a convertir texto a minúsculas
+// Include <algorithm> to use useful functions like std::transform that helps convert text to lowercase
 #include <algorithm>
-
-// Incluyo <cctype> para usar funciones de caracteres, como convertir a minúsculas (::tolower), validar letras (isalpha) o espacios (isspace)
+// Include <cctype> to use character functions, like converting to lowercase (::tolower), validating letters (isalpha) or spaces (isspace)
 #include <cctype>
-
-// Incluyo <iostream> para mostrar mensajes en consola y leer entradas (cout y cin)
+// Include <iostream> to show console messages and read input (cout and cin)
 #include <iostream>
-
-// Incluyo <limits> para acceder a límites en entradas de datos (como numeric_limits), útil para limpiar buffer si fuera necesario
+// Include <limits> to access limits on data input (like numeric_limits), useful to clear buffer if needed
 #include <limits>
-
-// Incluyo <cstdlib> para usar funciones del sistema como system(), que me sirve para limpiar la consola
+// Include <cstdlib> to use system functions like system(), which helps clear the console
 #include <cstdlib>
 
-// Incluyo condicionalmente dependiendo del sistema operativo:
-// - Si estoy en Windows (<windows.h>), uso Sleep() para pausar la ejecución en milisegundos
-// - Si estoy en Linux/Mac (<unistd.h>), uso usleep() para pausar en microsegundos
+// Conditional include depending on the operating system:
+// - If on Windows (<windows.h>), use Sleep() to pause execution in milliseconds
+// - If on Linux/Mac (<unistd.h>), use usleep() to pause in microseconds
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -30,63 +25,62 @@
 
 using namespace std;
 
-// Función que uso para convertir cualquier cadena a minúsculas, así evito problemas de mayúsculas o minúsculas al comparar texto
+// Function used to convert any string to lowercase, avoiding problems with case when comparing text
 inline string toLower(const string &s) {
-   string res = s; // Copio la cadena original para no alterarla directamente
-    transform(res.begin(), res.end(), res.begin(), ::tolower); // Aplico tolower a cada carácter
-    return res; // Devuelvo la cadena transformada
+   string res = s; // Copy the original string so it is not altered directly
+    transform(res.begin(), res.end(), res.begin(), ::tolower); // Apply tolower to each character
+    return res; // Return the transformed string
 }
 
-// Función que uso para eliminar espacios en blanco al inicio y al final de una cadena, para limpiar entradas del usuario y evitar errores
+// Function used to trim whitespace from the start and end of a string, to clean user inputs and avoid errors
 inline string trim(const string& str) {
-    size_t first = str.find_first_not_of(" \t\n\r"); // Encuentro el primer carácter que no sea espacio
-    if (first == string::npos) return ""; // Si solo había espacios, devuelvo cadena vacía
-    size_t last = str.find_last_not_of(" \t\n\r"); // Encuentro el último carácter que no sea espacio
-    return str.substr(first, (last - first + 1)); // Retorno solo la parte que no tiene espacios afuera
+    size_t first = str.find_first_not_of(" \t\n\r"); // Find first non-whitespace character
+    if (first == string::npos) return ""; // If only spaces, return empty string
+    size_t last = str.find_last_not_of(" \t\n\r"); // Find last non-whitespace character
+    return str.substr(first, (last - first + 1)); // Return only the part without outside spaces
 }
 
-// Función que uso para normalizar texto: elimino todos los espacios y convierto todo a minúsculas.
-// Esto me sirve para comparar cadenas ignorando espacios y mayúsculas/minúsculas
-inline string normalizar(const string& texto) {
-    string limpio;
-    for (char c : texto) {
-        if (!isspace(c))  // Solo agrego caracteres que no sean espacios
-            limpio += tolower(c); // Convierto a minúsculas
+// Function used to normalize text: removes all spaces and converts everything to lowercase.
+// Useful to compare strings ignoring spaces and case differences
+inline string normalize(const string& text) {
+    string clean;
+    for (char c : text) {
+        if (!isspace(c))  // Only add characters that are not spaces
+            clean += tolower(c); // Convert to lowercase
     }
-    return limpio;
+    return clean;
 }
 
-// Función que valida que el nombre solo contenga letras y espacios
-inline bool nombreValido(const string& nombre) {
-    for (char c : nombre) {
+// Function to validate that a name contains only letters and spaces
+inline bool validName(const string& name) {
+    for (char c : name) {
         if (!isalpha(c) && !isspace(c)) {
-            return false;  // Si no es letra ni espacio, el nombre no es válido
+            return false;  // If not a letter or space, name is invalid
         }
     }
-    return !nombre.empty(); // El nombre no debe estar vacío
+    return !name.empty(); // Name must not be empty
 }
 
-
-// Función para preguntarle al jugador si quiere seguir jugando, aceptando respuestas "sí", "si" o "no" (sin importar mayúsculas)
-inline bool preguntarSeguir() {
+// Function to ask the player if they want to continue playing, accepting answers "yes" ("sí", "si") or "no" (case-insensitive)
+inline bool askContinue() {
     string resp;
     while (true) {
-        cout << "\n¿Querés seguir jugando? (sí / no): ";
+        cout << "\nDo you want to keep playing? (yes / no): ";
         cin >> resp;
-        resp = toLower(resp); // Normalizo para facilitar la comparación
-        if (resp == "si" || resp == "sí") return true; // Si dice sí, retorno true
-        else if (resp == "no") return false; // Si dice no, retorno false
-        else cout << "Respuesta inválida. Por favor, responde 'sí' o 'no'.\n"; // Si responde mal, aviso y repito
+        resp = toLower(resp); // Normalize to simplify comparison
+        if (resp == "si" || resp == "sí" || resp == "yes") return true; // If yes, return true
+        else if (resp == "no") return false; // If no, return false
+        else cout << "Invalid answer. Please respond with 'yes' or 'no'.\n"; // If invalid, prompt again
     }
 }
 
-// Funciones para pausar la ejecución o limpiar la consola, adaptadas al sistema operativo
+// Functions to pause execution or clear the console, adapted to the operating system
 #ifdef _WIN32
-inline void esperarMs(int ms) { Sleep(ms); } // En Windows uso Sleep que recibe milisegundos
-inline void limpiarConsola() { system("cls"); } // Limpio pantalla con comando cls
+inline void waitMs(int ms) { Sleep(ms); } // On Windows use Sleep, which accepts milliseconds
+inline void clearConsole() { system("cls"); } // Clear screen with cls command
 #else
-inline void esperarMs(int ms) { usleep(ms * 1000); } // En Linux/Mac uso usleep que recibe microsegundos, por eso multiplico por 1000
-inline void limpiarConsola() { cout << "\033[2J\033[H"; } // Limpio pantalla con secuencia ANSI para terminal
+inline void waitMs(int ms) { usleep(ms * 1000); } // On Linux/Mac use usleep which accepts microseconds, so multiply by 1000
+inline void clearConsole() { cout << "\033[2J\033[H"; } // Clear screen with ANSI terminal sequence
 #endif
 
 #endif // UTILS_H
