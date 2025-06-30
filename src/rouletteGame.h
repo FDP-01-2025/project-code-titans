@@ -185,7 +185,7 @@ inline void jugarRuleta(Jugador& jugador) {  // Función principal que maneja la
         int iluminado = 0;  // Número iluminado (simula la bola girando)
 
         for (int paso = 0; paso <= totalPasos; paso++) {  // Bucle que anima la ruleta girando
-            limpiarConsola();  // Limpio pantalla para mostrar siguiente frame
+            clearConsole();  // Limpio pantalla para mostrar siguiente frame
             cout << "\nSaldo actual: $" << jugador.dinero << "\n";  // Muestro saldo
             cout << resumen << "\n";  // Muestro apuesta
             imprimirCanvas(iluminado);  // Dibujo ruleta con número iluminado

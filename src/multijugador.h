@@ -56,7 +56,7 @@ void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora la línea entera
         opcion = 0; // Para que entre al default y muestre mensaje
     }
-        limpiarConsola();
+        clearConsole();
         // Muestro las opciones disponibles
         cout << "\n=== MENU DE MINIJUEGOS ===";
         cout << "\n1. Juego de Memoria";
@@ -70,19 +70,19 @@ void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
         
         switch(opcion) {
             case 1:
-                limpiarConsola();
+                clearConsole();
                 juegoMemoria(j1, j2); // Llamo al juego de memoria
                 break;
             case 2:
-                limpiarConsola();
+                clearConsole();
                 juegoEstrategia(j1, j2); // Llamo al juego de estrategia
                 break;
             case 3: 
-                limpiarConsola();
+                clearConsole();
                 puzzleNumeros(j1, j2); // Llamo al puzzle de números
                 break;
             case 4:
-                limpiarConsola();
+                clearConsole();
                 mostrarGanador(j1, j2); // Muestro quién va ganando
                 cout << "\nPresiona ENTER para continuar...";
                 cin.ignore();
@@ -116,7 +116,7 @@ void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro basura
             cout << "Opción inválida. Intenta de nuevo.\n";
         } else if (opcion == 1) {
-            limpiarConsola();
+            clearConsole();
             // Si elige 1, le muestro las reglas
             cout << "\n=== REGLAS DEL JUEGO DE MEMORIA ===\n";
             cout << "1. Hay 16 cartas (8 parejas) ocultas.\n";
@@ -397,7 +397,7 @@ bool esNombreValido(const string& nombre) {
 // Ejemplo de uso en modoMultijugador()
 void modoMultijugador() {
     string nombre1, nombre2;
-    limpiarConsola();
+    clearConsole();
     cout << "\n=== MODO MULTIJUGADOR (Minijuegos) ===";
 
     do {

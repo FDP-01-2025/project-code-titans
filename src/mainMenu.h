@@ -22,8 +22,8 @@ using namespace std; // Uso el espacio de nombres estándar para evitar escribir
 
 // Esta función muestra las opciones disponibles en el menú principal del casino
 inline void mostrarMenu() {
-    limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
-    mostrarFechaHora() // Uso la función que ya tengo para mostrar la fecha y la hora en el menú
+    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
+    mostrarFechaHora(); // Uso la función que ya tengo para mostrar la fecha y la hora en el menú
     cout << "\n====================================";
     cout << "\nMenu Principal - Casino Virtual\n";
     cout << "1) Depositar dinero\n";
@@ -109,7 +109,7 @@ inline void iniciar(const string& nombreUsuario) {
                     jugarCraps(jugador); // Juego de dados (Craps)
                 break;
             case 7:
-                limpiarConsola();
+                clearConsole();
                 if (jugador.dinero <= 0)
                     cout << "No tienes saldo suficiente. Deposita para jugar.\n";
                 else
@@ -138,7 +138,7 @@ inline void menuInicio() {
     bool sesion = false;
 
     while (!sesion) {
-        limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
+        clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
         cout << "\n===== MENÚ DE INICIO =====\n";
         cout << "1) Iniciar sesión\n";
         cout << "2) Registrarse\n";
@@ -185,7 +185,7 @@ inline void menuInicio() {
 // Esta función me permite elegir si quiero jugar solo o en modo multijugador local
 inline void menuModoJuego() {
     int opcion;
-    limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
+    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
     while (true) {
         cout << "\n=========== MODO DE JUEGO ===========\n";
         cout << "1) Jugar solo\n";

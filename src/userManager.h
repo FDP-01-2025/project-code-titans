@@ -54,7 +54,7 @@ inline bool existeUsuario(const string& nombre) {
 
 inline void eliminarUsuario() {
     // Primero limpio la pantalla para que el usuario vea solo lo necesario
-    limpiarConsola();
+    clearConsole();
 
     cout << "=== ELIMINAR USUARIO ===\n\n";
 
@@ -319,7 +319,7 @@ inline bool registrarUsuario() {
 
     // Declaro variables para guardar temporalmente los datos que el usuario ingrese
     string nombre, password, fechaNacimiento, genero, dui;
-    limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el registro
+    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el registro
     // Muestro mensaje inicial para indicar registro nuevo
     cout << "\n=== Registro de nuevo usuario ===\n";
 
@@ -418,7 +418,7 @@ inline bool iniciarSesion(string& jugador) {
 
     // Variables para guardar nombre y contraseña ingresadas
     string nombreIngresado, passIngresada;
-     limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el login
+     clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el login
     // Muestro encabezado para iniciar sesión
     cout << "\n=== Iniciar sesión ===\n";
     cout << "Nombre de usuario: ";
@@ -587,7 +587,7 @@ inline void recuperarContrasena() {
 
     // Variables para datos que pediremos
     string nombre, codigo, password;
-    limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar recuperar
+    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar recuperar
     // Mensaje inicial para recuperación
     cout << "\n====== Recuperar Contraseña ======\n";
 

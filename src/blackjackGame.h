@@ -108,7 +108,7 @@ inline void jugarBlackjack(Jugador& jugador) {
 
     int nivelDificultad;  // Variable para la dificultad que escogerá el jugador
     while (true) {  // Bucle para pedir y validar dificultad
-         limpiarConsola();
+         clearConsole();
         cout << "======================================\n";
         cout << "     Selecciona el nivel de dificultad\n";
         cout << "--------------------------------------\n";
@@ -121,7 +121,7 @@ inline void jugarBlackjack(Jugador& jugador) {
         cin >> nivelDificultad;  // Leo opción
 
         if (!cin.fail() && nivelDificultad >= 1 && nivelDificultad <= 3) {  // Si es válida
-            limpiarConsola();  // Limpio pantalla para mejor presentación
+            clearConsole();  // Limpio pantalla para mejor presentación
             cout << "Has seleccionado el nivel ";
             if (nivelDificultad == 1) cout << "Normal.\n";
             else if (nivelDificultad == 2) cout << "Medio.\n";
@@ -131,7 +131,7 @@ inline void jugarBlackjack(Jugador& jugador) {
 
         cin.clear();  // Limpio errores de entrada
         cin.ignore(1000, '\n');  // Ignoro buffer
-        limpiarConsola();  // Limpio consola
+        clearConsole();  // Limpio consola
         cout << "Entrada inválida. Por favor ingresa un número del 1 al 3.\n\n";  // Mensaje error
     }
 

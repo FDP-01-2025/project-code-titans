@@ -193,7 +193,7 @@ inline void jugarCraps(Jugador& jugador) {
 
     char jugarOtraVez;  // Variable para controlar si juega otra ronda
     do {
-         limpiarConsola();
+         clearConsole();
         int apuesta;  // Variable para apuesta
         cout << "\nTu dinero actual es $" << jugador.dinero << ". Ingresa tu apuesta (mínimo $10, máximo $500): $";
 
@@ -261,7 +261,7 @@ inline void jugarCraps(Jugador& jugador) {
         cout << "╚═══════════════════════════════════════════════════╝\n";
 
         cin >> jugarOtraVez;
-         limpiarConsola();
+         clearConsole();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Limpio buffer para evitar errores
 
     } while (tolower(jugarOtraVez) == 's');  // Repite mientras conteste 's'

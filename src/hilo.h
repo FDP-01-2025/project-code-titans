@@ -207,7 +207,7 @@ inline void jugarHilo(Jugador& jugador) {
         switch (option) {
             case 1:
                 // Explicación clara del juego
-                limpiarConsola();
+                clearConsole();
                 cout << "\n¡Bienvenido al juego HI-LO!\n\n";
                 cout << "¡Este es súper fácil de jugar!\n\n";
                 cout << "1. Primero, haz tu apuesta.\n";
@@ -220,17 +220,17 @@ inline void jugarHilo(Jugador& jugador) {
                 cout << "- Pierdes tu apuesta.\n\n";
                 break;
             case 2:
-            limpiarConsola();
+            clearConsole();
                 // Inicio la lógica del juego con la apuesta validada
                 BetConfirm(jugador, bet);
                 break;
             case 3:
-            limpiarConsola();
+            clearConsole();
                 // Muestro saldo actual
                 cout << "Tu saldo actual es: $" << jugador.dinero << endl;
                 break;
             case 4:
-            limpiarConsola();
+            clearConsole();
                 cout << "Volviendo al menú principal... \n";
                 break;
             default:
