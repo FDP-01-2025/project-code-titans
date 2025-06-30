@@ -102,7 +102,7 @@ struct Jugador {
     string linea;        // Aquí voy a guardar cada línea del archivo mientras lo leo
     bool hayHistorial = false; // Creo esta bandera para saber si encontré alguna línea del jugador
 
-    limpiarConsola();
+    clearConsole();
     // Muestro el encabezado para que se vea bonito y ordenado
     cout << "\n===============  Historial de partidas =============== \n";
 

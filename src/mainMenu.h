@@ -16,12 +16,14 @@
 #include "multijugador.h"    // Aquí incluyo el modo multijugador
 #include "slotMachineGame.h" // Aquí incluyo el juego de tragamonedas
 #include "utils.h"           // Aquí incluyo el limpiarConsola
+#include "hora_fecha.h"           // Aquí incluyo la hora y la fecha 
 
 using namespace std; // Uso el espacio de nombres estándar para evitar escribir std:: a cada rato
 
 // Esta función muestra las opciones disponibles en el menú principal del casino
 inline void mostrarMenu() {
     limpiarConsola(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
+    mostrarFechaHora() // Uso la función que ya tengo para mostrar la fecha y la hora en el menú
     cout << "\n====================================";
     cout << "\nMenu Principal - Casino Virtual\n";
     cout << "1) Depositar dinero\n";

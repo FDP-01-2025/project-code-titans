@@ -30,7 +30,7 @@ inline void resetColor()
 // Function to display game instructions, because nobody wants to be lost in confusion.
 inline void showSlot()
 {
-    limpiarConsola(); // Clear screen when showing instructions, because clutter helps no one.
+    clearConsole(); // Clear screen when showing instructions, because clutter helps no one.
     cout << endl;
     cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
@@ -50,7 +50,7 @@ inline void showSlot()
 // Function to show the slot machine difficulty menu
 inline void showSlotmenu()
 {
-    limpiarConsola(); // Clear screen when showing difficulty menu, because clarity is key.
+    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - * - * - * -*. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
@@ -105,7 +105,7 @@ inline void losePhrases()
 
 inline void emptySlotsE()
 {
-    limpiarConsola(); // Clear screen when showing difficulty menu, because clarity is key.
+    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - *. . . . . . . " << endl;
     cout << "|                                ." << endl;
@@ -205,7 +205,7 @@ inline void easyMode(Jugador &jugador)
         jugador.partidasJugadas++; // Count the played round, because we need to keep track of our misfortunes.
 
         cout << "\nYou have bet $" << APUESTA << " for this round in Easy Mode.\n";
-        limpiarConsola();      // Clear screen when showing instructions, because clutter helps no one.
+        clearConsole();      // Clear screen when showing instructions, because clutter helps no one.
         int oportunidades = 4; // Four chances, because I don't want to be too generous.
         for (int i = oportunidades; i > 0; i--)
         {
@@ -339,7 +339,7 @@ inline void easyMode(Jugador &jugador)
 
 inline void emptySlotsM()
 {
-    limpiarConsola(); // Clear screen when showing difficulty menu, because clarity is key.
+    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - . . . . . . . . . . . " << endl;
     cout << "|                                       ." << endl;
@@ -571,7 +571,7 @@ inline void mediumMode(Jugador &jugador)
 
 inline void emptySlotsH()
 {
-    limpiarConsola(); // Clear screen when showing difficulty menu—clarity is key.
+    clearConsole(); // Clear screen when showing difficulty menu—clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
     cout << "|                                               ." << endl;

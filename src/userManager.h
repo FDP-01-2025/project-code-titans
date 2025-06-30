@@ -24,7 +24,7 @@ inline bool existeUsuario(const string& nombre) {
     string linea;
 
     // Normalizo el nombre de usuario que recibí para comparar sin errores de mayúsculas o espacios
-    string nombreNormalizado = normalizar(nombre);
+    string nombreNormalizado = normalize(nombre);
 
     // Empiezo a leer línea por línea el archivo hasta que se termine
     while (getline(archivo, linea)) {
@@ -37,7 +37,7 @@ inline bool existeUsuario(const string& nombre) {
             string nombreArchivo = linea.substr(8);
 
             // Normalizo el nombre que leí del archivo para compararlo correctamente
-            string nombreArchivoNorm = normalizar(nombreArchivo);
+            string nombreArchivoNorm = normalize(nombreArchivo);
 
             // Si el nombre normalizado del archivo es igual al nombre que busco, retorno true (usuario existe)
             if (nombreArchivoNorm == nombreNormalizado) return true;
@@ -69,8 +69,8 @@ inline void eliminarUsuario() {
     getline(cin, codigo);
 
     // Normalizo los datos para evitar problemas con mayúsculas o espacios
-    string nombreInput = normalizar(nombre);
-    string codigoInput = normalizar(codigo);
+    string nombreInput = normalize(nombre);
+    string codigoInput = normalize(codigo);
 
     // Inicializo bandera para saber si se eliminó un usuario
     bool eliminado = false;
@@ -114,7 +114,7 @@ inline void eliminarUsuario() {
             bloqueCompleto += linea + "\n\n";
 
             // Verifico si este bloque corresponde al usuario que quiero eliminar
-            if (!eliminado && normalizar(nombreArchivo) == nombreInput && normalizar(codigoArchivo) == codigoInput) {
+            if (!eliminado && normalize(nombreArchivo) == nombreInput && normalize(codigoArchivo) == codigoInput) {
                 // Marco que eliminé un usuario para evitar eliminar más por error
                 eliminado = true;
                 cout << "\n¡Usuario eliminado correctamente!\n";
@@ -336,7 +336,7 @@ inline bool registrarUsuario() {
         }
 
         // Verifico que el nombre no esté ya registrado (normalizo antes)
-        if (existeUsuario(normalizar(nombre))) {
+        if (existeUsuario(normalize(nombre))) {
             cout << "Ese nombre ya está registrado. Intenta otro.\n";
             nombre.clear(); // Limpio para repetir el ciclo
             continue;
@@ -427,7 +427,7 @@ inline bool iniciarSesion(string& jugador) {
     getline(cin, passIngresada);
 
     // Normalizo el nombre ingresado para comparar
-    string nombreIngresadoNorm = normalizar(nombreIngresado);
+    string nombreIngresadoNorm = normalize(nombreIngresado);
 
     // Variable para leer líneas del archivo
     string linea;
@@ -438,7 +438,7 @@ inline bool iniciarSesion(string& jugador) {
         if (linea == "====== Usuario ======") {
             // Leo nombre y normalizo
             getline(archivo, linea);
-            string nombreArchivo = normalizar(trim(linea.substr(8)));
+            string nombreArchivo = normalize(trim(linea.substr(8)));
 
             // Leo contraseña
             getline(archivo, linea);
@@ -483,7 +483,7 @@ inline bool verificarCodigoRecuperacion(const string& nombre, const string& codi
     if (!archivo.is_open()) return false;
 
     // Normalizo el nombre para comparar
-    string nombreNorm = normalizar(nombre);
+    string nombreNorm = normalize(nombre);
 
     // Variable para leer líneas
     string linea;
@@ -494,7 +494,7 @@ inline bool verificarCodigoRecuperacion(const string& nombre, const string& codi
 
             // Leo nombre y normalizo
             getline(archivo, linea);
-            string nombreArchivo = normalizar(trim(linea.substr(8)));
+            string nombreArchivo = normalize(trim(linea.substr(8)));
 
             // Leo contraseña para guardarla si coincide
             getline(archivo, linea);
