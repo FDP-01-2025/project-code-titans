@@ -13,7 +13,7 @@
 #include "blackjackGame.h"   // Include the blackjack game
 #include "crapsGame.h"       // Include the craps game (dice)
 #include "hilo.h"            // Include the Hi-Lo game
-#include "multijugador.h"     // Include the multiplayer mode
+#include "multiplayer.h"     // Include the multiplayer mode
 #include "slotMachineGame.h" // Include the slot machine game
 #include "utils.h"           // Include clearConsole
 #include "date_time.h"  // This includes the current date and time display function
