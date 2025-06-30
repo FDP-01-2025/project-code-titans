@@ -45,11 +45,15 @@ struct Player {
     // Show the player's statistics in the console
     inline void showStatistics() {
         loadPlayerStatistics(); // First load to show updated data
-        cout << "\nPlayer Statistics:\n";
+        clearConsole();
+        cout << "\nYour game statistics:\n";
         cout << "Games played: " << gamesPlayed << "\n";
         cout << "Games won: " << gamesWon << "\n";
         cout << "Games lost: " << gamesLost << "\n";
         cout << "Games tied: " << gamesTied << "\n";
+        cout << "\nPress Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
 
     // Add a new record to the player's history (if there is space)
