@@ -1,10 +1,10 @@
-#ifndef PANTALLA_CARGA_H
-#define PANTALLA_CARGA_H
+#ifndef LOADING_SCREEN_H
+#define LOADING_SCREEN_H
 
 #include <iostream>     // I use this library to print to the console
+#include <ctime>        // I include this to get the current time for greeting
 #include "utils.h"      // I include my own utility functions, like clearing the screen
 
-// Depending on the operating system, I include the right library to pause execution
 #ifdef _WIN32
     #include <windows.h>    // On Windows, I use Sleep
 #else
@@ -14,19 +14,34 @@
 using namespace std; // This saves me from writing std:: before things like cout or endl
 
 // Function to pause the program for a given number of milliseconds
-inline void esperar(int miliseconds) {
+inline void wait(int milliseconds) {
 #ifdef _WIN32
-    Sleep(miliseconds); // On Windows, Sleep uses milliseconds directly
+    Sleep(milliseconds); // On Windows, Sleep uses milliseconds directly
 #else
-    usleep(miliseconds * 1000); // On Unix-like systems, I convert milliseconds to microseconds
+    usleep(milliseconds * 1000); // On Unix-like systems, convert milliseconds to microseconds
 #endif
 }
 
-// Function to show the loading screen with a logo and progress bar
-inline void mostrarPantallaCarga() {
-    limpiarConsola(); // First, I clear the screen so everything looks clean
+// Function to get a greeting based on the current time of day
+inline string getGreeting() {
+    time_t now = time(nullptr);             // Get current system time
+    tm* localTime = localtime(&now);       // Convert to local time
 
-    // I print the ASCII logo of the game (just for visual style)
+    int hour = localTime->tm_hour;          // Extract hour (0-23)
+
+    if (hour >= 6 && hour < 12)
+        return "Good morning";
+    else if (hour >= 12 && hour < 18)
+        return "Good afternoon";
+    else
+        return "Good evening";
+}
+
+// Function to display the loading screen with logo, greeting and progress bar
+inline void showLoadingScreen() {
+    clearConsole(); // Clear the screen for clean display
+
+    // Print ASCII art logo of the game
     cout << R"(
 
                              __________
@@ -39,36 +54,36 @@ inline void mostrarPantallaCarga() {
                  |  \     /  |--------|       * | 
                   \   ---   /          ---------
                     -------
+    )";
 
-                   WELCOME TO THE VIRTUAL CASINO
+    // Print dynamic greeting before the welcome message
+    cout << "           " << getGreeting() << ", welcome to the Virtual Casino\n\n";
 
-    )" << endl;
-
-    esperar(800); // I wait a bit so the player can see the logo
+    wait(800); // Pause so player can see logo and greeting
 
     // Define the total width of the loading bar
     const int barLength = 30;
-    cout << "\nLoading system...\n"; // Initial message
+    cout << "Loading system...\n"; // Initial loading message
 
-    // Start printing the loading bar
+    // Print loading bar progress
     for (int i = 0; i <= barLength; ++i) {
-        int percent = (i * 100) / barLength; // Calculate the percentage of progress
-        cout << "\r["; // \r brings the cursor back to the beginning of the line
+        int percent = (i * 100) / barLength; // Calculate progress percentage
+        cout << "\r["; // Return cursor to line start
 
-        // Draw the bar: filled sections with '#' and pending ones with '-'
+        // Draw the bar: filled sections '#' and empty '-'
         for (int j = 0; j < barLength; ++j) {
             cout << (j < i ? "#" : "-");
         }
 
-        cout << "] " << percent << "%"; // Show current percentage
-        cout.flush(); // Force output to appear instantly
+        cout << "] " << percent << "%"; // Display current percent
+        cout.flush(); // Force output flush
 
-        esperar(70); // Wait a bit before the next step
+        wait(70); // Pause between progress updates
     }
 
-    cout << "\nLoading complete!\n"; // Let the player know it's done
-    esperar(600); // Short pause before continuing
-    limpiarConsola(); // Clear the screen before showing the next menu
+    cout << "\nLoading complete!\n"; // Notify load finished
+    wait(600); // Short pause before clearing screen
+    clearConsole(); // Clear for next screen/menu
 }
 
-#endif // PANTALLA_CARGA_H
+#endif // LOADING_SCREEN_H
