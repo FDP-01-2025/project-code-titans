@@ -58,13 +58,15 @@ void miniGamesMenu(MiniGamePlayer& p1, MiniGamePlayer& p2) {
         }
         clearConsole();
         // Show the available options
-        cout << "\n=== MINI-GAMES MENU ===";
+        cout << "\n*======* MINI GAMES MENU *======*\n";
         cout << "\n1. Memory Game";
         cout << "\n2. Strategy Game";
         cout << "\n3. Number Puzzle";
         cout << "\n4. View Scores";
         cout << "\n5. Exit";
-        cout << "\nSelect a game: ";
+        cout <<endl;
+        cout << "+---------------------------------+\n";
+        cout << "| Select a game: ";
         
         cin >> option; // Read the option selected by the player
         

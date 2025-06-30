@@ -9,11 +9,11 @@ using namespace std;   // I use the standard namespace to avoid writing std:: ev
 // Function to get time of day as a greeting string
 inline string getTimeOfDayGreeting(int hour) {
     if (hour >= 6 && hour < 12) {
-        return "Good Morning";
+        return "           Good Morning!";
     } else if (hour >= 12 && hour < 18) {
-        return "Good Afternoon";
+        return "           Good Afternoon!";
     } else {
-        return "Good Night";
+        return "           Good Night!";
     }
 }
 
@@ -24,24 +24,25 @@ inline void showDateTime() {  // I declare an inline function called showDateTim
     string greeting = getTimeOfDayGreeting(localTime->tm_hour);  // Get the greeting based on the current hour
 
     // Print casino welcome message first
-    cout << "╔════════════════════════════════════╗\n";
-    cout << "║    Welcome to the Virtual Casino   ║\n";
-    cout << "╚════════════════════════════════════╝\n\n";
-
+    cout << "+======================================+\n";
+    cout << "|                                      |\n";
+    cout << "║    WELCOME TO THE VIRTUAL CASINO     ║\n";
+    cout << "|                                      |\n";
     // I start printing the decorative frame using pseudographic characters:
-    cout << "╔════════════════════════════════════╗\n";
+    cout << "+--------------------------------------+\n";
 
     // Print greeting centered-ish
-    cout << "║ " << greeting;
-    cout << string(38 - 2 - greeting.length(), ' ') << "║\n";
+    cout << "| " << greeting;
+    cout << string(38 - 2 - greeting.length(), ' ') << " |\n";
+    cout << "║                                      ║\n";
 
     // I print the date line:
-    cout << "║ Date : ";
+    cout << "| Date : ";
     cout << (localTime->tm_mday < 10 ? "0" : "") << localTime->tm_mday << "/"
          << (localTime->tm_mon + 1 < 10 ? "0" : "") << localTime->tm_mon + 1 << "/"
          << localTime->tm_year + 1900;
 
-    cout << string(38 - 8 - 10, ' ') << "║\n";
+    cout << string(38 - 8 - 10, ' ') << "|\n";
 
     // I print the time line:
     cout << "║ Time : ";
@@ -52,7 +53,7 @@ inline void showDateTime() {  // I declare an inline function called showDateTim
     cout << string(38 - 8 - 8, ' ') << "║\n";
 
     // I finally print the bottom of the frame.
-    cout << "╚════════════════════════════════════╝\n";
+    cout << "+======================================+\n\n";
 }
 
 #endif // DATE_TIME_H

@@ -24,9 +24,8 @@ using namespace std; // Use the standard namespace to avoid writing std:: all th
 inline void showMenu() {
     clearConsole(); // Use the function I already have to clear the screen before showing the menu
 
-    cout << "\n====================================\n";
     showDateTime();
-    cout << "\nMain Menu - Virtual Casino\n";
+    cout << "       Main Menu - Virtual Casino\n\n";
     cout << "1) Deposit money\n";
     cout << "2) Withdraw money\n";
     cout << "3) Roulette\n";
@@ -36,8 +35,8 @@ inline void showMenu() {
     cout << "7) Hi-Lo\n";
     cout << "8) Show history\n";
     cout << "9) Show statistics \n";
-    cout << "10) Exit\n";
-    cout << "====================================\n";
+    cout << "10) Exit\n\n";
+    cout << "+--------------------------------------+\n";
 }
 
 // This function starts the game once the user has logged in successfully
@@ -54,8 +53,8 @@ inline void start(const string& username) {
 
     while (playing) {
         showMenu(); // Show the menu on screen
-        cout << "Current money: $" << player.money << "\n";
-        cout << "Choose an option: ";
+        cout << "| Current money: $" << player.money << "\n";
+        cout << "║ Choose an option: ";
         cin >> option; // Read the user's option
 
         if (cin.fail()) { // Check if there was an input error
@@ -146,15 +145,15 @@ inline void startMenu() {
 
     while (!session) {
         clearConsole(); // Use the function I already have to clear the screen before showing the menu
-        cout << "\n===== START MENU =====\n";
+        cout << "\n*============* START MENU *============*\n\n";
         showDateTime();
         cout << "1) Log in\n";
         cout << "2) Register\n";
         cout << "3) Recover password\n";
         cout << "4) Delete user\n";
-        cout << "5) Exit\n";
-        cout << "==========================\n";
-        cout << "Option: ";
+        cout << "5) Exit\n\n";
+        cout << "+--------------------------------------+\n";
+        cout << "| Choose an option: ";
         int option;
         cin >> option;
         if (cin.fail()) {
@@ -195,13 +194,13 @@ inline void gameModeMenu() {
     int option;
     clearConsole(); // Use the function I already have to clear the screen before showing the menu
     while (true) {
-        cout << "\n=========== GAME MODE ===========\n";
+        cout << "\n*============* GAME MODE *=============*\n\n";
         showDateTime();
         cout << "1) Play solo\n";
         cout << "2) Local multiplayer\n";
-        cout << "3) Exit the game\n";
-        cout << "=====================================\n";
-        cout << "Choose an option: ";
+        cout << "3) Exit the game\n\n";
+        cout << "+--------------------------------------+\n";
+        cout << "| Choose an option: ";
         cin >> option;
 
         if (cin.fail()) {
