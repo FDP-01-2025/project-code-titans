@@ -1,24 +1,24 @@
 #include <iostream>
-#include <ctime>   // Para time()
-#include <cstdlib> // Para srand()
+#include <ctime>   // For time()
+#include <cstdlib> // For srand()
 
-#include "./src/mainMenu.h" // Para las funciones del menú principal
+#include "./src/mainMenu.h" // For the main menu functions
 
 #ifdef _WIN32
-#include <windows.h> // Para SetConsoleOutputCP en Windows
+#include <windows.h> // For SetConsoleOutputCP on Windows
 #endif
 
 int main() {
-    // Si estamos en Windows, configuramos la consola para UTF-8
+    // If we are on Windows, configure the console for UTF-8
     #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
     #endif
 
-    // Inicializo el generador de números aleatorios con la semilla del tiempo actual
+    // Initialize the random number generator with the current time seed
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    // Llamo al menú principal donde el usuario puede seleccionar el modo de juego
-    menuModoJuego();
+    // Call the main menu where the user can select the game mode
+    gameModeMenu();
 
     return 0;
 }

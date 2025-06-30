@@ -1,0 +1,9 @@
+====== User ======
+Name: alonso
+Password: 12345678
+Code: 366764
+Birthdate: 24/04/2006
+Gender: M
+DUI: 12345678-9
+=================
+

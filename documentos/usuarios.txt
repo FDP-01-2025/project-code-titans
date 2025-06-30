@@ -1,9 +1,0 @@
-====== Usuario ======
-Nombre: alonso
-Contraseña: 12345678
-Código: 498292
-Nacimiento: 24/01/2006
-Género: M
-DUI: 12345678-9
-=================
-

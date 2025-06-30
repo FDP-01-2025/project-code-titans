@@ -1,0 +1,1 @@
+Player: alonso | Event: Deposit | Amount: $400 | Remaining money: $400

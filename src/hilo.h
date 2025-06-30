@@ -1,243 +1,242 @@
-#ifndef HILO_GAME_H                 // Inicio del include guard para evitar inclusiones múltiples
-#define HILO_GAME_H                 // Macro para indicar que este archivo ya fue incluido
+#ifndef HILO_GAME_H                 // Start of include guard to prevent multiple inclusions
+#define HILO_GAME_H                 // Macro to indicate that this file has been included
 
-#include <iostream>                 // Para entrada/salida estándar (cout, cin)
-#include <string>                   // Para manejar cadenas de texto
-#include <algorithm>                // Para funciones útiles como std::transform
-#include <ctime>                    // Para funciones relacionadas con tiempo (semilla aleatoria)
-#include <cstdlib>                  // Para funciones rand(), system()
-#include <fstream>                  // Para manejo de archivos (ifstream, ofstream)
-#include <limits>                   // Para numeric_limits (limpiar buffer de entrada)
-#include "jugador.h"                // Incluyo estructura Jugador
-#include "utils.h"                  // Para funciones como toLower, limpiarConsola, esperarMs
-#include "playerData.h"             // Para funciones registrarJuego, guardarSaldo
+#include <iostream>                 // For standard input/output (cout, cin)
+#include <string>                   // For handling strings
+#include <algorithm>                // For useful functions like std::transform
+#include <ctime>                    // For time-related functions (random seed)
+#include <cstdlib>                  // For rand(), system() functions
+#include <fstream>                  // For file handling (ifstream, ofstream)
+#include <limits>                   // For numeric_limits (to clear input buffer)
+#include "player.h"                // Include Player structure
+#include "utils.h"                  // For functions like toLower, clearConsole, waitMs
+#include "playerData.h"             // For functions registerGame, saveBalance
 
-using namespace std;                // Evita escribir std:: en todo momento
+using namespace std;                // Avoid writing std:: all the time
 
-// Funciones auxiliares del juego Hi-Lo
+// Auxiliary functions for the Hi-Lo game
 
-// Genero un número aleatorio entre 1 y 13 que representa el valor de una carta
+// Generate a random number between 1 and 13 representing the value of a card
 inline int RandomCard() {
-    return rand() % 13 + 1;         // Valor entre 1 (As) y 13 (Rey)
+    return rand() % 13 + 1;         // Value between 1 (Ace) and 13 (King)
 }
 
-// Genero un palo aleatorio de entre cuatro palos posibles
+// Generate a random suit from four possible suits
 inline string RandomSuit() {
-    string suit[] = {"♠", "♥", "♦", "♣"};  // Palos comunes en cartas
-    return suit[rand() % 4];         // Selección aleatoria
+    string suit[] = {"♠", "♥", "♦", "♣"};  // Common suits in cards
+    return suit[rand() % 4];         // Random selection
 }
 
-// Cambio el valor numérico de la carta a su representación en texto (A, J, Q, K)
+// Change the numeric value of the card to its textual representation (A, J, Q, K)
 inline string CardValue(int value) {
-    if (value == 1) return "A";     // As
-    if (value == 11) return "J";    // Jack / sota
-    if (value == 12) return "Q";    // Queen / reina
-    if (value == 13) return "K";    // King / rey
-    return to_string(value);         // Para cartas del 2 al 10, convierto a string directo
+    if (value == 1) return "A";     // Ace
+    if (value == 11) return "J";    // Jack
+    if (value == 12) return "Q";    // Queen
+    if (value == 13) return "K";    // King
+    return to_string(value);         // For cards 2 to 10, convert to string directly
 }
 
-// Dibujo la(s) carta(s) en ASCII para mostrar al jugador de forma visual
+// Draw the card(s) in ASCII to show the player visually
 inline void AsciiHiloCards(int value[], string suit[], int count) {
-    string line[7];                  // 7 líneas para la carta ASCII
+    string line[7];                  // 7 lines for the ASCII card
     for (int i = 0; i < count; i++) {
-        string value2 = CardValue(value[i]);              // Obtengo el valor textual
-        string izq = value2.length() == 1 ? value2 + " " : value2;   // Formateo para izquierda
-        string der = value2.length() == 1 ? " " + value2 : value2;   // Formateo para derecha
+        string value2 = CardValue(value[i]);              // Get the textual value
+        string left = value2.length() == 1 ? value2 + " " : value2;   // Format for left
+        string right = value2.length() == 1 ? " " + value2 : value2;   // Format for right
 
-        // Dibujo cada línea de la carta y la voy acumulando
+        // Draw each line of the card and accumulate it
         line[0] += "┌─────────┐ ";
-        line[1] += "│" + izq + "       │ ";
+        line[1] += "│" + left + "       │ ";
         line[2] += "│         │ ";
         line[3] += "│    " + suit[i] + "    │ ";
         line[4] += "│         │ ";
-        line[5] += "│       " + der + "│ ";
+        line[5] += "│       " + right + "│ ";
         line[6] += "└─────────┘ ";
     }
 
-    // Imprimo todas las líneas acumuladas para todas las cartas
+    // Print all accumulated lines for all cards
     for (int i = 0; i < 7; i++) {
         cout << line[i] << endl;
     }
 }
 
-// Lógica principal de una ronda del juego Hi-Lo
-inline void hilo(Jugador& jugador, int& bet) {  // Recibe referencia a jugador y apuesta (por referencia para modificar)
-    int card = RandomCard();                     // Genero la primera carta aleatoria
-    char guess, going;                           // Variables para almacenar elección y continuar juego
-    bool keep = true;                            // Controla si la ronda sigue o termina
-    string suit1 = RandomSuit();                 // Genero el palo de la carta inicial
+// Main logic of a round of the Hi-Lo game
+inline void hilo(Player& player, int& bet) {  // Receives reference to player and bet (by reference to modify)
+    int card = RandomCard();                     // Generate the first random card
+    char guess, going;                           // Variables to store choice and continue game
+    bool keep = true;                            // Controls if the round continues or ends
+    string suit1 = RandomSuit();                 // Generate the suit of the initial card
 
-    // Muestro la primera carta al jugador
-    cout << "La primera carta es: \n";
+    // Show the first card to the player
+    cout << "The first card is: \n";
     int values1[] = {card};
     string suits1[] = {suit1};
-    AsciiHiloCards(values1, suits1, 1);          // Dibujo la carta
+    AsciiHiloCards(values1, suits1, 1);          // Draw the card
     cout << "\n";
 
-    while (keep == true) {                        // Mientras el jugador decida continuar
-        // Genero la siguiente carta aleatoria
+    while (keep == true) {                        // While the player decides to continue
+        // Generate the next random card
         int card2 = RandomCard();
         string suit2 = RandomSuit();
 
-        // Pido al jugador que adivine si la siguiente carta será mayor o menor
+        // Ask the player to guess if the next card will be higher or lower
         while (true) {
-            cout << "La siguiente carta será Mayor (M) o Menor (m): ";
+            cout << "The next card will be Higher (M) or Lower (L): ";
             cin >> guess;
-            if (guess == 'M' || guess == 'm' || guess == 'L' || guess == 'l') break;  // Acepto M/m y L/l (mayor/menor)
-            cout << "Opción inválida, por favor selecciona 'M' o 'm'\n";
+            if (guess == 'M' || guess == 'm' || guess == 'L' || guess == 'l') break;  // Accept M/m and L/l (higher/lower)
+            cout << "Invalid option, please select 'M' or 'm'\n";
         }
 
-        // Muestro la carta siguiente
+        // Show the next card
         cout << "---------------------------------------------------\n";
-        cout << "La siguiente carta es: \n";
+        cout << "The next card is: \n";
         int values2[] = {card2};
         string suits2[] = {suit2};
         AsciiHiloCards(values2, suits2, 1);
         cout << endl;
 
-        // Verifico si el jugador acertó
-        if (((guess == 'M' || guess == 'm') && card < card2) ||       // Adivinó mayor y es mayor
-            ((guess == 'L' || guess == 'l') && card > card2)) {       // Adivinó menor y es menor
-            card = card2;                                              // Actualizo la carta actual
-            bet = bet * 2;                                             // Doblo la apuesta
-            cout << "¡Felicidades, ganaste esta ronda!\n";
+        // Check if the player guessed correctly
+        if (((guess == 'M' || guess == 'm') && card < card2) ||       // Guessed higher and it is higher
+            ((guess == 'L' || guess == 'l') && card > card2)) {       // Guessed lower and it is lower
+            card = card2;                                              // Update the current card
+            bet = bet * 2;                                             // Double the bet
+            cout << "Congratulations, you won this round!\n";
 
-            // Pregunto si quiere seguir jugando
+            // Ask if they want to keep playing
             while (true) {
-                
-                cout << "¿Quieres seguir jugando? (S/N): ";
+                cout << "Do you want to keep playing? (Y/N): ";
                 cin >> going;
                 if (going == 'S' || going == 's' || going == 'N' || going == 'n') break;
-                cout << "Opción inválida, por favor selecciona 'S' o 'N'\n";
+                cout << "Invalid option, please select 'S' or 'N'\n";
             }
 
-            // Si no quiere seguir, termina y paga las ganancias
+            // If they don't want to continue, end and pay the winnings
             if (going == 'N' || going == 'n') {
-                jugador.dinero += bet;                                 // Sumo las ganancias al saldo
-                cout << "Gracias por jugar. Tu ganancia es: $" << bet << endl;
-                jugador.partidasGanadas++;                             // Actualizo estadísticas
-                registrarJuego("Hi-Lo", jugador.nombre, bet, jugador.dinero); // Registro juego
-                keep = false;                                          // Termino la ronda
+                player.money += bet;                                 // Add winnings to balance
+                cout << "Thank you for playing. Your winnings are: $" << bet << endl;
+                player.gamesWon++;                             // Update statistics
+                registerGame("Hi-Lo", player.name, bet, player.money); // Record game
+                keep = false;                                          // End the round
             }
 
-        } else if (card == card2) {                                    // Empate: las cartas son iguales
-            cout << "¡Fue un empate!\n";
-            cout << "Nadie pierde, nadie gana.\n";
+        } else if (card == card2) {                                    // Tie: the cards are equal
+            cout << "It was a tie!\n";
+            cout << "No one loses, no one wins.\n";
 
-            // Pregunto si quiere seguir jugando en empate
+            // Ask if they want to keep playing in a tie
             while (true) {
-                cout << "¿Quieres seguir jugando? (S/N): ";
+                cout << "Do you want to keep playing? (Y/N): ";
                 cin >> going;
                 if (going == 'S' || going == 's' || going == 'N' || going == 'n') break;
-                cout << "Opción inválida, por favor selecciona 'S' o 'N'\n";
+                cout << "Invalid option, please select 'S' or 'N'\n";
             }
 
-            // Si no quiere seguir, devuelvo la apuesta
+            // If they don't want to continue, return the bet
             if (going == 'N' || going == 'n') {
-                jugador.dinero += bet;                                 // Devuelvo la apuesta
-                cout << "Gracias por jugar. Tu apuesta devuelta es: $" << bet << endl;
-                jugador.partidasEmpatadas++;                           // Actualizo estadísticas
-                registrarJuego("Hi-Lo", jugador.nombre, 0, jugador.dinero); // Registro juego con 0 ganancia
-                keep = false;                                          // Termino la ronda
+                player.money += bet;                                 // Return the bet
+                cout << "Thank you for playing. Your returned bet is: $" << bet << endl;
+                player.gamesTied++;                           // Update statistics
+                registerGame("Hi-Lo", player.name, 0, player.money); // Record game with 0 winnings
+                keep = false;                                          // End the round
             }
         }
-        // Si adivinó mal, pierde la apuesta y termina la ronda
+        // If guessed wrong, lose the bet and end the round
         else {
-            cout << "¡Incorrecto! Perdiste tu apuesta.\n";
-            jugador.dinero -= bet;                                     // Resto la apuesta al saldo
-            jugador.partidasPerdidas++;                                // Actualizo estadísticas
-            registrarJuego("Hi-Lo", jugador.nombre, -bet, jugador.dinero); // Registro juego con pérdida
-            bet = 0;                                                  // La apuesta queda en 0 (perdida)
-            keep = false;                                             // Termino la ronda
+            cout << "Incorrect! You lost your bet.\n";
+            player.money -= bet;                                     // Subtract the bet from balance
+            player.gamesLost++;                                // Update statistics
+            registerGame("Hi-Lo", player.name, -bet, player.money); // Record game with loss
+            bet = 0;                                                  // The bet is set to 0 (lost)
+            keep = false;                                             // End the round
         }
-        // Después de cada ronda guardo el saldo y actualizo estadísticas
-        guardarSaldo(jugador.nombre, jugador.dinero);
-        jugador.actualizarEstadisticas();
+        // After each round, save the balance and update statistics
+        saveBalance(player.name, player.money);
+        player.updateStatistics();
     }
 }
 
-// Función que confirma si la apuesta es válida y lanza el juego
-inline void BetConfirm(Jugador& jugador, int& bet) {
-    cout << "Tu dinero actual es $" << jugador.dinero << ". Ingresa tu apuesta (mínimo $10, máximo $500): $";
+// Function that confirms if the bet is valid and starts the game
+inline void BetConfirm(Player& player, int& bet) {
+    cout << "Your current money is $" << player.money << ". Enter your bet (minimum $10, maximum $500): $";
 
     while (true) {
         cin >> bet;
-        // Verifico que la apuesta sea válida, que no sea mayor que saldo ni menor que 10 o mayor que 500
-        if (cin.fail() || bet < 10 || bet > 500 || bet > jugador.dinero) {
-            cin.clear();                                           // Limpio error de entrada
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Limpio buffer
-            cout << "Apuesta inválida. Debe ser entre $10 y $500 y no puede exceder tu saldo actual.\n";
-            cout << "Tu dinero actual es $" << jugador.dinero << ". Ingresa tu apuesta: $";
-            continue;                                             // Pido otra vez la apuesta
+        // Check that the bet is valid, not greater than balance, and not less than 10 or greater than 500
+        if (cin.fail() || bet < 10 || bet > 500 || bet > player.money) {
+            cin.clear();                                           // Clear input error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');  // Clear buffer
+            cout << "Invalid bet. It must be between $10 and $500 and cannot exceed your current balance.\n";
+            cout << "Your current money is $" << player.money << ". Enter your bet: $";
+            continue;                                             // Ask for the bet again
         }
-        break;                                                    // Salgo del bucle si está bien
+        break;                                                    // Exit the loop if it's valid
     }
-    jugador.partidasJugadas++;                                  // Aumento partidas jugadas
-    hilo(jugador, bet);                                         // Inicio la partida con apuesta validada
+    player.gamesPlayed++;                                  // Increment games played
+    hilo(player, bet);                                         // Start the game with validated bet
 }
 
-// Menú principal del juego Hi-Lo
-inline void jugarHilo(Jugador& jugador) {
-    if (jugador.dinero <= 0) {                                  // Verifico que tenga saldo
-        cout << "No tienes saldo suficiente. Deposita para jugar.\n";
-        return;                                                 // Salgo si no tiene saldo
+// Main menu of the Hi-Lo game
+inline void playHilo(Player& player) {
+    if (player.money <= 0) {                                  // Check if they have balance
+        cout << "You do not have enough balance. Deposit to play.\n";
+        return;                                                 // Exit if no balance
     }
 
-    int bet = 0;                                                // Inicializo apuesta
-    int option;                                                 // Opción de menú
+    int bet = 0;                                                // Initialize bet
+    int option;                                                 // Menu option
 
     do {
-        // Muestro menú de opciones
-        cout << "\n---- ¡Bienvenido al juego HI-LO! ----\n";
-        cout << "1. Explicación del juego \n";
-        cout << "2. Jugar \n";
-        cout << "3. Consultar tu saldo \n";
-        cout << "4. Salir \n";
-        cout << "Elige una opción: ";
+        // Show menu options
+        cout << "\n---- Welcome to the HI-LO game! ----\n";
+        cout << "1. Game explanation \n";
+        cout << "2. Play \n";
+        cout << "3. Check your balance \n";
+        cout << "4. Exit \n";
+        cout << "Choose an option: ";
         cin >> option;
 
-        if (cin.fail()) {                                       // Manejo entrada inválida
+        if (cin.fail()) {                                       // Handle invalid input
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Opción inválida. Por favor, ingresa un número.\n";
+            cout << "Invalid option. Please enter a number.\n";
             continue;
         }
 
-        // Ejecuto acción según la opción
+        // Execute action based on the option
         switch (option) {
             case 1:
-                // Explicación clara del juego
+                // Clear explanation of the game
                 clearConsole();
-                cout << "\n¡Bienvenido al juego HI-LO!\n\n";
-                cout << "¡Este es súper fácil de jugar!\n\n";
-                cout << "1. Primero, haz tu apuesta.\n";
-                cout << "2. El crupier te muestra una carta.\n";
-                cout << "3. Ahora es tu turno de adivinar -> ¿la siguiente carta será mayor o menor?\n\n";
-                cout << "Si adivinas correctamente:\n";
-                cout << "- Recuperas tu apuesta duplicada.\n";
-                cout << "- Puedes seguir jugando para intentar ganar aún más, o retirar y llevarte tu recompensa.\n\n";
-                cout << "Si adivinas incorrectamente:\n";
-                cout << "- Pierdes tu apuesta.\n\n";
+                cout << "\nWelcome to the HI-LO game!\n\n";
+                cout << "This is super easy to play!\n\n";
+                cout << "1. First, make your bet.\n";
+                cout << "2. The dealer shows you a card.\n";
+                cout << "3. Now it's your turn to guess -> Will the next card be higher or lower?\n\n";
+                cout << "If you guess correctly:\n";
+                cout << "- You recover your doubled bet.\n";
+                cout << "- You can keep playing to try to win even more, or cash out and take your reward.\n\n";
+                cout << "If you guess incorrectly:\n";
+                cout << "- You lose your bet.\n\n";
                 break;
             case 2:
-            clearConsole();
-                // Inicio la lógica del juego con la apuesta validada
-                BetConfirm(jugador, bet);
+                clearConsole();
+                // Start the game logic with the validated bet
+                BetConfirm(player, bet);
                 break;
             case 3:
-            clearConsole();
-                // Muestro saldo actual
-                cout << "Tu saldo actual es: $" << jugador.dinero << endl;
+                clearConsole();
+                // Show current balance
+                cout << "Your current balance is: $" << player.money << endl;
                 break;
             case 4:
-            clearConsole();
-                cout << "Volviendo al menú principal... \n";
+                clearConsole();
+                cout << "Returning to the main menu... \n";
                 break;
             default:
-                cout << "Opción inválida \n";
+                cout << "Invalid option \n";
                 break;
         }
-    } while (option != 4);                                       // Se repite hasta que elija salir
+    } while (option != 4);                                       // Repeat until they choose to exit
 }
 
 #endif // HILO_GAME_H

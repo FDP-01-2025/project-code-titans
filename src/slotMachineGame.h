@@ -3,34 +3,31 @@
 
 #include <iostream>
 #include <string>
-#include <algorithm>    // For std::transform, because sometimes we need to transform things — like our lives.
-#include <cstdlib>      // For rand(), because luck doesn't generate itself.
-#include <ctime>        // For time(), because we need to know what time it is while we lose money.
-#include <limits>       // For numeric_limits, because sometimes numbers are bigger than our hopes.
-#include "jugador.h"    // For the Jugador structure, because we need to know who's losing.
-#include "utils.h"      // For setColor, resetColor, limpiarConsola, esperarMs — because life is more colorful with colors.
-#include "playerData.h" // For registrarJuego, guardarSaldo — because we need to keep track of our misfortunes.
+#include <algorithm> // For std::transform, because sometimes we need to transform things, like our lives.
+#include <cstdlib>   // For rand(), because luck doesn't generate itself.
+#include <ctime>     // For time(), because we need to know what time it is while losing money.
+#include <limits>    // For numeric_limits, because sometimes numbers are bigger than our hopes.
+#include "player.h" // For the Player structure, because we need to know who is losing.
+#include "utils.h"   // For setColor, resetColor, clearConsole, waitMs, because life is more colorful with colors.
+#include "playerData.h" // For saveGame, saveBalance, because we need to keep track of our misfortunes.
 
 using namespace std;
 
-// --- General Slot Machine Functions ---
+// --- General Functions for the Slot Machine ---
 
-// Function to change text color, because sometimes we need a bit of color in our life.
-inline void setColor(int colorCode)
-{
+// Function to change the text color, because sometimes we need a little color in our lives.
+inline void setColor(int colorCode) {
     cout << "\033[" << colorCode << "m"; // Magic! We change the color as if we had superpowers!
 }
 
-// Function to reset to white color, because sometimes we have to come back to reality.
-inline void resetColor()
-{
-    cout << "\033[0m"; // And back to the start! White is the new black.
+// Function to reset to white color, because sometimes we need to return to reality.
+inline void resetColor() {
+    cout << "\033[0m"; // And back to square one! White is the new black.
 }
 
-// Function to display game instructions, because nobody wants to be lost in confusion.
-inline void showSlot()
-{
-    clearConsole(); // Clear screen when showing instructions, because clutter helps no one.
+// Function to show the game instructions, because no one wants to get lost in confusion.
+inline void showSlot() {
+    clearConsole(); // Clear when showing instructions, because clutter helps no one.
     cout << endl;
     cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
@@ -47,10 +44,9 @@ inline void showSlot()
     cout << endl;
 }
 
-// Function to show the slot machine difficulty menu
-inline void showSlotmenu()
-{
-    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
+// Function to show the difficulty menu of the slot game
+inline void showSlotMenu() {
+    clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - * - * - * -*. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
@@ -58,56 +54,53 @@ inline void showSlotmenu()
     cout << "|                                                          . " << endl;
     cout << "*                  Choose the difficulty:                  . " << endl;
     cout << "|                                                          . " << endl;
-    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)          | " << endl;
-    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)          * " << endl;
-    cout << ".   (H) HARD:      5 lines (Bet: $300, Win: $1500)         | " << endl;
+    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)         | " << endl;
+    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)         * " << endl;
+    cout << ".   (H) HARD:      5 lines (Bet: $300, Win: $1500)        | " << endl;
     cout << ".                                                          * " << endl;
     cout << ".     BACK (B)                                             | " << endl;
     cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
     cout << endl;
 }
 
-// Function to display a random motivational phrase when the player loses
-inline void losePhrases()
-{
-    string lSentence_0 = "The next move could change everything…";           // Sure… like that's going to happen.
-    string lSentence_1 = "The reels don't move by themselves! Dare!";        // Come on, don’t be a chicken!
-    string lSentence_2 = "The reels are heating up… don’t give up!";         // So close! Like trying to open a jar.
-    string LSentence_3 = "Almost there! The next turn could be the winner."; // Hope is the last thing to die!
-    int randomLphase = rand() % 4;                                           // Pick a phrase at random, because life is a roulette.
+// Function to show a random motivational phrase when the player loses
+inline void losePhrases() {
+    string lSentence_0 = "The next move could change everything…"; // Yes, right! As if that were going to happen.
+    string lSentence_1 = "The reels don't move by themselves! Dare!"; // Come on, don't be a chicken!
+    string lSentence_2 = "The reels are heating up… don’t give up!"; // Almost, almost! Like when you try to open a jar.
+    string lSentence_3 = "Almost there! The next turn could be the winner."; // Hope is the last thing to lose!
+    int randomLphrase = rand() % 4; // Choose a phrase at random, because life is a roulette.
 
-    switch (randomLphase)
-    {
-    case 0:
-        cout << endl;
-        cout << lSentence_0 << endl;
-        break;
-    case 1:
-        cout << endl;
-        cout << lSentence_1 << endl;
-        break;
-    case 2:
-        cout << endl;
-        cout << lSentence_2 << endl;
-        break;
-    case 3:
-        cout << endl;
-        cout << LSentence_3 << endl;
-        break;
-    default:
-        cout << endl;
-        cout << "Luck turns around… and yours is about to return." << endl; // Or so we hope!
-        break;
+    switch (randomLphrase) {
+        case 0:
+            cout << endl;
+            cout << lSentence_0 << endl;
+            break;
+        case 1:
+            cout << endl;
+            cout << lSentence_1 << endl;
+            break;
+        case 2:
+            cout << endl;
+            cout << lSentence_2 << endl;
+            break;
+        case 3:
+            cout << endl;
+            cout << lSentence_3 << endl;
+            break;
+        default:
+            cout << endl;
+            cout << "Luck turns around… and yours is about to return." << endl; // Or so I hope!
+            break;
     }
 }
 
-// --- Functions for Easy Mode ---
+// --- Functions for EASY MODE ---
 
-inline void emptySlotsE()
-{
-    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
+inline void emptySlotsE() {
+    clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
-    cout << "* - * - * - * - * - *. . . . . . . " << endl;
+    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
     cout << "|                                ." << endl;
     cout << "*          Try your luck!        ." << endl;
     cout << "|                                ." << endl;
@@ -115,63 +108,58 @@ inline void emptySlotsE()
     cout << ".   |       |       |       |    | " << endl;
     cout << ".   |   -   |   -   |   -   |    *" << endl;
     cout << ".   |       |       |       |    | " << endl;
-    cout << ".    -----------------------     *" << endl;
+    cout << "*    -----------------------     *" << endl;
     cout << ".   | Pull the lever (!)|        | " << endl;
-    cout << ". . . . . . .* - * - * - * - * - *" << endl;
+    cout << ". . . . . . . . . . . . * - * - * - * - *" << endl;
     cout << endl;
 }
 
-inline char randomSymbolE()
-{
-    char symbol[] = {'@', '$', '7'}; // Classic symbols, because originality isn’t always necessary.
-    return symbol[rand() % 3];       // Choose a random symbol, just like in life.
+inline char randomSymbolE() {
+    char symbol[] = {'@', '$', '7'}; // Classic symbols, because originality isn't always necessary.
+    return symbol[rand() % 3]; // Choose a symbol at random, like in life.
 }
 
-inline void symbolColorE(char slots[3])
-{
-    for (int i = 0; i < 3; i++)
-    {
-        switch (slots[i])
-        {
-        case '$':
-            setColor(34); // Blue, because money *should* be blue, right?
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '7':
-            setColor(33); // Yellow, like gold... or bananas.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '@':
-            setColor(35); // Magenta, because sometimes you have to be a bit extravagant.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        default:
-            setColor(36); // Cyan, because it’s a color that’s rarely used.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
+inline void symbolColorE(char slots[3]) {
+    for (int i = 0; i < 3; i++) {
+        switch (slots[i]) {
+            case '$':
+                setColor(34); // Blue, because money should be blue, right?
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '7':
+                setColor(33); // Yellow, like gold... or a banana.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '@':
+                setColor(35); // Magenta, because sometimes you have to be a little extravagant.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            default:
+                setColor(36); // Cyan, because it's a color that isn't used much.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
         }
     }
 }
 
-inline void finalSlotsE(char slots[3])
-{
-    cout << "---------------------------------" << endl; // Divider line — adds a bit of drama.
-    cout << "* - * - * - * - * - *. . . . . . . " << endl;
+inline void finalSlotsE(char slots[3]) {
+    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
+    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
     cout << "|                                ." << endl;
     cout << "*            RESULTS!            ." << endl;
     cout << "|                                ." << endl;
     cout << "*    -----------------------     ." << endl;
     cout << ".   |       |       |       |    * " << endl;
     cout << ".   |   ";
-    symbolColorE(slots); // Display the colored symbols, because life is more fun in color.
+    symbolColorE(slots); // Show the symbols in color, because life is more fun with color.
     cout << " |" << endl;
     cout << ".   |       |       |       |    * " << endl;
     cout << ".    -----------------------     | " << endl;
@@ -179,169 +167,142 @@ inline void finalSlotsE(char slots[3])
     cout << endl;
 }
 
-inline bool jackpotE(char slots[3])
-{
-    return (slots[0] == slots[1] && slots[1] == slots[2]); // Jackpot! Or as I like to call it, “beginner’s luck.”
+inline bool jackpotE(char slots[3]) {
+    return (slots[0] == slots[1] && slots[1] == slots[2]); // Jackpot! Or as I like to call it, "beginner's luck".
 }
 
 // Main game easy
-inline void easyMode(Jugador &jugador)
-{
-    const int APUESTA = 100;  // Minimum bet, because I don't want to go broke in the first round.
-    const int GANANCIA = 300; // Prize, because dreaming is free.
+inline void easyMode(Player& player) {
+    const int BET = 100; // Minimum bet, because I don't want to ruin myself in the first round.
+    const int WIN = 300; // Winnings, because dreaming is free.
     char symbols[3];
-    bool ganoJackpot = false;
+    bool wonJackpot = false;
     string anotherRound;
 
-    if (jugador.dinero < APUESTA)
-    {
-        cout << "You don't have enough money to play in Easy Mode. You need $" << APUESTA << ".\n";
-        return; // We exit, because there's nothing sadder than a player without money.
+    if (player.money < BET) {
+        cout << "You do not have enough money to play in Easy mode. You need $" << BET << ".\n";
+        return; // Exit, because nothing is sadder than a player without money.
     }
 
-    while (true)
-    {
-        ganoJackpot = false;       // Reset for each new round, as if nothing ever happened.
-        jugador.partidasJugadas++; // Count the played round, because we need to keep track of our misfortunes.
+    while (true) {
+        wonJackpot = false; // Reset for each new round, as if nothing has happened.
+        player.gamesPlayed++; // Count the game played, because we need to keep track of our misfortunes.
 
-        cout << "\nYou have bet $" << APUESTA << " for this round in Easy Mode.\n";
-        clearConsole();      // Clear screen when showing instructions, because clutter helps no one.
-        int oportunidades = 4; // Four chances, because I don't want to be too generous.
-        for (int i = oportunidades; i > 0; i--)
-        {
-            while (true)
-            {
+        cout << "\nYou have bet $" << BET << " for this round in Easy mode.\n";
+        clearConsole(); // Clear when showing instructions, because clutter helps no one.
+        int opportunities = 4; // Four opportunities, because I don't want to be too generous.
+        for (int i = opportunities; i > 0; i--) {
+            while (true) {
                 string nextSpin;
                 cout << endl;
-                cout << "You have " << i << " chances left!" << endl;
-                cout << "Press (P) to continue..." << endl;
+                cout << "You have " << i << " opportunities left!" << endl;
+                cout << "(P) to continue..." << endl;
                 getline(cin, nextSpin);
-                if (nextSpin == "P" || nextSpin == "p")
-                {
+                if (nextSpin == "P" || nextSpin == "p") {
                     break; // Let's spin those reels!
-                }
-                else
-                {
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need it.
+                    cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
 
-            while (true)
-            {
+            while (true) {
                 string pull;
-                emptySlotsE(); // This function already clears the screen, because life is a cycle.
+                emptySlotsE(); // This function already clears the console, because life is a cycle.
                 getline(cin, pull);
 
-                if (pull == "!")
-                {
-                    for (int j = 0; j < 3; j++)
-                    {
+                if (pull == "!") {
+                    for (int j = 0; j < 3; j++) {
                         symbols[j] = randomSymbolE(); // Generate random symbols, because life is a box of surprises.
                     }
-                    finalSlotsE(symbols); // This function already clears the screen, because surprises are better without clutter.
+                    finalSlotsE(symbols); // This function already clears the console, because the surprise is better without clutter.
 
-                    if (jackpotE(symbols))
-                    {
+                    if (jackpotE(symbols)) {
                         setColor(32);
-                        cout << "            * JACKPOT!! *   " << endl; // Congrats! You've hit the big prize.
+                        cout << "            * JACKPOT!! *   " << endl; // Congratulations! You hit the jackpot.
                         resetColor();
                         cout << endl;
-                        cout << " Congratulations! You've won: $" << GANANCIA << endl; // Money, money, money!
+                        cout << " Congratulations! You won: $" << WIN << endl; // Money, money, money!
                         cout << endl;
-                        jugador.dinero += GANANCIA;                                                      // Add the prize, because that’s what we want.
-                        jugador.partidasGanadas++;                                                       // Count the win, because we need to celebrate.
-                        registrarJuego("Slot Machine (Easy)", jugador.nombre, GANANCIA, jugador.dinero); // Save the log, because history must be recorded.
-                        ganoJackpot = true;                                                              // Mark that we won, because there’s nothing like a good jackpot.
-                        i = 0;                                                                           // End the remaining chances, because we've already won.
+                        player.money += WIN; // Add the winnings, because that's what we want.
+                        player.gamesWon++; // Count the victory, because we need to celebrate.
+                        registerGame("Slot Machine (Easy)", player.name, WIN, player.money); // Save the record, because history must be told.
+                        wonJackpot = true; // Mark that we won, because there's nothing like a good jackpot.
+                        i = 0; // End the opportunities, because we already won.
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         setColor(36);
-                        cout << "            KEEP TRYING " << endl; // Don’t give up! Luck can change.
+                        cout << "            KEEP TRYING " << endl; // Don't give up! Luck can change.
                         resetColor();
-                        losePhrases(); // Motivational phrases, because we all need a little push.
+                        losePhrases(); // Motivational phrases, because we all need a push.
                         break;
                     }
-                }
-                else
-                {
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need it.
+                    cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
-            if (ganoJackpot)
-                break; // If player won, exit the chances loop, because that’s enough excitement for today.
+            if (wonJackpot) break; // If they already won, exit the opportunities loop, because that's enough excitement for today.
         }
-        if (!ganoJackpot)
-        {
+
+        if (!wonJackpot) {
             cout << endl;
-            cout << "   Better luck next time." << endl; // Next time will be better!
-            cout << "-$" << APUESTA << endl;             // Subtract the bet, because life isn't always fair.
+            cout << "   You'll have better luck next time." << endl; // Next time will be better!
+            cout << "-$" << BET << endl; // Subtract the bet if they didn't win, because we need to learn to lose.
             cout << endl;
-            jugador.dinero -= APUESTA;                                                       // Subtract the bet if not won, because losing is part of the game.
-            jugador.partidasPerdidas++;                                                      // Count the loss, because we have to be realistic.
-            registrarJuego("Slot Machine (Easy)", jugador.nombre, -APUESTA, jugador.dinero); // Save the log, because the story must be told.
+            player.money -= BET; // Subtract the bet if they didn't win, because we need to learn to lose.
+            player.gamesLost++; // Count the loss, because we need to be realistic.
+            registerGame("Slot Machine (Easy)", player.name, -BET, player.money); // Save the record, because history must be told.
         }
 
-        // Save balance and stats after each round
-        guardarSaldo(jugador.nombre, jugador.dinero); // Save the balance, because we don’t want to lose everything.
-        jugador.actualizarEstadisticas();             // Update stats, because we must keep track.
+        // Save balance and statistics after each game
+        saveBalance(player.name, player.money); // Save the balance, because we don't want to lose it all.
+        player.updateStatistics(); // Update statistics, because we need to keep track.
 
-        if (jugador.dinero < APUESTA)
-        {
-            cout << "You don't have enough money for another round in Easy Mode. You need $" << APUESTA << ".\n"; // Goodbye message, because sometimes you need to know when to stop.
-            break;                                                                                                // Exit if there's not enough money for another bet, because there's no point in being stubborn.
+        if (player.money < BET) {
+            cout << "You do not have enough money for another round in Easy mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
-        while (true)
-        {
+        while (true) {
             cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (S).        NO (N)" << endl;
+            cout << "     YES (S).        NO(N)" << endl;
             getline(cin, anotherRound);
 
-            if (anotherRound == "S" || anotherRound == "s")
-            {
+            if (anotherRound == "S" || anotherRound == "s") {
                 cout << endl;
                 setColor(32);
                 cout << "GOOD LUCK!!" << endl; // May luck be with you!
                 resetColor();
                 break;
-            }
-            else if (anotherRound == "N" || anotherRound == "n")
-            {
+            } else if (anotherRound == "N" || anotherRound == "n") {
                 cout << endl;
-                cout << "Returning to menu..." << endl; // Until next time!
+                cout << "Returning to the menu..." << endl; // Until next time!
                 break;
-            }
-            else
-            {
+            } else {
                 cout << endl;
                 setColor(31);
-                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message, because we all need it.
+                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message, because we all need one.
                 resetColor();
             }
         }
 
-        if (anotherRound == "N" || anotherRound == "n")
-        {
-            break; // Exit the loop if the player doesn’t want to continue, because we respect decisions.
+        if (anotherRound == "N" || anotherRound == "n") {
+            break; // Exit the loop if the player doesn't want to continue, because we must respect decisions.
         }
     }
 }
 
-// --- Functions for Medium Mode (MEDIUM MODE) ---
+// --- Functions for MEDIUM MODE ---
 
-inline void emptySlotsM()
-{
-    clearConsole(); // Clear screen when showing difficulty menu, because clarity is key.
+inline void emptySlotsM() {
+    clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
-    cout << "* - * - * - * - * - . . . . . . . . . . . " << endl;
+    cout << "* - * - * - * - * - * - * . . . . . . . . . . . " << endl;
     cout << "|                                       ." << endl;
     cout << "*             Try your luck!            ." << endl;
     cout << "|                                       ." << endl;
@@ -354,57 +315,53 @@ inline void emptySlotsM()
     cout << ". . . . . . . . . . . . * - * - * - * - * " << endl;
     cout << endl;
 }
-inline char randomSymbolM()
-{
+
+inline char randomSymbolM() {
     char symbol[] = {'$', '7', '@'}; // Classic symbols, because originality isn't always necessary.
-    return symbol[rand() % 3];       // We pick a random symbol—just like life.
+    return symbol[rand() % 3]; // Choose a symbol at random, like in life.
 }
 
-inline void symbolColorM(char slots[4])
-{
-    for (int i = 0; i < 4; i++)
-    {
-        switch (slots[i])
-        {
-        case '$':
-            setColor(34); // Blue, because money should be blue, right?
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '7':
-            setColor(33); // Yellow, like gold... or bananas.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '@':
-            setColor(35); // Magenta, because sometimes you have to be a little flashy.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        default:
-            setColor(36); // Cyan, because it’s a color people don’t use much.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
+inline void symbolColorM(char slots[4]) {
+    for (int i = 0; i < 4; i++) {
+        switch (slots[i]) {
+            case '$':
+                setColor(34); // Blue, because money should be blue, right?
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '7':
+                setColor(33); // Yellow, like gold... or a banana.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '@':
+                setColor(35); // Magenta, because sometimes you have to be a little extravagant.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            default:
+                setColor(36); // Cyan, because it's a color that isn't used much.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
         }
     }
 }
 
-inline void finalSlotsM(char slots[4])
-{
-    cout << "---------------------------------" << endl; // A dividing line, because we need some drama.
-    cout << "* - * - * - * - * - . . . . . . . . . . . " << endl;
+inline void finalSlotsM(char slots[4]) {
+    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
+    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
     cout << "|                                       ." << endl;
     cout << "*                RESULTS!               ." << endl;
     cout << "|                                       ." << endl;
     cout << "*    -------------------------------    ." << endl;
     cout << ".   |       |       |       |       |   . " << endl;
     cout << ".   |   ";
-    symbolColorM(slots); // We show the symbols in color, because life is more fun in color.
+    symbolColorM(slots); // Show the symbols in color, because life is more fun with color.
     cout << "*" << endl;
     cout << ".   |       |       |       |       |   | " << endl;
     cout << "*    -------------------------------    *" << endl;
@@ -413,165 +370,138 @@ inline void finalSlotsM(char slots[4])
     cout << endl;
 }
 
-inline bool jackpotM(char slots[4])
-{
+inline bool jackpotM(char slots[4]) {
     return (slots[0] == slots[1] && slots[1] == slots[2] && slots[2] == slots[3]); // Jackpot! Or as I like to call it, "beginner's luck".
 }
 
-inline void mediumMode(Jugador &jugador)
-{
-    const int APUESTA = 200;  // Minimum bet, because I don’t want to go broke in the first round.
-    const int GANANCIA = 800; // Payout, because dreaming is free.
+inline void mediumMode(Player& player) {
+    const int BET = 200; // Minimum bet, because I don't want to ruin myself in the first round.
+    const int WIN = 800; // Winnings, because dreaming is free.
     char symbols[4];
-    bool ganoJackpot = false;
+    bool wonJackpot = false;
     string anotherRound;
 
-    if (jugador.dinero < APUESTA)
-    {
-        cout << "You don’t have enough money to play Medium Mode. You need $" << APUESTA << ".\n";
-        return; // Exit, because there’s nothing sadder than a player with no money.
+    if (player.money < BET) {
+        cout << "You do not have enough money to play in Medium mode. You need $" << BET << ".\n";
+        return; // Exit, because nothing is sadder than a player without money.
     }
 
-    while (true)
-    {
-        ganoJackpot = false;       // Reset for each new round, as if nothing ever happened.
-        jugador.partidasJugadas++; // Count the round played, because we must track our misfortunes.
+    while (true) {
+        wonJackpot = false; // Reset for each new round, as if nothing has happened.
+        player.gamesPlayed++; // Count the game played, because we need to keep track of our misfortunes.
 
-        cout << "\nYou bet $" << APUESTA << " for this round in Medium Mode.\n";
+        cout << "\nYou have bet $" << BET << " for this round in Medium mode.\n";
 
-        int oportunidades = 8; // Eight chances, because I don’t want to be too generous.
-        for (int i = oportunidades; i > 0; i--)
-        {
-            while (true)
-            {
+        int opportunities = 8; // Eight opportunities, because I don't want to be too generous.
+        for (int i = opportunities; i > 0; i--) {
+            while (true) {
                 string nextSpin;
                 cout << endl;
-                cout << "You have " << i << " chances left!" << endl;
+                cout << "You have " << i << " opportunities left!" << endl;
                 cout << "(P) to continue..." << endl;
                 getline(cin, nextSpin);
-                if (nextSpin == "P" || nextSpin == "p")
-                {
-                    break; // Let’s spin those reels!
-                }
-                else
-                {
+                if (nextSpin == "P" || nextSpin == "p") {
+                    break; // Let's spin those reels!
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need guidance.
+                    cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
 
-            while (true)
-            {
+            while (true) {
                 string pull;
-                emptySlotsM(); // This function already clears the screen—because life is cyclical.
+                emptySlotsM(); // This function already clears the console, because life is a cycle.
                 getline(cin, pull);
 
-                if (pull == "!")
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
+                if (pull == "!") {
+                    for (int j = 0; j < 4; j++) {
                         symbols[j] = randomSymbolM(); // Generate random symbols, because life is a box of surprises.
                     }
-                    finalSlotsM(symbols); // This function already clears the screen—surprises are better without clutter.
+                    finalSlotsM(symbols); // This function already clears the console, because the surprise is better without clutter.
 
-                    if (jackpotM(symbols))
-                    {
+                    if (jackpotM(symbols)) {
                         setColor(32);
                         cout << "               * JACKPOT!! *   " << endl; // Congratulations! You hit the jackpot.
                         resetColor();
                         cout << endl;
-                        cout << " Congratulations! You won: $" << GANANCIA << endl; // Money, money, money!
+                        cout << " Congratulations! You won: $" << WIN << endl; // Money, money, money!
                         cout << endl;
-                        jugador.dinero += GANANCIA;                                                        // Add winnings—because that’s what we’re here for.
-                        jugador.partidasGanadas++;                                                         // Count the win—because it’s worth celebrating.
-                        registrarJuego("Slot Machine (Medium)", jugador.nombre, GANANCIA, jugador.dinero); // Save the record—because history must be told.
-                        ganoJackpot = true;                                                                // Mark the win—because there’s nothing like a good jackpot.
-                        i = 0;                                                                             // End the remaining attempts—because that's enough excitement for now.
+                        player.money += WIN; // Add the winnings, because that's what we want.
+                        player.gamesWon++; // Count the victory, because we need to celebrate.
+                        registerGame("Slot Machine (Medium)", player.name, WIN, player.money); // Save the record, because history must be told.
+                        wonJackpot = true; // Mark that we won, because there's nothing like a good jackpot.
+                        i = 0; // End the opportunities, because we already won.
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         setColor(36);
-                        cout << "               KEEP TRYING " << endl; // Don’t give up! Luck can change.
+                        cout << "               KEEP TRYING " << endl; // Don't give up! Luck can change.
                         resetColor();
-                        losePhrases(); // Motivational phrases—because everyone needs a push.
+                        losePhrases(); // Motivational phrases, because we all need a push.
                         break;
                     }
-                }
-                else
-                {
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need guidance.
+                    cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
-            if (ganoJackpot)
-                break; // Exit opportunity loop if won—because that’s enough adrenaline for today.
+            if (wonJackpot) break; // If they already won, exit the opportunities loop, because that's enough excitement for today.
         }
 
-        if (!ganoJackpot)
-        {
+        if (!wonJackpot) {
             cout << endl;
-            cout << "   Better luck next time." << endl; // Next time will be better!
-            cout << "-$" << APUESTA << endl;             // Deduct the bet—because life isn’t always fair.
+            cout << "   You'll have better luck next time." << endl; // Next time will be better!
+            cout << "-$" << BET << endl; // Subtract the bet if they didn't win, because we need to learn to lose.
             cout << endl;
-            jugador.dinero -= APUESTA;                                                         // Deduct money if no win—because we must learn to lose.
-            jugador.partidasPerdidas++;                                                        // Count the loss—because we need to be realistic.
-            registrarJuego("Slot Machine (Medium)", jugador.nombre, -APUESTA, jugador.dinero); // Save the record—because history must be told.
-        }
-        guardarSaldo(jugador.nombre, jugador.dinero); // Save the balance, because we don’t want to lose everything.
-        jugador.actualizarEstadisticas();             // Update statistics—because we need to keep track.
-
-        if (jugador.dinero < APUESTA)
-        {
-            cout << "You don’t have enough money for another round in Medium Mode. You need $" << APUESTA << ".\n"; // Farewell message—sometimes you need to know when to stop.
-            break;                                                                                                  // Exit if there’s not enough money—because stubbornness doesn’t pay off.
+            player.money -= BET; // Subtract the bet if they didn't win, because we need to learn to lose.
+            player.gamesLost++; // Count the loss, because we need to be realistic.
+            registerGame("Slot Machine (Medium)", player.name, -BET, player.money); // Save the record, because history must be told.
         }
 
-        while (true)
-        {
+        saveBalance(player.name, player.money); // Save the balance, because we don't want to lose it all.
+        player.updateStatistics(); // Update statistics, because we need to keep track.
+
+        if (player.money < BET) {
+            cout << "You do not have enough money for another round in Medium mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
+        }
+
+        while (true) {
             cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (S).        NO (N)" << endl;
+            cout << "     YES (S).        NO(N)" << endl;
             getline(cin, anotherRound);
 
-            if (anotherRound == "S" || anotherRound == "s")
-            {
+            if (anotherRound == "S" || anotherRound == "s") {
                 cout << endl;
                 setColor(32);
-                cout << "GOOD LUCK!!" << endl; // May the odds be ever in your favor!
+                cout << "GOOD LUCK!!" << endl; // May luck be with you!
                 resetColor();
                 break;
-            }
-            else if (anotherRound == "N" || anotherRound == "n")
-            {
+            } else if (anotherRound == "N" || anotherRound == "n") {
                 cout << endl;
-                cout << "Returning to menu..." << endl; // Until next time!
+                cout << "Returning to the menu..." << endl; // Until next time!
                 break;
-            }
-            else
-            {
+            } else {
                 cout << endl;
                 setColor(31);
-                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message—because we all need guidance.
+                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message, because we all need one.
                 resetColor();
             }
         }
 
-        if (anotherRound == "N" || anotherRound == "n")
-        {
-            break; // Exit loop if the player doesn’t want to continue—because we must respect decisions.
+        if (anotherRound == "N" || anotherRound == "n") {
+            break; // Exit the loop if the player doesn't want to continue, because we must respect decisions.
         }
     }
 }
 
-// --- Functions for Hard Mode ---
+// --- Functions for HARD MODE ---
 
-inline void emptySlotsH()
-{
-    clearConsole(); // Clear screen when showing difficulty menu—clarity is key.
+inline void emptySlotsH() {
+    clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
     cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
     cout << "|                                               ." << endl;
@@ -587,49 +517,44 @@ inline void emptySlotsH()
     cout << endl;
 }
 
-inline char randomSymbolH()
-{
-    char symbol[] = {'$', '7', '@'}; // Classic symbols—because originality isn’t always necessary.
-    return symbol[rand() % 3];       // Pick a random symbol, just like in life.
+inline char randomSymbolH() {
+    char symbol[] = {'$', '7', '@'}; // Classic symbols, because originality isn't always necessary.
+    return symbol[rand() % 3]; // Choose a symbol at random, like in life.
 }
 
-inline void symbolColorH(char slots[5])
-{
-    for (int i = 0; i < 5; i++)
-    {
-        switch (slots[i])
-        {
-        case '$':
-            setColor(34); // Blue—because money *should* be blue, right?
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '7':
-            setColor(33); // Yellow, like gold... or bananas.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        case '@':
-            setColor(35); // Magenta—because sometimes, you’ve got to be a bit extravagant.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
-        default:
-            setColor(36); // Cyan—because it’s a color that doesn’t get enough love.
-            cout << slots[i];
-            resetColor();
-            cout << "   | " << "  ";
-            break;
+inline void symbolColorH(char slots[5]) {
+    for (int i = 0; i < 5; i++) {
+        switch (slots[i]) {
+            case '$':
+                setColor(34); // Blue, because money should be blue, right?
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '7':
+                setColor(33); // Yellow, like gold... or a banana.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            case '@':
+                setColor(35); // Magenta, because sometimes you have to be a little extravagant.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
+            default:
+                setColor(36); // Cyan, because it's a color that isn't used much.
+                cout << slots[i];
+                resetColor();
+                cout << "   | " << "  ";
+                break;
         }
     }
 }
 
-inline void finalSlotsH(char slots[5])
-{
-    cout << "---------------------------------" << endl; // Separator line—because we need a bit of drama.
+inline void finalSlotsH(char slots[5]) {
+    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
     cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
     cout << "|                                               ." << endl;
     cout << "*                    RESULTS!                   ." << endl;
@@ -637,7 +562,7 @@ inline void finalSlotsH(char slots[5])
     cout << "*    ---------------------------------------    ." << endl;
     cout << ".   |       |       |       |       |       |   . " << endl;
     cout << ".   |   ";
-    symbolColorH(slots); // Show the symbols in color—because life is more fun in color.
+    symbolColorH(slots); // Show the symbols in color, because life is more fun with color.
     cout << "." << endl;
     cout << ".   |       |       |       |       |       |   | " << endl;
     cout << ".    ---------------------------------------    *" << endl;
@@ -646,223 +571,174 @@ inline void finalSlotsH(char slots[5])
     cout << endl;
 }
 
-inline bool jackpotH(char slots[5])
-{
-    return (slots[0] == slots[1] && slots[1] == slots[2] && slots[2] == slots[3] && slots[3] == slots[4]); // Jackpot! Or as I like to call it: beginner’s luck.
+inline bool jackpotH(char slots[5]) {
+    return (slots[0] == slots[1] && slots[1] == slots[2] && slots[2] == slots[3] && slots[3] == slots[4]); // Jackpot! Or as I like to call it, "beginner's luck".
 }
-inline void hardMode(Jugador &jugador)
-{
-    const int APUESTA = 300;   // Minimum bet—because I don’t want to go broke in the first round.
-    const int GANANCIA = 1500; // Prize—because dreaming is free.
+
+inline void hardMode(Player& player) {
+    const int BET = 300; // Minimum bet, because I don't want to ruin myself in the first round.
+    const int WIN = 1500; // Winnings, because dreaming is free.
     char symbols[5];
-    bool ganoJackpot = false;
+    bool wonJackpot = false;
     string anotherRound;
 
-    if (jugador.dinero < APUESTA)
-    {
-        cout << "You don’t have enough money to play in Hard Mode. You need $" << APUESTA << ".\n";
-        return; // Exit—because there’s nothing sadder than a player without money.
+    if (player.money < BET) {
+        cout << "You do not have enough money to play in Hard mode. You need $" << BET << ".\n";
+        return; // Exit, because nothing is sadder than a player without money.
     }
 
-    while (true)
-    {
-        ganoJackpot = false;       // Reset each new round—as if nothing happened.
-        jugador.partidasJugadas++; // Count the played round—because we have to keep track of our misfortunes.
+    while (true) {
+        wonJackpot = false; // Reset for each new round, as if nothing has happened.
+        player.gamesPlayed++; // Count the game played, because we need to keep track of our misfortunes.
 
-        cout << "\nYou’ve bet $" << APUESTA << " for this round in Hard Mode.\n";
+        cout << "\nYou have bet $" << BET << " for this round in Hard mode.\n";
 
-        int oportunidades = 15; // Fifteen chances—because life is short and we’ve got to make the most of it.
-        for (int i = oportunidades; i > 0; i--)
-        {
-            while (true)
-            {
+        int opportunities = 15; // Fifteen opportunities, because life is short and we must take advantage.
+        for (int i = opportunities; i > 0; i--) {
+            while (true) {
                 string nextSpin;
                 cout << endl;
-                cout << "You have " << i << " chances left!" << endl;
+                cout << "You have " << i << " opportunities left!" << endl;
                 cout << "(P) to continue..." << endl;
                 getline(cin, nextSpin);
-                if (nextSpin == "P" || nextSpin == "p")
-                {
-                    break; // Time to spin those reels!
-                }
-                else
-                {
+                if (nextSpin == "P" || nextSpin == "p") {
+                    break; // Let's spin those reels!
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (P), try again." << endl; // Error message—because we all need guidance.
+                    cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
 
-            while (true)
-            {
+            while (true) {
                 string pull;
-                emptySlotsH(); // This function already clears the console—because life is a cycle.
+                emptySlotsH(); // This function already clears the console, because life is a cycle.
                 getline(cin, pull);
 
-                if (pull == "!")
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        symbols[j] = randomSymbolH(); // Generate random symbols—because life is a box of surprises.
+                if (pull == "!") {
+                    for (int j = 0; j < 5; j++) {
+                        symbols[j] = randomSymbolH(); // Generate random symbols, because life is a box of surprises.
                     }
-                    finalSlotsH(symbols); // This function shows the final reel—because surprises are best without clutter.
+                    finalSlotsH(symbols); // This function already clears the console, because the surprise is better without clutter.
 
-                    if (jackpotH(symbols))
-                    {
+                    if (jackpotH(symbols)) {
                         setColor(32);
-                        cout << "                   * JACKPOT!! *   " << endl; // Congrats! You hit the big one.
+                        cout << "                   * JACKPOT!! *   " << endl; // Congratulations! You hit the jackpot.
                         resetColor();
                         cout << endl;
-                        cout << " Congratulations! You’ve won: $" << GANANCIA << endl; // Money, money, money!
+                        cout << " Congratulations! You won: $" << WIN << endl; // Money, money, money!
                         cout << endl;
-                        jugador.dinero += GANANCIA;                                                      // Add the prize—because that’s what we’re here for.
-                        jugador.partidasGanadas++;                                                       // Count the win—because every victory matters.
-                        registrarJuego("Slot Machine (Hard)", jugador.nombre, GANANCIA, jugador.dinero); // Save the record—because history must be written.
-                        ganoJackpot = true;                                                              // Mark the win—because there’s nothing like a good jackpot.
-                        i = 0;                                                                           // End the chances—because the excitement is enough for one day.
+                        player.money += WIN; // Add the winnings, because that's what we want.
+                        player.gamesWon++; // Count the victory, because we need to celebrate.
+                        registerGame("Slot Machine (Hard)", player.name, WIN, player.money); // Save the record, because history must be told.
+                        wonJackpot = true; // Mark that we won, because there's nothing like a good jackpot.
+                        i = 0; // End the opportunities, because we already won.
                         break;
-                    }
-                    else
-                    {
+                    } else {
                         setColor(36);
-                        cout << "                   KEEP TRYING " << endl; // Don’t give up! Luck can change.
+                        cout << "                   KEEP TRYING " << endl; // Don't give up! Luck can change.
                         resetColor();
-                        losePhrases(); // Motivational phrases—because we all need a little push.
+                        losePhrases(); // Motivational phrases, because we all need a push.
                         break;
                     }
-                }
-                else
-                {
+                } else {
                     cout << endl;
                     setColor(31);
-                    cout << "Please enter a valid option (!), try again." << endl; // Error message—because we all need help sometimes.
+                    cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
-            if (ganoJackpot)
-                break; // If player won, break the chance loop—because that’s enough thrill for today.
+            if (wonJackpot) break; // If they already won, exit the opportunities loop, because that's enough excitement for today.
         }
 
-        if (!ganoJackpot)
-        {
+        if (!wonJackpot) {
             cout << endl;
-            cout << "   Better luck next time." << endl; // Next time will be better!
-            cout << "-$" << APUESTA << endl;             // Subtract the bet—because life isn’t always fair.
+            cout << "   You'll have better luck next time." << endl; // Next time will be better!
+            cout << "-$" << BET << endl; // Subtract the bet if they didn't win, because we need to learn to lose.
             cout << endl;
-            jugador.dinero -= APUESTA;                                                       // Subtract the bet if the player didn’t win—because we have to learn to lose.
-            jugador.partidasPerdidas++;                                                      // Count the loss—because we have to be realistic.
-            registrarJuego("Slot Machine (Hard)", jugador.nombre, -APUESTA, jugador.dinero); // Save the game record—because the story must be told.
+            player.money -= BET; // Subtract the bet if they didn't win, because we need to learn to lose.
+            player.gamesLost++; // Count the loss, because we need to be realistic.
+            registerGame("Slot Machine (Hard)", player.name, -BET, player.money); // Save the record, because history must be told.
         }
 
-        guardarSaldo(jugador.nombre, jugador.dinero); // Save the balance—because we don’t want to lose it all.
-        jugador.actualizarEstadisticas();             // Update stats—because someone’s got to keep track.
+        saveBalance(player.name, player.money); // Save the balance, because we don't want to lose it all.
+        player.updateStatistics(); // Update statistics, because we need to keep track.
 
-        if (jugador.dinero < APUESTA)
-        {
-            cout << "You don’t have enough money for another round in Hard Mode. You need $" << APUESTA << ".\n"; // Goodbye message—because sometimes you need to know when to stop.
-            break;                                                                                                // Exit if there’s not enough for another bet—because stubbornness won’t help.
+        if (player.money < BET) {
+            cout << "You do not have enough money for another round in Hard mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
-        while (true)
-        {
+        while (true) {
             cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (Y).        NO (N)" << endl;
+            cout << "     YES (S).        NO(N)" << endl;
             getline(cin, anotherRound);
 
-            if (anotherRound == "S" || anotherRound == "s")
-            {
+            if (anotherRound == "S" || anotherRound == "s") {
                 cout << endl;
                 setColor(32);
-                cout << "GOOD LUCK!!" << endl; // May the odds be ever in your favor!
+                cout << "GOOD LUCK!!" << endl; // May luck be with you!
                 resetColor();
                 break;
-            }
-            else if (anotherRound == "N" || anotherRound == "n")
-            {
+            } else if (anotherRound == "N" || anotherRound == "n") {
                 cout << endl;
-                cout << "Returning to the menu..." << endl; // See you next time!
+                cout << "Returning to the menu..." << endl; // Until next time!
                 break;
-            }
-            else
-            {
+            } else {
                 cout << endl;
                 setColor(31);
-                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message—because we all need a little help sometimes.
+                cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message, because we all need one.
                 resetColor();
             }
         }
 
-        if (anotherRound == "N" || anotherRound == "n")
-        {
-            break; // Exit the loop if the player doesn’t want to continue—because you have to respect their decision.
+        if (anotherRound == "N" || anotherRound == "n") {
+            break; // Exit the loop if the player doesn't want to continue, because we must respect decisions.
         }
     }
 }
 
-// --- Main Slot Machine Game Function ---
+// --- Main Function for the Slot Machine Game ---
 
-inline void playSlotMachine(Jugador &jugador)
-{
-    if (jugador.dinero <= 0)
-    {
-
-        cout << "You don’t have enough balance. Please deposit to play.\n"; // Message: "No money, no game".
-        return;                                                             // Exit, because nothing is sadder than a player with no money.
+inline void playSlotMachine(Player& player) {
+    if (player.money <= 0) {
+        cout << "You do not have enough balance. Deposit to play.\n"; // Message of "no money, no game".
+        return; // Exit, because nothing is sadder than a player without money.
     }
 
-    while (true)
-    {
+    while (true) {
         showSlot(); // This function already clears the console, because freshness is key.
         string option;
-        getline(cin, option); // User inputs option
+        getline(cin, option); // User enters option
 
-        // Check the input option
-        if (option == "M" || option == "m")
-        {
-
-            cout << "Returning to the main menu..." << endl; // Farewell message.
+        // Verification of entered option
+        if (option == "M" || option == "m") {
+            cout << "Returning to the main menu..." << endl; // Message of "see you later".
             break;
-        }
-        else if (option == "P" || option == "p")
-        {
-            while (true)
-            {
-                showSlotmenu(); // This function already clears the console, because freshness is key.
+        } else if (option == "P" || option == "p") {
+            while (true) {
+                showSlotMenu(); // This function already clears the console, because freshness is key.
                 string difficultyOption;
-                getline(cin, difficultyOption); // User inputs their choice
+                getline(cin, difficultyOption); // User enters their option
 
-                if (difficultyOption == "B" || difficultyOption == "b")
-                {
-
+                if (difficultyOption == "B" || difficultyOption == "b") {
                     break;
-                }
-                else if (difficultyOption == "E" || difficultyOption == "e")
-                {
-                    easyMode(jugador); // Mode functions already handle clearing, because freshness is key.
-                }
-                else if (difficultyOption == "M" || difficultyOption == "m")
-                {
-                    mediumMode(jugador); // Mode functions already handle clearing, because freshness is key.
-                }
-                else if (difficultyOption == "H" || difficultyOption == "h")
-                {
-                    hardMode(jugador); // Mode functions already handle clearing, because freshness is key.
-                }
-                else
-                {
-
+                } else if (difficultyOption == "E" || difficultyOption == "e") {
+                    easyMode(player); // Mode functions already handle their cleanup, because freshness is key.
+                } else if (difficultyOption == "M" || difficultyOption == "m") {
+                    mediumMode(player); // Mode functions already handle their cleanup, because freshness is key.
+                } else if (difficultyOption == "H" || difficultyOption == "h") {
+                    hardMode(player); // Mode functions already handle their cleanup, because freshness is key.
+                } else {
                     setColor(31);
-                    cout << "Please enter a valid option (E), (M), (H) or (B), try again." << endl; // Error message, because we all need one sometimes.
+                    cout << "Please enter a valid option (E), (M), (H) or (B), try again." << endl; // Error message, because we all need one.
                     resetColor();
                 }
             }
-        }
-        else
-        {
-
+        } else {
             setColor(31);
-            cout << "Please enter a valid option (M) or (P), try again." << endl; // Error message, because we all need one sometimes.
+            cout << "Please enter a valid option (M) or (P), try again." << endl; // Error message, because we all need one.
             resetColor();
         }
     }

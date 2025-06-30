@@ -1,653 +1,651 @@
 #ifndef USER_MANAGER_H
 #define USER_MANAGER_H
 
-#include <string>   // Uso esta librería para manejar texto con strings, así trabajo fácil con nombres, contraseñas y demás.
-#include <fstream>  // La uso para abrir y guardar archivos donde guardo los datos de los usuarios.
-#include <iostream> // Me permite mostrar mensajes y pedir datos por consola para interactuar con el usuario.
-#include <cstdlib>  // La necesito para crear números aleatorios, por ejemplo para generar códigos de recuperación.
-#include <ctime>    // La uso para saber la fecha y hora actual, para calcular si el usuario es mayor de edad.
-#include <limits>   // Esta librería me sirve para controlar límites al recibir datos, aunque aquí no la uso directamente.
-#include "utils.h"  // Aquí tengo funciones propias para limpiar y validar texto, así el código queda más ordenado.
+#include <string>   // I use this library to handle text with strings, making it easy to work with names, passwords, and more.
+#include <fstream>  // I use it to open and save files where I store user data.
+#include <iostream> // It allows me to display messages and request data from the console to interact with the user.
+#include <cstdlib>  // I need it to create random numbers, for example, to generate recovery codes.
+#include <ctime>    // I use it to know the current date and time, to calculate if the user is of legal age.
+#include <limits>   // This library helps me control limits when receiving data, although I don't use it directly here.
+#include "utils.h"  // Here I have my own functions to clear and validate text, keeping the code more organized.
 
-// Uso el espacio de nombres std para no escribir std:: cada vez que uso funciones o clases estándar
+// I use the std namespace to avoid writing std:: every time I use standard functions or classes
 using namespace std;
 
-// Función que verifica si un usuario ya existe en el archivo usuarios.txt
-inline bool existeUsuario(const string& nombre) {
-    // Abro el archivo en modo lectura
-    ifstream archivo("./documentos/usuarios.txt");
+// Function that checks if a user already exists in the usuarios.txt file
+inline bool userExists(const string& name) {
+    // Open the file in read mode
+    ifstream file("./documents/users.txt");
 
-    // Si el archivo no se pudo abrir, retorno falso porque no puedo encontrar usuarios
-    if (!archivo.is_open()) return false;
+    // If the file could not be opened, return false because I can't find users
+    if (!file.is_open()) return false;
 
-    // Declaro una variable para leer cada línea del archivo
-    string linea;
+    // Declare a variable to read each line of the file
+    string line;
 
-    // Normalizo el nombre de usuario que recibí para comparar sin errores de mayúsculas o espacios
-    string nombreNormalizado = normalize(nombre);
+    // Normalize the username received to compare without case or space errors
+    string normalizedName = normalize(name);
 
-    // Empiezo a leer línea por línea el archivo hasta que se termine
-    while (getline(archivo, linea)) {
-        // Cuando encuentro una línea que indica que empieza un bloque de usuario
-        if (linea == "====== Usuario ======") {
-            // Leo la siguiente línea, que debe contener el nombre del usuario
-            getline(archivo, linea);
+    // Start reading the file line by line until the end
+    while (getline(file, line)) {
+        // When I find a line that indicates the start of a user block
+        if (line == "====== User ======") {
+            // Read the next line, which should contain the username
+            getline(file, line);
 
-            // Quito el prefijo "Nombre: " que tiene 8 caracteres y guardo solo el nombre
-            string nombreArchivo = linea.substr(8);
+            // Remove the prefix "Name: " which has 6 characters and keep only the name
+            string fileName = line.substr(6);
 
-            // Normalizo el nombre que leí del archivo para compararlo correctamente
-            string nombreArchivoNorm = normalize(nombreArchivo);
+            // Normalize the name I read from the file to compare it correctly
+            string normalizedFileName = normalize(fileName);
 
-            // Si el nombre normalizado del archivo es igual al nombre que busco, retorno true (usuario existe)
-            if (nombreArchivoNorm == nombreNormalizado) return true;
+            // If the normalized name from the file is equal to the name I'm looking for, return true (user exists)
+            if (normalizedFileName == normalizedName) return true;
 
-            // Si no es el usuario que busco, salto las siguientes dos líneas que son contraseña y código
-            getline(archivo, linea);
-            getline(archivo, linea);
+            // If it's not the user I'm looking for, skip the next two lines which are password and code
+            getline(file, line);
+            getline(file, line);
         }
     }
 
-    // Si terminé de leer todo el archivo y no encontré el usuario, retorno false
+    // If I finished reading the entire file and didn't find the user, return false
     return false;
 }
 
-inline void eliminarUsuario() {
-    // Primero limpio la pantalla para que el usuario vea solo lo necesario
+inline void deleteUser () {
+    // First, clear the screen so the user sees only what's necessary
     clearConsole();
 
-    cout << "=== ELIMINAR USUARIO ===\n\n";
+    cout << "=== DELETE USER ===\n\n";
 
-    // Pido el nombre del usuario que se desea eliminar
-    cout << "Ingrese nombre de usuario a eliminar: ";
-    string nombre;
-    getline(cin, nombre);
+    // Ask for the username to delete
+    cout << "Enter the username to delete: ";
+    string name;
+    getline(cin, name);
 
-    // Pido el código de recuperación para validar identidad
-    cout << "Ingrese código de recuperación: ";
-    string codigo;
-    getline(cin, codigo);
+    // Ask for the recovery code to validate identity
+    cout << "Enter recovery code: ";
+    string code;
+    getline(cin, code);
 
-    // Normalizo los datos para evitar problemas con mayúsculas o espacios
-    string nombreInput = normalize(nombre);
-    string codigoInput = normalize(codigo);
+    // Normalize the data to avoid problems with uppercase or spaces
+    string inputName = normalize(name);
+    string inputCode = normalize(code);
 
-    // Inicializo bandera para saber si se eliminó un usuario
-    bool eliminado = false;
+    // Initialize a flag to know if a user was deleted
+    bool deleted = false;
 
-    // Abro el archivo original para lectura
-    ifstream archivo("./documentos/usuarios.txt");
-    // Creo un archivo temporal para guardar los usuarios que NO se eliminarán
-    ofstream temp("./documentos/temp.txt");
+    // Open the original file for reading
+    ifstream file("./documents/users.txt");
+    // Create a temporary file to save the users that will NOT be deleted
+    ofstream temp("./documents/temp.txt");
 
-    // Verifico que ambos archivos se abran correctamente
-    if (!archivo.is_open() || !temp.is_open()) {
-        cout << "Error: No se pudo acceder a los archivos necesarios.\n";
+    // Check that both files open correctly
+    if (!file.is_open() || !temp.is_open()) {
+        cout << "Error: Could not access the necessary files.\n";
         return;
     }
 
-    string linea;
-    // Leo el archivo línea por línea
-    while (getline(archivo, linea)) {
-        // Cuando encuentro el inicio de un bloque de usuario
-        if (linea == "====== Usuario ======") {
-            // Guardo el bloque completo para decidir si lo copio o ignoro
-            string bloqueCompleto = linea + "\n";
+    string line;
+    // Read the file line by line
+    while (getline(file, line)) {
+        // When I find the start of a user block
+        if (line == "====== User ======") {
+            // Save the complete block to decide whether to copy it or ignore it
+            string completeBlock = line + "\n";
 
-            // Leo el nombre y lo agrego al bloque
-            getline(archivo, linea);
-            bloqueCompleto += linea + "\n";
-            string nombreArchivo = trim(linea.substr(8));  // Quito "Nombre: "
+            // Read the name and add it to the block
+            getline(file, line);
+            completeBlock += line + "\n";
+            string fileName = trim(line.substr(6));  // Remove "Name: "
 
-            // Leo la contraseña y la agrego al bloque
-            getline(archivo, linea);
-            bloqueCompleto += linea + "\n";
-            string passArchivo = trim(linea.substr(13));  // Quito "Contraseña: "
+            // Read the password and add it to the block
+            getline(file, line);
+            completeBlock += line + "\n";
+            string passwordFile = trim(line.substr(10));  // Remove "Password: "
 
-            // Leo el código de recuperación y lo agrego al bloque
-            getline(archivo, linea);
-            bloqueCompleto += linea + "\n";
-            string codigoArchivo = trim(linea.substr(8));  // Quito "Código: "
+            // Read the recovery code and add it to the block
+            getline(file, line);
+            completeBlock += line + "\n";
+            string codeFile = trim(line.substr(6));  // Remove "Code: "
 
-            // Leo la línea vacía que cierra el bloque
-            getline(archivo, linea);
-            bloqueCompleto += linea + "\n\n";
+            // Read the empty line that closes the block
+            while (getline(file, line)) {
+                completeBlock += line + "\n";
+                if (line == "=================") break;
+            }
 
-            // Verifico si este bloque corresponde al usuario que quiero eliminar
-            if (!eliminado && normalize(nombreArchivo) == nombreInput && normalize(codigoArchivo) == codigoInput) {
-                // Marco que eliminé un usuario para evitar eliminar más por error
-                eliminado = true;
-                cout << "\n¡Usuario eliminado correctamente!\n";
-                // No copio este bloque al archivo temporal (lo elimino)
+            // Check if this block corresponds to the user I want to delete
+            if (!deleted && normalize(fileName) == inputName && normalize(codeFile) == inputCode) {
+                // Mark that I deleted a user to avoid deleting more by mistake
+                deleted = true;
+                cout << "\nUser  deleted successfully!\n";
+                // Do not copy this block to the temporary file (delete it)
             } else {
-                // Si no es el usuario a eliminar, copio el bloque completo al temporal
-                temp << bloqueCompleto;
+                // If it's not the user to delete, copy the complete block to the temporary file
+                temp << completeBlock;
             }
         } else {
-            // Si la línea no es parte de un bloque, la copio tal cual
-            temp << linea << '\n';
+            // If the line is not part of a block, copy it as is
+            temp << line << '\n';
         }
     }
 
-    // Cierro ambos archivos antes de reemplazar
-    archivo.close();
+    // Close both files before replacing
+    file.close();
     temp.close();
 
-    // Reemplazo el archivo original por el temporal (actualizado)
-    remove("./documentos/usuarios.txt");
-    rename("./documentos/temp.txt", "./documentos/usuarios.txt");
+    // Replace the original file with the temporary one (updated)
+    remove("./documents/users.txt");
+    rename("./documents/temp.txt", "./documents/users.txt");
 
-    // Si no eliminé ningún usuario, informo al usuario
-    if (!eliminado) {
-        cout << "\nNo se encontró un usuario con ese nombre y código. No se eliminó nada.\n";
+    // If I didn't delete any user, inform the user
+    if (!deleted) {
+        cout << "\nNo user was found with that name and code. Nothing was deleted.\n";
     }
 
-    cout << "\nPresiona Enter para continuar...";
-    cin.get(); // Pauso para que vea el mensaje
+    cout << "\nPress Enter to continue...";
+    cin.get(); // Pause for them to see the message
 }
 
+// Function that saves all the information of a new user in the usuarios.txt file
+inline void saveUser (const string& name, const string& password, const string& code, const string& birthDate, const string& gender, const string& dui) {
 
-// Función que guarda toda la información de un usuario nuevo en el archivo usuarios.txt
-inline void guardarUsuario(const string& nombre, const string& password, const string& codigo, const string& fechaNacimiento, const string& genero, const string& dui) {
+    // Open the file in append mode to not erase previous data
+    ofstream file("./documents/users.txt", ios::app);
 
-    // Abro el archivo en modo agregar para no borrar datos anteriores
-    ofstream archivo("./documentos/usuarios.txt", ios::app);
+    // Check that the file opened correctly
+    if (file.is_open()) {
 
-    // Verifico que el archivo se haya abierto correctamente
-    if (archivo.is_open()) {
+        // Write the header to identify a user block
+        file << "====== User ======\n";
 
-        // Escribo el encabezado para identificar un bloque de usuario
-        archivo << "====== Usuario ======\n";
+        // Save the received name
+        file << "Name: " << name << "\n";
 
-        // Guardo el nombre recibido
-        archivo << "Nombre: " << nombre << "\n";
+        // Save the received password
+        file << "Password: " << password << "\n";
 
-        // Guardo la contraseña recibida
-        archivo << "Contraseña: " << password << "\n";
+        // Save the generated recovery code
+        file << "Code: " << code << "\n";
 
-        // Guardo el código de recuperación generado
-        archivo << "Código: " << codigo << "\n";
+        // Save the birth date I received
+        file << "Birthdate: " << birthDate << "\n";
 
-        // Guardo la fecha de nacimiento que recibí
-        archivo << "Nacimiento: " << fechaNacimiento << "\n";
+        // Save the received gender (M/F/O)
+        file << "Gender: " << gender << "\n";
 
-        // Guardo el género recibido (M/F/O)
-        archivo << "Género: " << genero << "\n";
+        // Save the received DUI in valid format
+        file << "DUI: " << dui << "\n";
 
-        // Guardo el DUI recibido con formato válido
-        archivo << "DUI: " << dui << "\n";
-
-        // Escribo una línea para cerrar el bloque del usuario y dejar espacio
-        archivo << "=================\n\n";
+        // Write a line to close the user block and leave space
+        file << "=================\n\n";
     }
 }
 
-// Función que verifica si alguien es mayor de edad en base a la fecha de nacimiento dada (en formato DD/MM/AAAA)
-// Ahora con validación completa de rangos y meses
-inline bool esMayorDeEdad(const string& fechaNacimiento) {
+// Function that checks if someone is of legal age based on the given birth date (in DD/MM/YYYY format)
+// Now with complete validation of ranges and months
+inline bool isOfLegalAge(const string& birthDate) {
 
-    // Declaro variables para extraer día, mes y año
-    int dia, mes, anio;
+    // Declare variables to extract day, month, and year
+    int day, month, year;
 
-    // Intento extraer los números usando sscanf en formato DD/MM/AAAA
-    // Si no puedo extraer 3 números, retorno falso porque la fecha está mal escrita
-    if (sscanf(fechaNacimiento.c_str(), "%d/%d/%d", &dia, &mes, &anio) != 3)
+    // Try to extract the numbers using sscanf in the format DD/MM/YYYY
+    // If I can't extract 3 numbers, I return false because the date is incorrectly written
+    if (sscanf(birthDate.c_str(), "%d/%d/%d", &day, &month, &year) != 3)
         return false;
 
-    // Valido que el año esté en un rango razonable (por ejemplo entre 1900 y 2100)
-    // Si el año está fuera, retorno falso porque no es válido
-    if (anio < 1900 || anio > 2100)
+    // Validate that the year is in a reasonable range (for example, between 1900 and 2100)
+    // If the year is out of range, return false because it's not valid
+    if (year < 1900 || year > 2100)
         return false;
 
-    // Valido que el mes esté entre 1 y 12
-    if (mes < 1 || mes > 12)
+    // Validate that the month is between 1 and 12
+    if (month < 1 || month > 12)
         return false;
 
-    // Valido que el día esté entre 1 y 31
-    if (dia < 1 || dia > 31)
+    // Validate that the day is between 1 and 31
+    if (day < 1 || day > 31)
         return false;
 
-    // Ahora valido que el día sea válido según el mes específico
-    // Por ejemplo, abril, junio, septiembre y noviembre tienen máximo 30 días
-    bool diaValido = true; // variable para saber si el día es correcto
+    // Now validate that the day is valid according to the specific month
+    // For example, April, June, September, and November have a maximum of 30 days
+    bool validDay = true; // variable to know if the day is correct
 
-    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
-        // Si el día es mayor a 30 en estos meses, es inválido
-        if (dia > 30)
-            diaValido = false;
+    if (month == 4 || month == 6 || month == 9 || month == 11) {
+        // If the day is greater than 30 in these months, it's invalid
+        if (day > 30)
+            validDay = false;
     }
-    else if (mes == 2) {
-        // Para febrero debo considerar años bisiestos
-        // Año bisiesto: divisible entre 400 o divisible entre 4 pero no entre 100
-        bool esBisiesto = (anio % 400 == 0) || (anio % 4 == 0 && anio % 100 != 0);
+    else if (month == 2) {
+        // For February I must consider leap years
+        // Leap year: divisible by 400 or divisible by 4 but not by 100
+        bool isLeapYear = (year % 400 == 0) || (year % 4 == 0 && year % 100 != 0);
 
-        // Días que puede tener febrero dependiendo si es bisiesto o no
-        int diasFeb = esBisiesto ? 29 : 28;
+        // Days that February can have depending on whether it's a leap year or not
+        int febDays = isLeapYear ? 29 : 28;
 
-        // Si el día es mayor que los días permitidos en febrero, es inválido
-        if (dia > diasFeb)
-            diaValido = false;
+        // If the day is greater than the allowed days in February, it's invalid
+        if (day > febDays)
+            validDay = false;
     }
 
-    // Si día no es válido, retorno falso
-    if (!diaValido)
+    // If the day is not valid, return false
+    if (!validDay)
         return false;
 
-    // Si llegué hasta aquí, la fecha tiene formato y rango válido
-    // Ahora calculo la edad para verificar si es mayor de edad
+    // If I got here, the date has a valid format and range
+    // Now I calculate the age to verify if they are of legal age
 
-    // Obtengo la fecha actual con time y localtime
+    // Get the current date with time and localtime
     time_t t = time(nullptr);
-    tm* ahora = localtime(&t);
+    tm* now = localtime(&t);
 
-    // Extraigo año, mes y día actuales
-    int anioActual = ahora->tm_year + 1900; // tm_year cuenta desde 1900
-    int mesActual = ahora->tm_mon + 1;      // tm_mon va de 0 a 11
-    int diaActual = ahora->tm_mday;
+    // Extract current year, month, and day
+    int currentYear = now->tm_year + 1900; // tm_year counts from 1900
+    int currentMonth = now->tm_mon + 1;      // tm_mon goes from 0 to 11
+    int currentDay = now->tm_mday;
 
-    // Calculo la edad como diferencia entre años
-    int edad = anioActual - anio;
+    // Calculate the age as the difference between years
+    int age = currentYear - year;
 
-    // Ajusto edad si aún no cumplió años este año
-    if (mesActual < mes || (mesActual == mes && diaActual < dia))
-        edad--;
+    // Adjust age if they haven't had their birthday this year
+    if (currentMonth < month || (currentMonth == month && currentDay < day))
+        age--;
 
-    // Retorno true si tiene 18 años o más, sino false
-    return edad >= 18;
+    // Return true if they are 18 years or older, otherwise false
+    return age >= 18;
 }
 
+// Function that checks if a DUI is already registered in the file
+inline bool duiRepeated(const string& dui) {
+    ifstream file("./documents/users.txt");
+    string line;
 
-// Función que verifica si un DUI ya está registrado en el archivo
-inline bool duiRepetido(const string& dui) {
-    ifstream archivo("./documentos/usuarios.txt");
-    string linea;
+    if (!file.is_open()) return false;
 
-    if (!archivo.is_open()) return false;
-
-    while (getline(archivo, linea)) {
-        // Busco la línea que contiene el DUI
-        if (linea.rfind("DUI: ", 0) == 0) {  // Si comienza con "DUI: "
-            string duiArchivo = trim(linea.substr(5)); // Extraigo el valor del DUI
-            if (duiArchivo == dui) {
-                archivo.close();
-                return true; // El DUI ya existe
+    while (getline(file, line)) {
+        // Look for the line that contains the DUI
+        if (line.rfind("DUI: ", 0) == 0) {  // If it starts with "DUI: "
+            string duiFile = trim(line.substr(5)); // Extract the DUI value
+            if (duiFile == dui) {
+                file.close();
+                return true; // The DUI already exists
             }
         }
     }
 
-    archivo.close();
-    return false; // El DUI no se encontró
+    file.close();
+    return false; // The DUI was not found
 }
 
-// Función que valida formato correcto y que no se repita el DUI
-inline bool duiValido(const string& dui) {
-    // Verifico formato: longitud 10 y guion en la posición 8
+// Function that validates correct format and that the DUI is not repeated
+inline bool validDUI(const string& dui) {
+    // Check format: length 10 and hyphen at position 8
     if (dui.length() != 10 || dui[8] != '-') return false;
 
-    // Verifico que los primeros 8 y el último carácter sean dígitos
+    // Check that the first 8 and the last character are digits
     for (int i = 0; i < 8; ++i)
         if (!isdigit(dui[i])) return false;
     if (!isdigit(dui[9])) return false;
 
-    // Verifico que no esté repetido en el archivo
-    if (duiRepetido(dui)) {
-        cout << "Ese DUI ya ha sido registrado.\n";
+    // Check that it is not repeated in the file
+    if (duiRepeated(dui)) {
+        cout << "That DUI has already been registered.\n";
         return false;
     }
 
-    return true; // Todo está bien
+    return true; // Everything is fine
 }
 
+// Function that generates a random numeric code of given length (default 6 digits)
+inline string generateRecoveryCode(int length = 6) {
+    // Initialize an empty string for the code
+    string code;
 
+    // Loop from 0 to length-1
+    for (int i = 0; i < length; ++i)
+        // Add a random digit (0 to 9) to the code in string format
+        code += to_string(rand() % 10);
 
-// Función que genera un código numérico aleatorio de longitud dada (por defecto 6 dígitos)
-inline string generarCodigoRecuperacion(int longitud = 6) {
-    // Inicializo un string vacío para el código
-    string codigo;
-
-    // Recorro desde 0 hasta longitud-1
-    for (int i = 0; i < longitud; ++i)
-        // Agrego un dígito aleatorio (0 a 9) al código en formato string
-        codigo += to_string(rand() % 10);
-
-    // Retorno el código generado
-    return codigo;
+    // Return the generated code
+    return code;
 }
 
-// Función que registra un usuario pidiendo todos los datos necesarios y validándolos uno a uno
-inline bool registrarUsuario() {
+// Function that registers a user by asking for all necessary data and validating them one by one
+inline bool registerUser () {
 
-    // Declaro variables para guardar temporalmente los datos que el usuario ingrese
-    string nombre, password, fechaNacimiento, genero, dui;
-    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el registro
-    // Muestro mensaje inicial para indicar registro nuevo
-    cout << "\n=== Registro de nuevo usuario ===\n";
+    // Declare variables to temporarily store the data the user enters
+    string name, password, birthDate, gender, dui;
+    clearConsole(); // I use the function I already have to clear the screen before showing the registration
+    // Show initial message for new registration
+    cout << "\n=== New User Registration ===\n";
 
-    // Pido y valido nombre: que sea válido y que no exista ya en archivo
+    // Ask and validate name: it must be valid and not already exist in the file
     do {
-        cout << "Nombre de usuario: ";
-        getline(cin, nombre);
+        cout << "Username: ";
+        getline(cin, name);
 
-        // Verifico que el nombre solo tenga letras y espacios, sino aviso y repito
-        if (!nombreValido(nombre)) {
-            cout << "Nombre inválido. Solo letras y espacios.\n";
-            nombre.clear(); 
+        // Check that the name only has letters and spaces, otherwise notify and repeat
+        if (!isNameValid(name)) {
+            cout << "Invalid name. Only letters and spaces are allowed.\n";
+            name.clear(); 
             continue;
         }
 
-        // Verifico que el nombre no esté ya registrado (normalizo antes)
-        if (existeUsuario(normalize(nombre))) {
-            cout << "Ese nombre ya está registrado. Intenta otro.\n";
-            nombre.clear(); // Limpio para repetir el ciclo
+        // Check that the name is not already registered (normalize first)
+        if (userExists(normalize(name))) {
+            cout << "That name is already registered. Try another.\n";
+            name.clear(); // Clear to repeat the cycle
             continue;
         }
-    } while (nombre.empty()); // Repetir hasta que el nombre sea válido y no esté vacío
+    } while (name.empty()); // Repeat until the name is valid and not empty
 
-    // Pido y valido fecha de nacimiento, además verifico que sea mayor de 18
+    // Ask and validate birth date, also check that they are over 18
     do {
-        cout << "Fecha de nacimiento (DD/MM/AAAA): ";
-        getline(cin, fechaNacimiento);
+        cout << "Birth date (DD/MM/YYYY): ";
+        getline(cin, birthDate);
 
-        // Si no es mayor de edad, muestro mensaje y limpio la variable para repetir
-        if (!esMayorDeEdad(fechaNacimiento)) {
-            cout << "Debes ser mayor de 18 años para registrarte.\n";
-            fechaNacimiento.clear();
+        // If they are not of legal age, show a message and clear the variable to repeat
+        if (!isOfLegalAge(birthDate)) {
+            cout << "You must be over 18 years old to register.\n";
+            birthDate.clear();
         }
-    } while (fechaNacimiento.empty()); // Repetir hasta que se ingrese una fecha válida
+    } while (birthDate.empty()); // Repeat until a valid date is entered
 
-  // Pido y valido DUI, que tenga formato correcto y que no esté repetido
+    // Ask and validate DUI, it must have the correct format and not be repeated
     do {
-    cout << "DUI (formato 12345678-9): ";
-    getline(cin, dui);
+        cout << "DUI (format 12345678-9): ";
+        getline(cin, dui);
 
-    // Si el DUI no es válido o está repetido, aviso y limpio para repetir
-    if (!duiValido(dui)) {
-        cout << "DUI inválido o ya registrado. Intenta nuevamente.\n";
-        dui.clear(); // Esto asegura que el ciclo se repita
-    }
-    } while (dui.empty()); // Repetir hasta ingresar DUI válido
-
-    // Pido y valido género, solo acepto M, F u O (mayúscula o minúscula)
-    do {
-        cout << "Género (M/F/O): ";
-        getline(cin, genero);
-
-        if (genero != "M" && genero != "F" && genero != "O" &&
-            genero != "m" && genero != "f" && genero != "o") {
-            cout << "Género inválido. Usa M, F u O.\n";
-            genero.clear();
+        // If the DUI is not valid or is repeated, notify and clear to repeat
+        if (!validDUI(dui)) {
+            cout << "Invalid DUI or already registered. Try again.\n";
+            dui.clear(); // This ensures the cycle repeats
         }
-    } while (genero.empty()); // Repetir hasta ingresar género válido
+    } while (dui.empty()); // Repeat until a valid DUI is entered
 
-    // Pido y valido contraseña, mínimo 8 caracteres
+    // Ask and validate gender, only accept M, F, or O (uppercase or lowercase)
     do {
-        cout << "Crea una contraseña (mínimo 8 caracteres): ";
+        cout << "Gender (M/F/O): ";
+        getline(cin, gender);
+
+        if (gender != "M" && gender != "F" && gender != "O" &&
+            gender != "m" && gender != "f" && gender != "o") {
+            cout << "Invalid gender. Use M, F, or O.\n";
+            gender.clear();
+        }
+    } while (gender.empty()); // Repeat until a valid gender is entered
+
+    // Ask and validate password, minimum 8 characters
+    do {
+        cout << "Create a password (minimum 8 characters): ";
         getline(cin, password);
 
         if (password.length() < 8) {
-            cout << "La contraseña debe tener al menos 8 caracteres.\n";
+            cout << "The password must be at least 8 characters long.\n";
             password.clear();
         }
-    } while (password.empty()); // Repetir hasta ingresar contraseña válida
+    } while (password.empty()); // Repeat until a valid password is entered
 
-    // Genero un código aleatorio para recuperación de contraseña
-    string codigo = generarCodigoRecuperacion();
+    // Generate a random code for password recovery
+    string code = generateRecoveryCode();
 
-    // Guardo el usuario en el archivo con todos sus datos
-    guardarUsuario(nombre, password, codigo, fechaNacimiento, genero, dui);
+    // Save the user in the file with all their data
+    saveUser (name, password, code, birthDate, gender, dui);
 
-    // Confirmo que el registro fue exitoso y muestro el código para que lo guarde el usuario
-    cout << "¡Registro exitoso!\n";
-    cout << "Tu código de recuperación es: " << codigo << "\nGuárdalo bien.\n";
+    // Confirm that the registration was successful and show the code for the user to keep
+    cout << "Registration successful!\n";
+    cout << "Your recovery code is: " << code << "\nKeep it safe.\n";
 
-    // Retorno true porque el registro fue exitoso
+    // Return true because the registration was successful
     return true;
 }
 
-// Función que inicia sesión pidiendo nombre y contraseña, validando en archivo usuarios.txt
-inline bool iniciarSesion(string& jugador) {
+// Function that logs in by asking for username and password, validating in the users.txt file
+inline bool logIn(string& player) {
 
-    // Abro el archivo para lectura
-    ifstream archivo("./documentos/usuarios.txt");
+    // Open the file for reading
+    ifstream file("./documents/users.txt");
 
-    // Si no se pudo abrir, aviso error y retorno falso
-    if (!archivo.is_open()) {
-        cout << "Error al abrir archivo de usuarios.\n";
+    // If it could not be opened, notify error and return false
+    if (!file.is_open()) {
+        cout << "Error opening user file.\n";
         return false;
     }
 
-    // Variables para guardar nombre y contraseña ingresadas
-    string nombreIngresado, passIngresada;
-     clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar el login
-    // Muestro encabezado para iniciar sesión
-    cout << "\n=== Iniciar sesión ===\n";
-    cout << "Nombre de usuario: ";
-    getline(cin, nombreIngresado);
-    cout << "Contraseña: ";
-    getline(cin, passIngresada);
+    // Variables to store entered username and password
+    string enteredName, enteredPassword;
+    clearConsole(); // Use the function I already have to clear the screen before showing the login
+    // Show header for logging in
+    cout << "\n=== Log In ===\n";
+    cout << "Username: ";
+    getline(cin, enteredName);
+    cout << "Password: ";
+    getline(cin, enteredPassword);
 
-    // Normalizo el nombre ingresado para comparar
-    string nombreIngresadoNorm = normalize(nombreIngresado);
+    // Normalize the entered name for comparison
+    string normalizedEnteredName = normalize(enteredName);
 
-    // Variable para leer líneas del archivo
-    string linea;
+    // Variable to read lines from the file
+    string line;
 
-    // Recorro línea por línea buscando el usuario y contraseña correctos
-    while (getline(archivo, linea)) {
-        // Cuando encuentro un bloque de usuario
-        if (linea == "====== Usuario ======") {
-            // Leo nombre y normalizo
-            getline(archivo, linea);
-            string nombreArchivo = normalize(trim(linea.substr(8)));
+    // Loop through line by line looking for the correct username and password
+    while (getline(file, line)) {
+        // When I find a user block
+        if (line == "====== User ======") {
+            // Read name and normalize
+            getline(file, line);
+            string fileName = normalize(trim(line.substr(6)));
 
-            // Leo contraseña
-            getline(archivo, linea);
-            string passArchivo = trim(linea.substr(13));
+            // Read password
+            getline(file, line);
+            string passwordFile = trim(line.substr(10));
 
-            // Salto las líneas de código y cierre que no necesito aquí
-            getline(archivo, linea);
-            getline(archivo, linea);
+            // Skip the code and closing lines that I don't need here
+            getline(file, line);
+            getline(file, line);
 
-            // Si el nombre y contraseña coinciden con lo ingresado, inicio sesión
-            if (nombreArchivo == nombreIngresadoNorm && passArchivo == passIngresada) {
-                // Guardo el nombre original sin normalizar en jugador para usarlo después
-                jugador = nombreIngresado;
+            // If the name and password match what was entered, log in
+            if (fileName == normalizedEnteredName && passwordFile == enteredPassword) {
+                // Store the original name without normalizing in player for later use
+                player = enteredName;
 
-                // Doy la bienvenida
-                cout << "¡Bienvenido, " << jugador << "!\n";
+                // Welcome the user
+                cout << "Welcome, " << player << "!\n";
                 cout << "==========================\n";
 
-                // Retorno true porque el inicio fue exitoso
+                // Return true because the login was successful
                 return true;
             }
         }
     }
 
-    // Si terminé de buscar y no encontré coincidencias, aviso error
-    cout << "Credenciales incorrectas.\n";
+    // If I finished searching and found no matches, notify error
+    cout << "Incorrect credentials.\n";
 
-    // Limpio variable jugador porque no hay usuario válido
-    jugador.clear();
+    // Clear the player variable because there is no valid user
+    player.clear();
 
-    // Retorno false porque no inicié sesión
+    // Return false because the login was not successful
     return false;
 }
 
-// Función que verifica que el código de recuperación y nombre coincidan y si sí devuelve la contraseña
-inline bool verificarCodigoRecuperacion(const string& nombre, const string& codigo, string& password) {
+// Function that verifies if the recovery code and name match and if so returns the password
+inline bool verifyRecoveryCode(const string& name, const string& code, string& password) {
 
-    // Abro archivo para lectura
-    ifstream archivo("./documentos/usuarios.txt");
+    // Open file for reading
+    ifstream file("./documents/users.txt");
 
-    // Si no puedo abrir, retorno falso
-    if (!archivo.is_open()) return false;
+    // If I can't open it, return false
+    if (!file.is_open()) return false;
 
-    // Normalizo el nombre para comparar
-    string nombreNorm = normalize(nombre);
+    // Normalize the name for comparison
+    string normalizedName = normalize(name);
 
-    // Variable para leer líneas
-    string linea;
+    // Variable to read lines
+    string line;
 
-    // Leo línea por línea buscando usuario y código coincidentes
-    while (getline(archivo, linea)) {
-        if (linea == "====== Usuario ======") {
+    // Read line by line looking for matching user and code
+    while (getline(file, line)) {
+        if (line == "====== User ======") {
 
-            // Leo nombre y normalizo
-            getline(archivo, linea);
-            string nombreArchivo = normalize(trim(linea.substr(8)));
+            // Read name and normalize
+            getline(file, line);
+            string fileName = normalize(trim(line.substr(6)));
 
-            // Leo contraseña para guardarla si coincide
-            getline(archivo, linea);
-            string passArchivo = trim(linea.substr(13));
+            // Read password to store it if it matches
+            getline(file, line);
+            string passwordFile = trim(line.substr(10));
 
-            // Leo código de recuperación
-            getline(archivo, linea);
-            string codigoArchivo = trim(linea.substr(8));
+            // Read recovery code
+            getline(file, line);
+            string codeFile = trim(line.substr(6));
 
-            // Salto línea vacía
-            getline(archivo, linea);
+            // Skip empty line
+            getline(file, line);
 
-            // Si el nombre y código coinciden, guardo la contraseña en variable y retorno true
-            if (nombreArchivo == nombreNorm && codigoArchivo == codigo) {
-                password = passArchivo;
+            // If the name and code match, store the password in the variable and return true
+            if (fileName == normalizedName && codeFile == code) {
+                password = passwordFile;
                 return true;
             }
         }
     }
 
-    // Si no encontré coincidencia, retorno false
+    // If I didn't find a match, return false
     return false;
 }
 
-// Función que actualiza la contraseña de un usuario en el archivo usuarios.txt
-inline void actualizarContrasena(const string& nombre, const string& nuevaPass) {
+// Function that updates a user's password in the usuarios.txt file
+inline void updatePassword(const string& name, const string& newPassword) {
 
-    // Abro archivo original para lectura
-    ifstream archivo("./documentos/usuarios.txt");
+    // Open original file for reading
+    ifstream file("./documents/users.txt");
 
-    // Abro archivo temporal para escritura
-    ofstream temp("./documentos/temp.txt");
+    // Open temporary file for writing
+    ofstream temp("./documents/temp.txt");
 
-    // Variable para leer líneas
-    string linea;
+    // Variable to read lines
+    string line;
 
-    // Leo línea por línea el archivo original
-    while (getline(archivo, linea)) {
+    // Read the original file line by line
+    while (getline(file, line)) {
 
-        // Cuando encuentro bloque de usuario
-        if (linea == "====== Usuario ======") {
+        // When I find a user block
+        if (line == "====== User ======") {
 
-            // Copio el encabezado al temporal
-            temp << linea << '\n';
+            // Copy the header to the temporary file
+            temp << line << '\n';
 
-            // Leo nombre
-            getline(archivo, linea);
-            string nombreArchivo = trim(linea.substr(8));
-            temp << "Nombre: " << nombreArchivo << '\n';
+            // Read name
+            getline(file, line);
+            string fileName = trim(line.substr(8));
+            temp << "Name: " << fileName << '\n';
 
-            // Leo contraseña (la voy a cambiar si corresponde)
-            getline(archivo, linea);
-            string passArchivo = trim(linea.substr(13));
+            // Read password (I will change it if it corresponds)
+            getline(file, line);
+            string passwordFile = trim(line.substr(13));
 
-            // Leo código de recuperación
-            getline(archivo, linea);
-            string codigoArchivo = trim(linea.substr(8));
+            // Read recovery code
+            getline(file, line);
+            string codeFile = trim(line.substr(8));
 
-            // Leo línea vacía de cierre
-            getline(archivo, linea);
+            // Read closing empty line
+            getline(file, line);
 
-            // Si este es el usuario que quiero actualizar, escribo la nueva contraseña
-            if (nombreArchivo == nombre) {
-                temp << "Contraseña: " << nuevaPass << '\n';
+            // If this is the user I want to update, write the new password
+            if (fileName == name) {
+                temp << "Password: " << newPassword << '\n';
             } else {
-                // Si no es, escribo la contraseña original
-                temp << "Contraseña: " << passArchivo << '\n';
+                // If not, write the original password
+                temp << "Password: " << passwordFile << '\n';
             }
 
-            // Escribo el código original y la línea de cierre
-            temp << "Código: " << codigoArchivo << '\n';
+            // Write the original code and the closing line
+            temp << "Code: " << codeFile << '\n';
 
         } else {
-            // Si no es línea de bloque usuario, copio línea normal
-            temp << linea << '\n';
+            // If it's not a user block line, copy the line normally
+            temp << line << '\n';
         }
     }
 
-    // Cierro archivos
-    archivo.close();
+    // Close files
+    file.close();
     temp.close();
 
-    // Reemplazo archivo original con el temporal
-    remove("./documentos/usuarios.txt");
-    rename("./documentos/temp.txt", "./documentos/usuarios.txt");
+    // Replace the original file with the temporary one
+    remove("./documents/users.txt");
+    rename("./documents/temp.txt", "./documents/users.txt");
 }
 
-// Función que permite al usuario recuperar su contraseña usando el código de recuperación
-inline void recuperarContrasena() {
+// Function that allows the user to recover their password using the recovery code
+inline void recoverPassword() {
 
-    // Variables para datos que pediremos
-    string nombre, codigo, password;
-    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar recuperar
-    // Mensaje inicial para recuperación
-    cout << "\n====== Recuperar Contraseña ======\n";
+    // Variables for the data we will ask for
+    string name, code, password;
+    clearConsole(); // I use the function I already have to clear the screen before showing recovery
+    // Initial message for recovery
+    cout << "\n====== Recover Password ======\n";
 
-    // Pido nombre de usuario
-    cout << "Nombre de usuario: ";
-    getline(cin, nombre);
+    // Ask for username
+    cout << "Username: ";
+    getline(cin, name);
 
-    // Pido código de recuperación
-    cout << "Ingresa tu código de recuperación: ";
-    getline(cin, codigo);
+    // Ask for recovery code
+    cout << "Enter your recovery code: ";
+    getline(cin, code);
 
-    // Limpio espacios en entradas
-    nombre = trim(nombre);
-    codigo = trim(codigo);
+    // Clean spaces in inputs
+    name = trim(name);
+    code = trim(code);
 
-    // Verifico si el código y nombre coinciden en archivo
-    if (verificarCodigoRecuperacion(nombre, codigo, password)) {
+    // Check if the code and name match in the file
+    if (verifyRecoveryCode(name, code, password)) {
 
-        // Si es correcto, muestro la contraseña actual
-        cout << "¡Código correcto! Tu contraseña actual es: " << password << "\n";
+        // If correct, show the current password
+        cout << "Correct code! Your current password is: " << password << "\n";
 
-        // Variables para la nueva contraseña y confirmación
-        string nuevaPass, confirmar;
+        // Variables for the new password and confirmation
+        string newPassword, confirm;
 
-        // Pregunto si desea cambiar contraseña
-        cout << "\n¿Deseas cambiar tu contraseña? (s/n): ";
-        string respuesta;
-        getline(cin, respuesta);
+        // Ask if they want to change the password
+        cout << "\nDo you want to change your password? (y/n): ";
+        string response;
+        getline(cin, response);
 
-        // Si responde sí (s o S)
-        if (respuesta == "s" || respuesta == "S") {
+        // If they respond yes (y or Y)
+        if (response == "y" || response == "Y") {
 
-            // Pido nueva contraseña
-            cout << "Nueva contraseña: ";
-            getline(cin, nuevaPass);
+            // Ask for new password
+            cout << "New password: ";
+            getline(cin, newPassword);
 
-            // Pido confirmación
-            cout << "Confirma tu nueva contraseña: ";
-            getline(cin, confirmar);
+            // Ask for confirmation
+            cout << "Confirm your new password: ";
+            getline(cin, confirm);
 
-            // Verifico que coincidan y no estén vacías
-            if (nuevaPass == confirmar && !nuevaPass.empty()) {
+            // Check that they match and are not empty
+            if (newPassword == confirm && !newPassword.empty()) {
 
-                // Actualizo la contraseña en el archivo
-                actualizarContrasena(nombre, nuevaPass);
+                // Update the password in the file
+                updatePassword(name, newPassword);
 
-                // Confirmo actualización
-                cout << "¡Contraseña actualizada exitosamente!\n";
+                // Confirm update
+                cout << "Password updated successfully!\n";
             } else {
-                // Si no coinciden o están vacías, aviso que no actualicé nada
-                cout << "Las contraseñas no coinciden o están vacías. No se actualizó nada.\n";
+                // If they don't match or are empty, notify that nothing was updated
+                cout << "The passwords do not match or are empty. Nothing was updated.\n";
             }
         } else {
-            // Si no desea cambiar, aviso que sigue con la misma contraseña
-            cout << "No se hizo ningún cambio. Puedes seguir usando tu contraseña actual.\n";
+            // If they do not want to change, notify that they continue with the same password
+            cout << "No changes were made. You can continue using your current password.\n";
         }
 
     } else {
-        // Si código o nombre no coinciden, aviso error
-        cout << "Usuario o código incorrecto.\n";
+        // If the code or name do not match, notify error
+        cout << "User  or code incorrect.\n";
     }
 }
 

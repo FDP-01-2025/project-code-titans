@@ -1,223 +1,232 @@
 #ifndef MAIN_MENU_H  
 #define MAIN_MENU_H  
 
-#include <iostream>  // Incluyo esta librería para poder mostrar mensajes en pantalla
-#include <string>    // Incluyo esta librería para trabajar con cadenas de texto
-#include <limits>    // Incluyo esto para poder limpiar el buffer y validar entradas
-#include <cstdlib>   // Incluyo esto para funciones como srand
-#include <ctime>     // Incluyo esto para trabajar con time() al usar srand
+#include <iostream>  // Include this library to display messages on screen
+#include <string>    // Include this library to work with strings
+#include <limits>    // Include this for clearing the buffer and validating inputs
+#include <cstdlib>   // Include this for functions like srand
+#include <ctime>     // Include this for working with time() when using srand
 
-#include "jugador.h"         // Aquí incluyo el archivo que contiene la estructura y métodos del jugador
-#include "userManager.h"     // Aquí incluyo las funciones para manejo de usuarios: login, registro, etc.
-#include "rouletteGame.h"    // Aquí incluyo el juego de la ruleta
-#include "blackjackGame.h"   // Aquí incluyo el juego del blackjack
-#include "crapsGame.h"       // Aquí incluyo el juego de craps (dados)
-#include "hilo.h"            // Aquí incluyo el juego Hi-Lo
-#include "multijugador.h"    // Aquí incluyo el modo multijugador
-#include "slotMachineGame.h" // Aquí incluyo el juego de tragamonedas
-#include "utils.h"           // Aquí incluyo el limpiarConsola
-#include "hora_fecha.h"           // Aquí incluyo la hora y la fecha 
+#include "player.h"         // Include the file that contains the structure and methods of the player
+#include "userManager.h"     // Include functions for user management: login, registration, etc.
+#include "rouletteGame.h"    // Include the roulette game
+#include "blackjackGame.h"   // Include the blackjack game
+#include "crapsGame.h"       // Include the craps game (dice)
+#include "hilo.h"            // Include the Hi-Lo game
+#include "multijugador.h"     // Include the multiplayer mode
+#include "slotMachineGame.h" // Include the slot machine game
+#include "utils.h"           // Include clearConsole
+#include "date_time.h"  // This includes the current date and time display function
 
-using namespace std; // Uso el espacio de nombres estándar para evitar escribir std:: a cada rato
+using namespace std; // Use the standard namespace to avoid writing std:: all the time
 
-// Esta función muestra las opciones disponibles en el menú principal del casino
-inline void mostrarMenu() {
-    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
-    mostrarFechaHora(); // Uso la función que ya tengo para mostrar la fecha y la hora en el menú
-    cout << "\n====================================";
-    cout << "\nMenu Principal - Casino Virtual\n";
-    cout << "1) Depositar dinero\n";
-    cout << "2) Retirar dinero\n";
-    cout << "3) Ruleta\n";
+// This function displays the available options in the main casino menu
+inline void showMenu() {
+    clearConsole(); // Use the function I already have to clear the screen before showing the menu
+
+    cout << "\n====================================\n";
+    showDateTime();
+    cout << "\nMain Menu - Virtual Casino\n";
+    cout << "1) Deposit money\n";
+    cout << "2) Withdraw money\n";
+    cout << "3) Roulette\n";
     cout << "4) Blackjack\n";
-    cout << "5) Tragamonedas\n";
-    cout << "6) Craps (Dados)\n";
+    cout << "5) Slot Machine\n";
+    cout << "6) Craps (Dice)\n";
     cout << "7) Hi-Lo\n";
-    cout << "8) Mostrar historial\n";
-    cout << "9) Mostrar estadísticas \n";
-    cout << "10) Salir\n";
+    cout << "8) Show history\n";
+    cout << "9) Show statistics \n";
+    cout << "10) Exit\n";
     cout << "====================================\n";
 }
 
-// Esta función arranca el juego una vez que el usuario ha iniciado sesión correctamente
-inline void iniciar(const string& nombreUsuario) {
-    Jugador jugador; // Creo un jugador
-    jugador.nombre = nombreUsuario; // Le asigno el nombre recibido
-    jugador.dinero = cargarSaldo(nombreUsuario); // Cargo el saldo del jugador desde archivo
-    jugador.cargarEstadisticasJugador(); // Cargo las estadísticas guardadas del jugador
+// This function starts the game once the user has logged in successfully
+inline void start(const string& username) {
+    Player player; // Create a player
+    player.name = username; // Assign the received name
+    player.money = loadBalance(username); // Load the player's balance from the file
+    player.loadPlayerStatistics(); // Load the saved statistics of the player
 
-    cout << "Hola, " << jugador.nombre << "! Saldo actual: $" << jugador.dinero << "\n";
+    cout << "Hello, " << player.name << "! Current balance: $" << player.money << "\n";
 
-    int opcion; // Variable para almacenar la opción del menú
-    bool jugando = true; // Bandera para mantener el bucle activo
+    int option; // Variable to store the menu option
+    bool playing = true; // Flag to keep the loop active
 
-    while (jugando) {
-        mostrarMenu(); // Muestro el menú en pantalla
-        cout << "Dinero actual: $" << jugador.dinero << "\n";
-        cout << "Elige una opción: ";
-        cin >> opcion; // Leo la opción del usuario
+    while (playing) {
+        showMenu(); // Show the menu on screen
+        cout << "Current money: $" << player.money << "\n";
+        cout << "Choose an option: ";
+        cin >> option; // Read the user's option
 
-        if (cin.fail()) { // Verifico si hubo un error en la entrada
-            cin.clear(); // Limpio el error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio el buffer
-            cout << "Entrada inválida.\n";
-            continue; // Regreso al inicio del bucle
+        if (cin.fail()) { // Check if there was an input error
+            cin.clear(); // Clear the error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the buffer
+            cout << "Invalid input.\n";
+            continue; // Return to the start of the loop
         }
 
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio cualquier carácter sobrante
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear any leftover characters
 
-        switch (opcion) { // Evaluo la opción del usuario
+        switch (option) { // Evaluate the user's option
             case 1: {
-                int cantidad;
-                cout << "¿Cuánto deseas depositar? $";
-                cin >> cantidad;
+                 clearConsole();
+                int amount;
+                cout << "How much do you want to deposit? $";
+                cin >> amount;
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                jugador.depositar(cantidad); // Llamo al método para depositar dinero
+                player.deposit(amount); // Call the method to deposit money
                 break;
             }
             case 2: {
-                int cantidad;
-                cout << "¿Cuánto deseas retirar? $";
-                cin >> cantidad;
+                 clearConsole();
+                int amount;
+                cout << "How much do you want to withdraw? $";
+                cin >> amount;
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                jugador.retirar(cantidad); // Llamo al método para retirar dinero
+                player.withdraw(amount); // Call the method to withdraw money
                 break;
             }
             case 3:
-                if (jugador.dinero <= 0)
-                    cout << "No tienes saldo suficiente. Deposita para jugar.\n";
+             clearConsole();
+                if (player.money <= 0)
+                    cout << "You do not have enough balance. Deposit to play.\n";
                 else
-                    jugarRuleta(jugador); // Juego de ruleta
+                    playRoulette(player); // Roulette game
                 break;
             case 4:
-                if (jugador.dinero <= 0) {
-                    cout << "No tienes saldo suficiente. Deposita para jugar.\n";
+             clearConsole();
+                if (player.money <= 0) {
+                    cout << "You do not have enough balance. Deposit to play.\n";
                 } else {
-                    jugarBlackjack(jugador); // Juego de blackjack
+                    playBlackjack(player); // Blackjack game
                 }
                 break;
             case 5:
-                if (jugador.dinero <= 0)
-                    cout << "No tienes saldo suficiente. Deposita para jugar.\n";
+             clearConsole();
+                if (player.money <= 0)
+                    cout << "You do not have enough balance. Deposit to play.\n";
                 else
-                    jugarTragamonedas(jugador); // Juego de tragamonedas
+                    playSlotMachine(player); // Slot machine game
                 break;
             case 6:
-                if (jugador.dinero <= 0)
-                    cout << "No tienes saldo suficiente. Deposita para jugar.\n";
+             clearConsole();
+                if (player.money <= 0)
+                    cout << "You do not have enough balance. Deposit to play.\n";
                 else
-                    jugarCraps(jugador); // Juego de dados (Craps)
+                    playCraps(player); // Dice game (Craps)
                 break;
             case 7:
                 clearConsole();
-                if (jugador.dinero <= 0)
-                    cout << "No tienes saldo suficiente. Deposita para jugar.\n";
+                if (player.money <= 0)
+                    cout << "You do not have enough balance. Deposit to play.\n";
                 else
-                    jugarHilo(jugador); // Juego de Hi-Lo
+                    playHilo(player); // Hi-Lo game
                 break;
             case 8:
-                jugador.mostrarHistorial(); // Muestro el historial de los juegos
+                player.showHistory(); // Show the game history
                 break;
             case 9:
-                jugador.mostrarEstadisticas(); // Muestro estadísticas del jugador
+                player.showStatistics(); // Show player statistics
                 break;
             case 10:
-                cout << "Gracias por jugar. ¡Hasta luego!\n";
-                jugando = false; // Salgo del bucle y del juego
+                cout << "Thank you for playing. See you later!\n";
+                playing = false; // Exit the loop and the game
                 break;
             default:
-                cout << "Opción no válida.\n"; // Capturo cualquier opción inválida
+                cout << "Invalid option.\n"; // Capture any invalid option
         }
-        cout << endl; // Hago un salto de línea después de cada ciclo
+        cout << endl; // Make a line break after each cycle
     }
 }
 
-// Esta función maneja el menú inicial donde el usuario elige si quiere iniciar sesión o registrarse
-inline void menuInicio() {
-    string nombre;
-    bool sesion = false;
+// This function handles the initial menu where the user chooses whether to log in or register
+inline void startMenu() {
+    string name;
+    bool session = false;
 
-    while (!sesion) {
-        clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
-        cout << "\n===== MENÚ DE INICIO =====\n";
-        cout << "1) Iniciar sesión\n";
-        cout << "2) Registrarse\n";
-        cout << "3) Recuperar contraseña\n";
-        cout << "4) Eliminar usuario\n";
-        cout << "5) Salir\n";
+    while (!session) {
+        clearConsole(); // Use the function I already have to clear the screen before showing the menu
+        cout << "\n===== START MENU =====\n";
+        showDateTime();
+        cout << "1) Log in\n";
+        cout << "2) Register\n";
+        cout << "3) Recover password\n";
+        cout << "4) Delete user\n";
+        cout << "5) Exit\n";
         cout << "==========================\n";
-        cout << "Opción: ";
-        int opcion;
-        cin >> opcion;
+        cout << "Option: ";
+        int option;
+        cin >> option;
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada inválida. Por favor, ingresa un número.\n";
+            cout << "Invalid input. Please enter a number.\n";
             continue;
         }
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        switch (opcion) {
+        switch (option) {
             case 1:
-                sesion = iniciarSesion(nombre); // Intento iniciar sesión
+                session = logIn(name); // Attempt to log in
                 break;
             case 2:
-                registrarUsuario(); // Registro un nuevo usuario
+                registerUser(); // Register a new user
                 break;
             case 3:
-                recuperarContrasena(); // Llamo a recuperación de contraseña
+                recoverPassword(); // Call password recovery
                 break;
             case 4:
-                eliminarUsuario(); // Elimino un usuario
+                deleteUser (); // Delete a user
                 break;
             case 5:
-                cout << "Saliendo del programa...\n";
-                return; // Salgo de la función
+                cout << "Exiting the program...\n";
+                return; // Exit the function
             default:
-                cout << "Opción inválida. Intenta nuevamente.\n";
+                cout << "Invalid option. Please try again.\n";
         }
     }
 
-    iniciar(nombre); // Si logré iniciar sesión, empiezo el juego
+    start(name); // If I successfully logged in, start the game
 }
 
-// Esta función me permite elegir si quiero jugar solo o en modo multijugador local
-inline void menuModoJuego() {
-    int opcion;
-    clearConsole(); // Uso la función que ya tengo para limpiar pantalla antes de mostrar menú
+// This function allows me to choose whether I want to play solo or in local multiplayer mode
+inline void gameModeMenu() {
+    int option;
+    clearConsole(); // Use the function I already have to clear the screen before showing the menu
     while (true) {
-        cout << "\n=========== MODO DE JUEGO ===========\n";
-        cout << "1) Jugar solo\n";
-        cout << "2) Multijugador local\n";
-        cout << "3) Salir del juego\n";
+        cout << "\n=========== GAME MODE ===========\n";
+        showDateTime();
+        cout << "1) Play solo\n";
+        cout << "2) Local multiplayer\n";
+        cout << "3) Exit the game\n";
         cout << "=====================================\n";
-        cout << "Escoge una opción: ";
-        cin >> opcion;
+        cout << "Choose an option: ";
+        cin >> option;
 
         if (cin.fail()) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Entrada inválida. Ingresa un número del 1 al 3.\n";
+            cout << "Invalid input. Enter a number from 1 to 3.\n";
             continue;
         }
 
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        switch (opcion) {
+        switch (option) {
             case 1:
-                menuInicio(); // Llamo al menú de inicio para un solo jugador
+                startMenu(); // Call the start menu for a single player
                 return;
             case 2:
-                modoMultijugador(); // Llamo al modo multijugador local
+                multiplayerMode(); // Call the local multiplayer mode
                 return;
             case 3:
-                cout << "¡Gracias por jugar! Hasta pronto.\n";
+                cout << "Thank you for playing! See you soon.\n";
                 return;
             default:
-                cout << "Opción inválida. Intenta de nuevo.\n";
+                cout << "Invalid option. Try again.\n";
         }
     }
 }
 
-#endif // MAIN_MENU_H 
+#endif // MAIN_MENU_H  

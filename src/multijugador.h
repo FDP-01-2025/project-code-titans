@@ -1,429 +1,427 @@
-#ifndef MULTIJUGADOR_H 
-#define MULTIJUGADOR_H 
+#ifndef MULTIPLAYER_H 
+#define MULTIPLAYER_H 
 
-#include <iostream> // Incluyo para poder usar cin y cout
-#include <cstdlib>  // Incluyo para funciones como rand y srand
-#include <ctime>    // Incluyo para usar time y generar números aleatorios con srand
-#include <algorithm> // Incluyo para usar funciones como swap y copy
-#include <cctype>  // para isalpha
-#include "utils.h" // Aquí incluyo el limpiarConsola
+#include <iostream> // Include to use cin and cout
+#include <cstdlib>  // Include for functions like rand and srand
+#include <ctime>    // Include to use time and generate random numbers with srand
+#include <algorithm> // Include to use functions like swap and copy
+#include <cctype>  // For isalpha
+#include "utils.h" // Include clearConsole
 
-using namespace std; // Uso el espacio de nombres estándar para no escribir std:: en todo
+using namespace std; // Use the standard namespace to avoid writing std:: all the time
 
-const int MAX_CARTAS = 16; // Defino el número total de cartas que usaré en el juego de memoria
-const int MAX_NUMEROS = 8; // Defino el número de elementos para el puzzle de números
+const int MAX_CARDS = 16; // Define the total number of cards to use in the memory game
+const int MAX_NUMBERS = 8; // Define the number of elements for the number puzzle
 
-// Defino una estructura para representar a cada jugador en los minijuegos
-struct JugadorMinijuego {
-    string nombre; // Aquí guardo el nombre del jugador
-    int puntuacion = 0; // Inicializo su puntuación en 0
+// Define a structure to represent each player in the mini-games
+struct MiniGamePlayer {
+    string name; // Store the player's name
+    int score = 0; // Initialize their score to 0
 };
 
-// Declaro las funciones que usaré más abajo en el mismo archivo
-void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2);
-void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2);
-void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2);
-void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2);
-void mostrarGanador(JugadorMinijuego& j1, JugadorMinijuego& j2);
-void mezclarArreglo(int arreglo[], int tamano);
-bool estaOrdenado(int arreglo[], int tamano);
+// Declare the functions that I will use later in the same file
+void miniGamesMenu(MiniGamePlayer& p1, MiniGamePlayer& p2);
+void memoryGame(MiniGamePlayer& p1, MiniGamePlayer& p2);
+void strategyGame(MiniGamePlayer& p1, MiniGamePlayer& p2);
+void numberPuzzle(MiniGamePlayer& p1, MiniGamePlayer& p2);
+void showWinner(MiniGamePlayer& p1, MiniGamePlayer& p2);
+void shuffleArray(int array[], int size);
+bool isSorted(int array[], int size);
 
-// Implemento una función para mezclar los valores de un arreglo aleatoriamente
-void mezclarArreglo(int arreglo[], int tamano) {
-    for (int i = tamano - 1; i > 0; i--) {
-        int j = rand() % (i + 1); // Elijo un índice aleatorio entre 0 y i
-        swap(arreglo[i], arreglo[j]); // Intercambio los valores de las posiciones i y j
+// Implement a function to randomly shuffle the values of an array
+void shuffleArray(int array[], int size) {
+    for (int i = size - 1; i > 0; i--) {
+        int j = rand() % (i + 1); // Choose a random index between 0 and i
+        swap(array[i], array[j]); // Swap the values at positions i and j
     }
 }
 
-// Implemento una función para verificar si un arreglo está ordenado de menor a mayor
-bool estaOrdenado(int arreglo[], int tamano) {
-    for (int i = 0; i < tamano - 1; i++) {
-        if (arreglo[i] > arreglo[i + 1]) {
-            return false; // Si encuentro un elemento mayor que el siguiente, el arreglo no está ordenado
+// Implement a function to check if an array is sorted in ascending order
+bool isSorted(int array[], int size) {
+    for (int i = 0; i < size - 1; i++) {
+        if (array[i] > array[i + 1]) {
+            return false; // If I find an element greater than the next, the array is not sorted
         }
     }
-    return true; // Si todo está bien, devuelvo true
+    return true; // If everything is fine, return true
 }
 
-// Aquí defino el menú de minijuegos donde los jugadores pueden elegir qué jugar
-void menuMinijuegos(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    int opcion;
+// Here I define the mini-games menu where players can choose what to play
+void miniGamesMenu(MiniGamePlayer& p1, MiniGamePlayer& p2) {
+    int option;
     do {
         if (cin.fail()) {
-        // Si la entrada no es un número, limpio el error y descarto la entrada inválida
-        cin.clear(); // Limpia el estado de error
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignora la línea entera
-        opcion = 0; // Para que entre al default y muestre mensaje
-    }
+            // If the input is not a number, clear the error and discard the invalid input
+            cin.clear(); // Clear the error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the entire line
+            option = 0; // To enter the default case and show the message
+        }
         clearConsole();
-        // Muestro las opciones disponibles
-        cout << "\n=== MENU DE MINIJUEGOS ===";
-        cout << "\n1. Juego de Memoria";
-        cout << "\n2. Juego de Estrategia";
-        cout << "\n3. Puzzle de Números";
-        cout << "\n4. Ver puntuaciones";
-        cout << "\n5. Salir";
-        cout << "\nSelecciona un juego: ";
+        // Show the available options
+        cout << "\n=== MINI-GAMES MENU ===";
+        cout << "\n1. Memory Game";
+        cout << "\n2. Strategy Game";
+        cout << "\n3. Number Puzzle";
+        cout << "\n4. View Scores";
+        cout << "\n5. Exit";
+        cout << "\nSelect a game: ";
         
-        cin >> opcion; // Leo la opción que selecciona el jugador
+        cin >> option; // Read the option selected by the player
         
-        switch(opcion) {
+        switch(option) {
             case 1:
                 clearConsole();
-                juegoMemoria(j1, j2); // Llamo al juego de memoria
+                memoryGame(p1, p2); // Call the memory game
                 break;
             case 2:
                 clearConsole();
-                juegoEstrategia(j1, j2); // Llamo al juego de estrategia
+                strategyGame(p1, p2); // Call the strategy game
                 break;
             case 3: 
                 clearConsole();
-                puzzleNumeros(j1, j2); // Llamo al puzzle de números
+                numberPuzzle(p1, p2); // Call the number puzzle
                 break;
             case 4:
                 clearConsole();
-                mostrarGanador(j1, j2); // Muestro quién va ganando
-                cout << "\nPresiona ENTER para continuar...";
+                showWinner(p1, p2); // Show who is winning
+                cout << "\nPress ENTER to continue...";
                 cin.ignore();
-                cin.get();  // Espera que el usuario presione ENTER
+                cin.get();  // Wait for the user to press ENTER
                 break;
             case 5:
-                cout << "Volviendo al menu principal...\n"; // Mensaje de despedida
+                cout << "Returning to the main menu...\n"; // Farewell message
                 break;
             default:
-                cout << "Opcion invalida. Intenta nuevamente.\n"; // Si no elige una opción válida
+                cout << "Invalid option. Please try again.\n"; // If they do not choose a valid option
         }
-    } while(opcion != 5); // Repetir mientras no elijan salir
+    } while(option != 5); // Repeat while they do not choose to exit
 }
 
-// Aquí defino el juego de memoria donde deben emparejar cartas iguales
-// Aquí defino el juego de memoria, pero ahora con menú para ver reglas antes de comenzar
-void juegoMemoria(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    int opcion; // Variable para guardar la opción del menú
+// Here I define the memory game where players must match identical cards
+// Here I define the memory game, but now with a menu to see rules before starting
+void memoryGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
+    int option; // Variable to store the menu option
 
-    // Menú previo para explicar el juego si el jugador lo desea
+    // Pre-menu to explain the game if the player wants
     do {
-        cout << "\n=== JUEGO DE MEMORIA ===";
-        cout << "\n1. Ver reglas del juego";
-        cout << "\n2. Empezar el juego";
-        cout << "\nSelecciona una opción: ";
-        cin >> opcion;
+        cout << "\n=== MEMORY GAME ===";
+        cout << "\n1. View game rules";
+        cout << "\n2. Start the game";
+        cout << "\nSelect an option: ";
+        cin >> option;
 
-        // Validación de entrada inválida
-        if (cin.fail() || (opcion != 1 && opcion != 2)) {
-            cin.clear(); // Limpio error de entrada
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro basura
-            cout << "Opción inválida. Intenta de nuevo.\n";
-        } else if (opcion == 1) {
+        // Validate invalid input
+        if (cin.fail() || (option != 1 && option != 2)) {
+            cin.clear(); // Clear the input error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore garbage
+            cout << "Invalid option. Please try again.\n";
+        } else if (option == 1) {
             clearConsole();
-            // Si elige 1, le muestro las reglas
-            cout << "\n=== REGLAS DEL JUEGO DE MEMORIA ===\n";
-            cout << "1. Hay 16 cartas (8 parejas) ocultas.\n";
-            cout << "2. Seleccionas dos cartas por turno (0-15).\n";
-            cout << "3. Si son iguales, ganas 10 puntos.\n";
-            cout << "4. Si fallás, pierdes el turno.\n";
-            cout << "5. Gana el que tenga más puntos al final.\n";
+            // If they choose 1, show the rules
+            cout << "\n=== MEMORY GAME RULES ===\n";
+            cout << "1. There are 16 cards (8 pairs) hidden.\n";
+            cout << "2. You select two cards per turn (0-15).\n";
+            cout << "3. If they are the same, you earn 10 points.\n";
+            cout << "4. If you fail, you lose your turn.\n";
+            cout << "5. The player with the most points at the end wins.\n";
             cout << "----------------------------------------\n";
         }
-    } while (opcion != 2); // Repito hasta que elija empezar
+    } while (option != 2); // Repeat until they choose to start
 
-    // Empieza la lógica real del juego
-    int cartas[MAX_CARTAS] = {1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8}; // Las cartas
-    bool reveladas[MAX_CARTAS] = {false}; // Todas ocultas al inicio
-    mezclarArreglo(cartas, MAX_CARTAS); // Mezclo aleatoriamente
-    int parejasEncontradas = 0; // Contador de parejas
-    int turno = 0; // Comienzo con el jugador 1
+    // Start the actual game logic
+    int cards[MAX_CARDS] = {1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8}; // The cards
+    bool revealed[MAX_CARDS] = {false}; // All hidden at the start
+    shuffleArray(cards, MAX_CARDS); // Shuffle randomly
+    int pairsFound = 0; // Pair counter
+    int turn = 0; // Start with player 1
 
-    // Mientras no se encuentren las 8 parejas
-    while(parejasEncontradas < 8) {
-        JugadorMinijuego& jugadorActual = (turno == 0) ? j1 : j2; // Decido quién juega
-        cout << "\nTurno de " << jugadorActual.nombre << endl;
+    // While not all 8 pairs are found
+    while(pairsFound < 8) {
+        MiniGamePlayer& currentPlayer = (turn == 0) ? p1 : p2; // Decide who plays
+        cout << "\nTurn of " << currentPlayer.name << endl;
 
-        // Muestro el tablero
-        cout << "Tablero:\n";
-        for(int i = 0; i < MAX_CARTAS; i++) {
-            if(reveladas[i])
-                cout << cartas[i] << " ";
+        // Show the board
+        cout << "Board:\n";
+        for(int i = 0; i < MAX_CARDS; i++) {
+            if(revealed[i])
+                cout << cards[i] << " ";
             else
                 cout << "* ";
             if((i+1) % 4 == 0) cout << endl;
         }
 
-        // Le pido al jugador dos posiciones
+        // Ask the player for two positions
         int pos1, pos2;
-        cout << "Selecciona dos cartas (0-15): ";
+        cout << "Select two cards (0-15): ";
         cin >> pos1 >> pos2;
 
-        // Verifico si la entrada fue válida o si eligió la misma carta
-        if (cin.fail() || pos1 < 0 || pos1 >= MAX_CARTAS || pos2 < 0 || pos2 >= MAX_CARTAS || pos1 == pos2 || reveladas[pos1] || reveladas[pos2]) {
+        // Check if the input was valid or if they chose the same card
+        if (cin.fail() || pos1 < 0 || pos1 >= MAX_CARDS || pos2 < 0 || pos2 >= MAX_CARDS || pos1 == pos2 || revealed[pos1] || revealed[pos2]) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Selección inválida. Pierdes tu turno.\n";
-            turno = 1 - turno;
+            cout << "Invalid selection. You lose your turn.\n";
+            turn = 1 - turn;
             continue;
         }
 
-        // Revelo las cartas elegidas
-        reveladas[pos1] = true;
-        reveladas[pos2] = true;
+        // Reveal the chosen cards
+        revealed[pos1] = true;
+        revealed[pos2] = true;
 
-        // Muestro lo que eligió
-        cout << "Seleccionaste: " << cartas[pos1] << " y " << cartas[pos2] << endl;
+        // Show what they chose
+        cout << "You selected: " << cards[pos1] << " and " << cards[pos2] << endl;
 
-        // Si acierta
-        if(cartas[pos1] == cartas[pos2]) {
-            cout << "¡Pareja encontrada! +10 puntos\n";
-            jugadorActual.puntuacion += 10;
-            parejasEncontradas++;
+        // If they guessed correctly
+        if(cards[pos1] == cards[pos2]) {
+            cout << "Pair found! +10 points\n";
+            currentPlayer.score += 10;
+            pairsFound++;
         } else {
-            cout << "No es pareja. Se ocultan de nuevo.\n";
-            reveladas[pos1] = false;
-            reveladas[pos2] = false;
-            turno = 1 - turno;
+            cout << "Not a pair. They will be hidden again.\n";
+            revealed[pos1] = false;
+            revealed[pos2] = false;
+            turn = 1 - turn;
         }
     }
 
-    // Cuando termina el juego
-    cout << "\n¡Juego terminado!\n";
-    mostrarGanador(j1, j2); // Muestro quién ganó
+    // When the game ends
+    cout << "\nGame over!\n";
+    showWinner(p1, p2); // Show who won
 }
 
+// Here I define the strategy game where players must not exceed 21
+void strategyGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
+    int option; // Variable for the menu
 
-// Aquí defino el juego de estrategia donde los jugadores no deben pasarse de 21
-void juegoEstrategia(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    int opcion; // Variable para el menú
-
-    // Submenú para mostrar reglas si lo desea el jugador
+    // Sub-menu to show rules if the player wants
     do {
-        cout << "\n=== JUEGO DE ESTRATEGIA ===";
-        cout << "\n1. Ver reglas del juego";
-        cout << "\n2. Empezar el juego";
-        cout << "\nSelecciona una opción: ";
-        cin >> opcion;
+        cout << "\n=== STRATEGY GAME ===";
+        cout << "\n1. View game rules";
+        cout << "\n2. Start the game";
+        cout << "\nSelect an option: ";
+        cin >> option;
 
-        // Valido la opción elegida
-        if (cin.fail() || (opcion != 1 && opcion != 2)) {
+        // Validate the chosen option
+        if (cin.fail() || (option != 1 && option != 2)) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Opción inválida. Intenta nuevamente.\n";
-        } else if (opcion == 1) {
-            // Si elige ver reglas
-            cout << "\n=== REGLAS DEL JUEGO DE ESTRATEGIA ===\n";
-            cout << "1. Comenzamos desde 0.\n";
-            cout << "2. Cada jugador suma un número entre 1 y 5 en su turno.\n";
-            cout << "3. El que haga que el total llegue a 21 pierde.\n";
-            cout << "4. El otro jugador gana 15 puntos.\n";
+            cout << "Invalid option. Please try again.\n";
+        } else if (option == 1) {
+            // If they choose to see the rules
+            cout << "\n=== STRATEGY GAME RULES ===\n";
+            cout << "1. We start from 0.\n";
+            cout << "2. Each player adds a number between 1 and 5 on their turn.\n";
+            cout << "3. The one who makes the total reach 21 loses.\n";
+            cout << "4. The other player wins 15 points.\n";
             cout << "---------------------------------------\n";
         }
-    } while (opcion != 2); // Repite hasta que elija jugar
+    } while (option != 2); // Repeat until they choose to play
 
-    // Lógica principal del juego
-    int total = 0; // Comienzo desde cero
-    int turno = 0; // Empieza el jugador 1
+    // Main game logic
+    int total = 0; // Start from zero
+    int turn = 0; // Start with player 1
 
     while(total < 21) {
-        JugadorMinijuego& jugadorActual = (turno == 0) ? j1 : j2;
-        int suma;
+        MiniGamePlayer& currentPlayer = (turn == 0) ? p1 : p2;
+        int sum;
 
-        cout << "\nTotal actual: " << total;
-        cout << "\n" << jugadorActual.nombre << ", suma un número entre 1 y 5: ";
-        cin >> suma;
+        cout << "\nCurrent total: " << total;
+        cout << "\n" << currentPlayer.name << ", add a number between 1 and 5: ";
+        cin >> sum;
 
-        // Verifico si la suma es válida
-        if (cin.fail() || suma < 1 || suma > 5) {
+        // Check if the sum is valid
+        if (cin.fail() || sum < 1 || sum > 5) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Suma inválida. Debe ser entre 1 y 5.\n";
+            cout << "Invalid sum. It must be between 1 and 5.\n";
             continue;
         }
 
-        total += suma; // Le sumo al total
-        turno = 1 - turno; // Cambio de turno
+        total += sum; // Add to the total
+        turn = 1 - turn; // Change turn
     }
 
-    // Como el que sumó el 21 pierde, el otro gana
-    JugadorMinijuego& ganador = (turno == 0) ? j1 : j2;
-    cout << "\n¡" << ganador.nombre << " gana 15 puntos por estrategia!\n";
-    ganador.puntuacion += 15;
+    // Since the one who summed to 21 loses, the other wins
+    MiniGamePlayer& winner = (turn == 0) ? p1 : p2;
+    cout << "\n!" << winner.name << " wins 15 points for strategy!\n";
+    winner.score += 15;
 
-    mostrarGanador(j1, j2); // Muestro quién va ganando
+    showWinner(p1, p2); // Show the final score table
 }
 
-// Aquí defino el puzzle de números donde tienen que ordenar del 1 al 8
-void puzzleNumeros(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    // Inicio la función para el puzzle de números con dos jugadores
+// Here I define the number puzzle where they have to order from 1 to 8
+void numberPuzzle(MiniGamePlayer& p1, MiniGamePlayer& p2) {
+    // Start the function for the number puzzle with two players
 
-    int opcion; // Guardo la opción que el jugador elija en el menú inicial
+    int option; // Store the option the player chooses in the initial menu
 
-    // Muestro un pequeño menú para que el jugador vea reglas o empiece a jugar
+    // Show a small menu for the player to see rules or start playing
     do {
-        cout << "\n=== PUZZLE DE NUMEROS ===";
-        cout << "\n1. Ver reglas del juego";
-        cout << "\n2. Empezar el juego";
-        cout << "\nSelecciona una opción: ";
-        cin >> opcion; // Leo la opción que ingresa el jugador
+        cout << "\n=== NUMBER PUZZLE ===";
+        cout << "\n1. View game rules";
+        cout << "\n2. Start the game";
+        cout << "\nSelect an option: ";
+        cin >> option; // Read the option entered by the player
 
-        // Si la entrada es inválida o la opción no es ni 1 ni 2, aviso y vuelvo a pedir
-        if (cin.fail() || (opcion != 1 && opcion != 2)) {
-            cin.clear(); // Limpio el estado de error de cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro la entrada basura
-            cout << "Opción inválida. Intenta de nuevo.\n"; // Mensaje de error
+        // If the input is invalid or the option is neither 1 nor 2, notify and ask again
+        if (cin.fail() || (option != 1 && option != 2)) {
+            cin.clear(); // Clear the error state of cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the garbage input
+            cout << "Invalid option. Please try again.\n"; // Error message
         } 
-        // Si elige ver reglas, las muestro
-        else if (opcion == 1) {
-            cout << "\n=== REGLAS DEL PUZZLE DE NUMEROS ===\n";
-            cout << "1. Se te mostrará una secuencia desordenada de números del 1 al 8.\n";
-            cout << "2. Debes ordenarlos intercambiando dos posiciones por turno.\n";
-            cout << "3. Las posiciones van de 0 a 7.\n";
-            cout << "4. Gana el jugador con menos intentos.\n";
-            cout << "5. Si hay empate, ambos ganan puntos.\n";
-            cout << "6. Si pones una posición inválida, el intento no cuenta.\n";
+        // If they choose to see the rules, show them
+        else if (option == 1) {
+            cout << "\n=== NUMBER PUZZLE RULES ===\n";
+            cout << "1. You will be shown a shuffled sequence of numbers from 1 to 8.\n";
+            cout << "2. You must order them by swapping two positions per turn.\n";
+            cout << "3. The positions range from 0 to 7.\n";
+            cout << "4. The player with the fewest attempts wins.\n";
+            cout << "5. If there is a tie, both win points.\n";
+            cout << "6. If you enter an invalid position, the attempt does not count.\n";
             cout << "---------------------------------------\n";
         }
-    } while (opcion != 2); // Sigo mostrando el menú hasta que el jugador elija comenzar
+    } while (option != 2); // Keep showing the menu until the player chooses to start
 
-    // Ahora comienzo el juego en sí
-    int numeros[MAX_NUMEROS] = {1,2,3,4,5,6,7,8}; // Creo el arreglo ordenado base
-    mezclarArreglo(numeros, MAX_NUMEROS); // Mezclo los números para hacer el puzzle
+    // Now I start the game itself
+    int numbers[MAX_NUMBERS] = {1,2,3,4,5,6,7,8}; // Create the base ordered array
+    shuffleArray(numbers, MAX_NUMBERS); // Shuffle the numbers to create the puzzle
 
-    int intentosJ1 = 0, intentosJ2 = 0; // Inicializo los contadores de intentos
+    int attemptsP1 = 0, attemptsP2 = 0; // Initialize the attempt counters
 
-    // Turno del jugador 1
-    cout << "\nTurno de " << j1.nombre << endl;
-    int copiaJ1[MAX_NUMEROS]; // Creo una copia para que el jugador 1 juegue sin modificar el original
-    copy(numeros, numeros + MAX_NUMEROS, copiaJ1); // Copio la secuencia mezclada
+    // Player 1's turn
+    cout << "\nTurn of " << p1.name << endl;
+    int copyP1[MAX_NUMBERS]; // Create a copy for player 1 to play without modifying the original
+    copy(numbers, numbers + MAX_NUMBERS, copyP1); // Copy the shuffled sequence
 
-    // Mientras el arreglo no esté ordenado...
-    while(!estaOrdenado(copiaJ1, MAX_NUMEROS)) {
-        cout << "Secuencia actual: ";
-        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ1[i] << " "; // Muestro la secuencia actual
+    // While the array is not sorted...
+    while(!isSorted(copyP1, MAX_NUMBERS)) {
+        cout << "Current sequence: ";
+        for(int i = 0; i < MAX_NUMBERS; i++) cout << copyP1[i] << " "; // Show the current sequence
         cout << endl;
 
-        int pos1, pos2; // Variables para guardar las posiciones a intercambiar
-        cout << "Ingresa dos posiciones para intercambiar (0-7): ";
-        cin >> pos1 >> pos2; // Leo las posiciones
+        int pos1, pos2; // Variables to store the positions to swap
+        cout << "Enter two positions to swap (0-7): ";
+        cin >> pos1 >> pos2; // Read the positions
 
-        // Valido que las posiciones sean válidas y que la entrada sea correcta
-        if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
-            cin.clear(); // Limpio error en la entrada
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignoro basura en el buffer
-            cout << "Posiciones inválidas. Intenta nuevamente.\n"; // Mensaje de error
-            continue; // No cuento intento y pido de nuevo
+        // Validate that the positions are valid and that the input is correct
+        if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMBERS || pos2 < 0 || pos2 >= MAX_NUMBERS) {
+            cin.clear(); // Clear the input error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore garbage in the buffer
+            cout << "Invalid positions. Try again.\n"; // Error message
+            continue; // Do not count the attempt and ask again
         }
 
-        swap(copiaJ1[pos1], copiaJ1[pos2]); // Intercambio las posiciones
-        intentosJ1++; // Aumento el contador de intentos para el jugador 1
+        swap(copyP1[pos1], copyP1[pos2]); // Swap the positions
+        attemptsP1++; // Increase the attempt counter for player 1
     }
 
-    // Turno del jugador 2
-    cout << "\nTurno de " << j2.nombre << endl;
-    int copiaJ2[MAX_NUMEROS]; // Creo la copia para el jugador 2
-    copy(numeros, numeros + MAX_NUMEROS, copiaJ2); // Copio la secuencia mezclada para él
+    // Player 2's turn
+    cout << "\nTurn of " << p2.name << endl;
+    int copyP2[MAX_NUMBERS]; // Create the copy for player 2
+    copy(numbers, numbers + MAX_NUMBERS, copyP2); // Copy the shuffled sequence for him
 
-    // Mismo proceso para jugador 2
-    while(!estaOrdenado(copiaJ2, MAX_NUMEROS)) {
-        cout << "Secuencia actual: ";
-        for(int i = 0; i < MAX_NUMEROS; i++) cout << copiaJ2[i] << " ";
+    // Same process for player 2
+    while(!isSorted(copyP2, MAX_NUMBERS)) {
+        cout << "Current sequence: ";
+        for(int i = 0; i < MAX_NUMBERS; i++) cout << copyP2[i] << " ";
         cout << endl;
 
         int pos1, pos2;
-        cout << "Ingresa dos posiciones para intercambiar (0-7): ";
+        cout << "Enter two positions to swap (0-7): ";
         cin >> pos1 >> pos2;
 
-        if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMEROS || pos2 < 0 || pos2 >= MAX_NUMEROS) {
+        if (cin.fail() || pos1 < 0 || pos1 >= MAX_NUMBERS || pos2 < 0 || pos2 >= MAX_NUMBERS) {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Posiciones inválidas. Intenta nuevamente.\n";
+            cout << "Invalid positions. Try again.\n";
             continue;
         }
 
-        swap(copiaJ2[pos1], copiaJ2[pos2]);
-        intentosJ2++;
+        swap(copyP2[pos1], copyP2[pos2]);
+        attemptsP2++;
     }
 
-    // Comparo los intentos para definir el ganador o si hay empate
-    if(intentosJ1 < intentosJ2) {
-        cout << "\n¡" << j1.nombre << " gana con " << intentosJ1 << " intentos! +20 puntos\n";
-        j1.puntuacion += 20; // Asigno puntos al ganador
-    } else if(intentosJ2 < intentosJ1) {
-        cout << "\n¡" << j2.nombre << " gana con " << intentosJ2 << " intentos! +20 puntos\n";
-        j2.puntuacion += 20;
+    // Compare the attempts to determine the winner or if there is a tie
+    if(attemptsP1 < attemptsP2) {
+        cout << "\n!" << p1.name << " wins with " << attemptsP1 << " attempts! +20 points\n";
+        p1.score += 20; // Assign points to the winner
+    } else if(attemptsP2 < attemptsP1) {
+        cout << "\n!" << p2.name << " wins with " << attemptsP2 << " attempts! +20 points\n";
+        p2.score += 20;
     } else {
-        cout << "\n¡Empate! Ambos ganan 10 puntos\n";
-        j1.puntuacion += 10;
-        j2.puntuacion += 10;
+        cout << "\n!It's a tie! Both win 10 points\n";
+        p1.score += 10;
+        p2.score += 10;
     }
 
-    mostrarGanador(j1, j2); // Muestro la tabla final de puntajes
+    showWinner(p1, p2); // Show the final score table
 }
 
-// Esta función la uso para mostrar quién va ganando o si están empatados
-void mostrarGanador(JugadorMinijuego& j1, JugadorMinijuego& j2) {
-    // Comienzo mostrando un encabezado bonito
-    cout << "\n=== PUNTUACIONES ===";
+// This function is used to show who is winning or if they are tied
+void showWinner(MiniGamePlayer& p1, MiniGamePlayer& p2) {
+    // Start by showing a nice header
+    cout << "\n=== SCORES ===";
 
-    // Muestro el nombre del jugador 1 junto con su puntuación actual
-    cout << "\n" << j1.nombre << ": " << j1.puntuacion << " puntos";
+    // Show player 1's name along with their current score
+    cout << "\n" << p1.name << ": " << p1.score << " points";
 
-    // Muestro el nombre del jugador 2 y su puntuación también
-    cout << "\n" << j2.nombre << ": " << j2.puntuacion << " puntos\n";
+    // Show player 2's name and their score as well
+    cout << "\n" << p2.name << ": " << p2.score << " points\n";
 
-    // Aquí comparo las puntuaciones para ver quién va ganando
-    if(j1.puntuacion > j2.puntuacion) {
-        // Si el jugador 1 tiene más puntos, lo anuncio como quien va ganando
-        cout << "\n¡" << j1.nombre << " va ganando!\n";
+    // Here I compare the scores to see who is winning
+    if(p1.score > p2.score) {
+        // If player 1 has more points, announce them as the one winning
+        cout << "\n!" << p1.name << " is winning!\n";
     } 
-    else if(j2.puntuacion > j1.puntuacion) {
-        // Si el jugador 2 tiene más puntos, entonces él va ganando
-        cout << "\n¡" << j2.nombre << " va ganando!\n";
+    else if(p2.score > p1.score) {
+        // If player 2 has more points, then he is winning
+        cout << "\n!" << p2.name << " is winning!\n";
     } 
     else {
-        // Si ambos tienen los mismos puntos, anuncio que están empatados
-        cout << "\n¡Están empatados!\n";
+        // If both have the same points, announce that they are tied
+        cout << "\n!They are tied!\n";
     }
 }
 
-
-// Función para validar que el nombre solo tenga letras
-bool esNombreValido(const string& nombre) {
-    if (nombre.empty()) return false; // No puede estar vacío
-    for (char c : nombre) {
-        if (!isalpha(c)) return false; // Si hay algo que no sea letra, inválido
+// Function to validate that the name only contains letters
+bool isNameValidate(const string& name) {
+    if (name.empty()) return false; // Cannot be empty
+    for (char c : name) {
+        if (!isalpha(c)) return false; // If there is anything that is not a letter, invalid
     }
     return true;
 }
 
-// Ejemplo de uso en modoMultijugador()
-void modoMultijugador() {
-    string nombre1, nombre2;
+// Example usage in multiplayerMode()
+void multiplayerMode() {
+    string name1, name2;
     clearConsole();
-    cout << "\n=== MODO MULTIJUGADOR (Minijuegos) ===";
+    cout << "\n=== MULTIPLAYER MODE (Mini-Games) ===";
 
     do {
-        cout << "\nJugador 1, ingresa tu nombre: ";
-        cin >> nombre1;
-        if (!esNombreValido(nombre1)) {
-            cout << "Nombre inválido. Usa solo letras sin espacios ni números.\n";
+        cout << "\nPlayer 1 , enter your name: ";
+        cin >> name1;
+        if (!isNameValidate(name1)) {
+            cout << "Invalid name. Use only letters without spaces or numbers.\n";
         }
-    } while (!esNombreValido(nombre1));
+    } while (!isNameValidate(name1));
 
     do {
-        cout << "Jugador 2, ingresa tu nombre: ";
-        cin >> nombre2;
-        if (!esNombreValido(nombre2)) {
-            cout << "Nombre inválido. Usa solo letras sin espacios ni números.\n";
+        cout << "Player 2, enter your name: ";
+        cin >> name2;
+        if (!isNameValidate(name2)) {
+            cout << "Invalid name. Use only letters without spaces or numbers.\n";
         }
-    } while (!esNombreValido(nombre2));
+    } while (!isNameValidate(name2));
 
-    JugadorMinijuego j1 = {nombre1};
-    JugadorMinijuego j2 = {nombre2};
+    MiniGamePlayer p1 = {name1};
+    MiniGamePlayer p2 = {name2};
 
-    srand(time(nullptr)); // Inicializo la semilla aleatoria
-    menuMinijuegos(j1, j2); // Llamo al menú con los dos jugadores
+    srand(time(nullptr)); // Initialize the random seed
+    miniGamesMenu(p1, p2); // Call the menu with the two players
 
-    cout << "\n=== RESULTADO FINAL ===";
-    mostrarGanador(j1, j2); // Muestro la puntuación final
+    cout << "\n=== FINAL RESULT ===";
+    showWinner(p1, p2); // Show the final score
 }
 
-#endif // MULTIJUGADOR_H
+#endif // MULTIPLAYER_H
