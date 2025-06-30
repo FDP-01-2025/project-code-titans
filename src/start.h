@@ -9,7 +9,7 @@ inline void startGame() {
     showLoadingScreen();  // First, I show the loading screen so the user sees the logo and loading animation
 
     // After loading, I show the main menu where the player can choose to play solo, multiplayer, or exit
-    menuGameMode();
+    gameModeMenu();
 }
 
 #endif // GAME_START_H
