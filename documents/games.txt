@@ -3,3 +3,12 @@ Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money:
 Player: alonso | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $300
 Player: alonso | Event: Craps | Amount: $10 | Result: Won | Remaining money: $310
 Player: alonso | Event: Hi-Lo | Amount: $10 | Result: Lost | Remaining money: $300
+Player: alonso | Event: Slot Machine (Medium) | Amount: $800 | Result: Won | Remaining money: $1100
+Player: alonso | Event: Slot Machine (Medium) | Amount: $800 | Result: Won | Remaining money: $1900
+Player: alonso | Event: Slot Machine (Medium) | Amount: $800 | Result: Won | Remaining money: $2700
+Player: alonso | Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $2500
+Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $2200
+Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $1900
+Player: alonso | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $1800
+Player: alonso | Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $1600
+Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $1300

@@ -46,11 +46,15 @@ struct Player {
     inline void showStatistics() {
         loadPlayerStatistics(); // First load to show updated data
         clearConsole();
-        cout << "\nYour game statistics:\n";
-        cout << "Games played: " << gamesPlayed << "\n";
-        cout << "Games won: " << gamesWon << "\n";
-        cout << "Games lost: " << gamesLost << "\n";
-        cout << "Games tied: " << gamesTied << "\n";
+        cout << "+======================================+\n";
+        cout << "|         Your game statistics:        |\n";
+        cout << "║                                      ║\n";
+        cout << "| Games played: " << gamesPlayed << "                     |\n";
+        cout << "║ Games won: " << gamesWon << "                         ║\n";
+        cout << "| Games lost: " << gamesLost << "                        |\n";
+        cout << "║ Games tied: " << gamesTied << "                        ║\n";
+        cout << "|                                      |\n";
+        cout << "+--------------------------------------+\n";
         cout << "\nPress Enter to continue...";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();

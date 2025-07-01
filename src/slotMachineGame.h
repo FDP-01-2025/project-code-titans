@@ -54,9 +54,9 @@ inline void showSlotMenu() {
     cout << "|                                                          . " << endl;
     cout << "*                  Choose the difficulty:                  . " << endl;
     cout << "|                                                          . " << endl;
-    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)         | " << endl;
-    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)         * " << endl;
-    cout << ".   (H) HARD:      5 lines (Bet: $300, Win: $1500)        | " << endl;
+    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)          | " << endl;
+    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)          * " << endl;
+    cout << ".   (H) HARD:      5 lines (Bet: $300, Win: $1500)         | " << endl;
     cout << ".                                                          * " << endl;
     cout << ".     BACK (B)                                             | " << endl;
     cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
@@ -100,17 +100,17 @@ inline void losePhrases() {
 inline void emptySlotsE() {
     clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
-    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
-    cout << "|                                ." << endl;
-    cout << "*          Try your luck!        ." << endl;
-    cout << "|                                ." << endl;
-    cout << "*    -----------------------     ." << endl;
-    cout << ".   |       |       |       |    | " << endl;
-    cout << ".   |   -   |   -   |   -   |    *" << endl;
-    cout << ".   |       |       |       |    | " << endl;
-    cout << "*    -----------------------     *" << endl;
-    cout << ".   | Pull the lever (!)|        | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * - * - *" << endl;
+    cout << "* - * - * - * - * - * - * . . . .  " << endl;
+    cout << "|                               ." << endl;
+    cout << "*         Try your luck!        ." << endl;
+    cout << "|                               ." << endl;
+    cout << "*    -----------------------    ." << endl;
+    cout << ".   |       |       |       |   . " << endl;
+    cout << ".   |   -   |   -   |   -   |   *" << endl;
+    cout << ".   |       |       |       |   | " << endl;
+    cout << "*    -----------------------    *" << endl;
+    cout << ".   | Pull the lever (!)|       | " << endl;
+    cout << ". . . . . . . . . . . . * - * - * " << endl;
     cout << endl;
 }
 
@@ -151,8 +151,8 @@ inline void symbolColorE(char slots[3]) {
 }
 
 inline void finalSlotsE(char slots[3]) {
-    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
-    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
+    cout << "-----------------------------------" << endl; // Separator line, because we need a little drama.
+    cout << "* - * - * - * - * - * - * . . . .  " << endl;
     cout << "|                                ." << endl;
     cout << "*            RESULTS!            ." << endl;
     cout << "|                                ." << endl;
@@ -302,7 +302,7 @@ inline void easyMode(Player& player) {
 inline void emptySlotsM() {
     clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
-    cout << "* - * - * - * - * - * - * . . . . . . . . . . . " << endl;
+    cout << "* - * - * - * - * - * - * . . . . . . . . " << endl;
     cout << "|                                       ." << endl;
     cout << "*             Try your luck!            ." << endl;
     cout << "|                                       ." << endl;
@@ -310,7 +310,7 @@ inline void emptySlotsM() {
     cout << ".   |       |       |       |       |   . " << endl;
     cout << ".   |   -   |   -   |   -   |   -   |   *" << endl;
     cout << ".   |       |       |       |       |   | " << endl;
-    cout << "*    -------------------------------    *" << endl;
+    cout << ".    -------------------------------    *" << endl;
     cout << ".    | Pull the lever (!)|              | " << endl;
     cout << ". . . . . . . . . . . . * - * - * - * - * " << endl;
     cout << endl;
@@ -353,7 +353,7 @@ inline void symbolColorM(char slots[4]) {
 }
 
 inline void finalSlotsM(char slots[4]) {
-    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
+    cout << "-----------------------------------------" << endl; // Separator line, because we need a little drama.
     cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
     cout << "|                                       ." << endl;
     cout << "*                RESULTS!               ." << endl;
@@ -362,9 +362,9 @@ inline void finalSlotsM(char slots[4]) {
     cout << ".   |       |       |       |       |   . " << endl;
     cout << ".   |   ";
     symbolColorM(slots); // Show the symbols in color, because life is more fun with color.
-    cout << "*" << endl;
+    cout << "." << endl;
     cout << ".   |       |       |       |       |   | " << endl;
-    cout << "*    -------------------------------    *" << endl;
+    cout << ".    -------------------------------    *" << endl;
     cout << ".    | Pull the lever (!)|              | " << endl;
     cout << ". . . . . . . . . . . . * - * - * - * - * " << endl;
     cout << endl;
@@ -554,7 +554,7 @@ inline void symbolColorH(char slots[5]) {
 }
 
 inline void finalSlotsH(char slots[5]) {
-    cout << "---------------------------------" << endl; // Separator line, because we need a little drama.
+    cout << "--------------------------------------------------" << endl; // Separator line, because we need a little drama.
     cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
     cout << "|                                               ." << endl;
     cout << "*                    RESULTS!                   ." << endl;
@@ -563,7 +563,7 @@ inline void finalSlotsH(char slots[5]) {
     cout << ".   |       |       |       |       |       |   . " << endl;
     cout << ".   |   ";
     symbolColorH(slots); // Show the symbols in color, because life is more fun with color.
-    cout << "." << endl;
+    cout << "*" << endl;
     cout << ".   |       |       |       |       |       |   | " << endl;
     cout << ".    ---------------------------------------    *" << endl;
     cout << ".    | Pull the lever (!)|                      | " << endl;

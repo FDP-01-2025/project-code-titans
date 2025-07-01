@@ -58,14 +58,17 @@ void miniGamesMenu(MiniGamePlayer& p1, MiniGamePlayer& p2) {
         }
         clearConsole();
         // Show the available options
-        cout << "\n*======* MINI GAMES MENU *======*\n";
-        cout << "\n1. Memory Game";
-        cout << "\n2. Strategy Game";
-        cout << "\n3. Number Puzzle";
-        cout << "\n4. View Scores";
-        cout << "\n5. Exit";
+        cout << "-----------------------------------\n";
+        cout << "\n*=======* MINI GAMES MENU *=======*\n";
+        cout << "║                                 ║  ";
+        cout << "\n| 1. Memory Game                  |";
+        cout << "\n║ 2. Strategy Game                ║";
+        cout << "\n| 3. Number Puzzle                |";
+        cout << "\n║ 4. View Scores                  ║";
+        cout << "\n| 5. Exit                         |";
+        cout << "\n║                                 ║";
         cout <<endl;
-        cout << "+---------------------------------+\n";
+        cout << "+=================================+\n";
         cout << "| Select a game: ";
         
         cin >> option; // Read the option selected by the player
@@ -106,10 +109,14 @@ void memoryGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
 
     // Pre-menu to explain the game if the player wants
     do {
-        cout << "\n=== MEMORY GAME ===";
-        cout << "\n1. View game rules";
-        cout << "\n2. Start the game";
-        cout << "\nSelect an option: ";
+        cout << "---------------------------------\n";
+      cout << "\n*=========* MEMORY GAME *=========*\n";
+        cout << "║                                 ║";
+        cout << "\n| 1. View game rules              |";
+        cout << "\n║ 2. Start the game               ║";
+        cout << "\n|                                 |";
+        cout << "\n+---------------------------------+";
+        cout << "\n| Select an option: ";
         cin >> option;
 
         // Validate invalid input
@@ -120,13 +127,16 @@ void memoryGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
         } else if (option == 1) {
             clearConsole();
             // If they choose 1, show the rules
-            cout << "\n=== MEMORY GAME RULES ===\n";
-            cout << "1. There are 16 cards (8 pairs) hidden.\n";
-            cout << "2. You select two cards per turn (0-15).\n";
-            cout << "3. If they are the same, you earn 10 points.\n";
-            cout << "4. If you fail, you lose your turn.\n";
-            cout << "5. The player with the most points at the end wins.\n";
-            cout << "----------------------------------------\n";
+            cout << "--------------------------------------------------------\n";
+            cout << "\n+------- *=======* MEMORY GAME RULES *=======* --------+";
+            cout << "\n|                                                      |";
+            cout << "\n║ 1. There are 16 cards (8 pairs) hidden.              ║";
+            cout << "\n| 2. You select two cards per turn (0-15).             |";
+            cout << "\n║ 3. If they are the same, you earn 10 points.         ║";
+            cout << "\n| 4. If you fail, you lose your turn.                  |";
+            cout << "\n║ 5. The player with the most points at the end wins.  ║";
+            cout << "\n|                                                      |";
+            cout << "\n+------------------------------------------------------+\n";
         }
     } while (option != 2); // Repeat until they choose to start
 
@@ -197,10 +207,14 @@ void strategyGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
 
     // Sub-menu to show rules if the player wants
     do {
-        cout << "\n=== STRATEGY GAME ===";
-        cout << "\n1. View game rules";
-        cout << "\n2. Start the game";
-        cout << "\nSelect an option: ";
+        cout << "-----------------------------------\n";
+        cout << "\n*========* STRATEGY GAME *========*\n";
+        cout << "║                                 ║";
+        cout << "\n| 1. View game rules              |";
+        cout << "\n║ 2. Start the game               ║";
+        cout << "\n|                                 |";
+        cout << "\n+---------------------------------+";
+        cout << "\n| Select an option: ";
         cin >> option;
 
         // Validate the chosen option
@@ -210,12 +224,16 @@ void strategyGame(MiniGamePlayer& p1, MiniGamePlayer& p2) {
             cout << "Invalid option. Please try again.\n";
         } else if (option == 1) {
             // If they choose to see the rules
-            cout << "\n=== STRATEGY GAME RULES ===\n";
-            cout << "1. We start from 0.\n";
-            cout << "2. Each player adds a number between 1 and 5 on their turn.\n";
-            cout << "3. The one who makes the total reach 21 loses.\n";
-            cout << "4. The other player wins 15 points.\n";
-            cout << "---------------------------------------\n";
+            cout << "----------------------------------------------------------------\n";
+            cout << "\n+--------- *========* STRATEGY GAME RULES *========* ----------+";
+            cout << "\n|                                                              |";
+            cout << "\n║ 1. We start from 0.                                          ║";
+            cout << "\n| 2. Each player adds a number between 1 and 5 on their turn.  |";
+            cout << "\n║ 3. The one who makes the total reach 21 loses.               ║";
+            cout << "\n| 4. The other player wins 15 points.                          |";
+            cout << "\n║                                                              ║";
+            cout << "\n+--------------------------------------------------------------+\n";
+
         }
     } while (option != 2); // Repeat until they choose to play
 
@@ -259,10 +277,14 @@ void numberPuzzle(MiniGamePlayer& p1, MiniGamePlayer& p2) {
 
     // Show a small menu for the player to see rules or start playing
     do {
-        cout << "\n=== NUMBER PUZZLE ===";
-        cout << "\n1. View game rules";
-        cout << "\n2. Start the game";
-        cout << "\nSelect an option: ";
+        cout << "-------------------------------------\n";
+        cout << "\n*=========* NUMBER PUZZLE *=========*\n";
+        cout << "║                                   ║";
+        cout << "\n| 1. View game rules                |";
+        cout << "\n║ 2. Start the game                 ║";
+        cout << "\n|                                   |";
+        cout << "\n+-----------------------------------+";
+        cout << "\n| Select an option: ";
         cin >> option; // Read the option entered by the player
 
         // If the input is invalid or the option is neither 1 nor 2, notify and ask again
@@ -273,14 +295,18 @@ void numberPuzzle(MiniGamePlayer& p1, MiniGamePlayer& p2) {
         } 
         // If they choose to see the rules, show them
         else if (option == 1) {
-            cout << "\n=== NUMBER PUZZLE RULES ===\n";
-            cout << "1. You will be shown a shuffled sequence of numbers from 1 to 8.\n";
-            cout << "2. You must order them by swapping two positions per turn.\n";
-            cout << "3. The positions range from 0 to 7.\n";
-            cout << "4. The player with the fewest attempts wins.\n";
-            cout << "5. If there is a tie, both win points.\n";
-            cout << "6. If you enter an invalid position, the attempt does not count.\n";
-            cout << "---------------------------------------\n";
+
+            cout << "----------------------------------------------------------------------\n";
+            cout << "\n+---------- *==========* NUMBER PUZZLE RULES *==========* -----------+";
+            cout << "\n|                                                                    |";
+            cout << "\n║ 1. You will be shown a shuffled sequence of numbers from 1 to 8.   ║";
+            cout << "\n| 2. You must order them by swapping two positions per turn.         |";
+            cout << "\n║ 3. The positions range from 0 to 7.                                ║";
+            cout << "\n| 4. The player with the fewest attempts wins.                       |";
+            cout << "\n║ 5. If there is a tie, both win points.                             ║";
+            cout << "\n| 6. If you enter an invalid position, the attempt does not count.   |";
+            cout << "\n║                                                                    ║";
+            cout << "\n+--------------------------------------------------------------------+\n";
         }
     } while (option != 2); // Keep showing the menu until the player chooses to start
 
@@ -362,13 +388,18 @@ void numberPuzzle(MiniGamePlayer& p1, MiniGamePlayer& p2) {
 // This function is used to show who is winning or if they are tied
 void showWinner(MiniGamePlayer& p1, MiniGamePlayer& p2) {
     // Start by showing a nice header
-    cout << "\n=== SCORES ===";
 
-    // Show player 1's name along with their current score
-    cout << "\n" << p1.name << ": " << p1.score << " points";
+    cout << "\n+======================================+\n";
+    cout << "|              * SCORES *              |\n";
+    cout << "+--------------------------------------+\n";
+    cout << "|\n";
+
+    // Show player 1's name along with their current score  
+    cout << "| " << p1.name << ": " << p1.score << " points";
 
     // Show player 2's name and their score as well
-    cout << "\n" << p2.name << ": " << p2.score << " points\n";
+    cout << "\n| " << p2.name << ": " << p2.score << " points\n";
+    cout << "+======================================+\n";
 
     // Here I compare the scores to see who is winning
     if(p1.score > p2.score) {
@@ -398,7 +429,7 @@ bool isNameValidate(const string& name) {
 void multiplayerMode() {
     string name1, name2;
     clearConsole();
-    cout << "\n=== MULTIPLAYER MODE (Mini-Games) ===";
+    cout << "\n*=======* MULTIPLAYER MODE (Mini-Games) *=======*\n";
 
     do {
         cout << "\nPlayer 1 , enter your name: ";
@@ -421,8 +452,7 @@ void multiplayerMode() {
 
     srand(time(nullptr)); // Initialize the random seed
     miniGamesMenu(p1, p2); // Call the menu with the two players
-
-    cout << "\n=== FINAL RESULT ===";
+    cout << "\n*===========* FINAL RESULT *===========*\n";
     showWinner(p1, p2); // Show the final score
 }
 
