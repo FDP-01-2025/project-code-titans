@@ -104,7 +104,7 @@ inline void hilo(Player& player, int& bet) {  // Receives reference to player an
 
             // Ask if they want to keep playing
             while (true) {
-                cout << "Do you want to keep playing? (Y/N): ";
+                cout << "Do you want to keep playing? (S/N): ";
                 cin >> going;
                 if (going == 'S' || going == 's' || going == 'N' || going == 'n') break;
                 cout << "Invalid option, please select 'S' or 'N'\n";
@@ -125,7 +125,7 @@ inline void hilo(Player& player, int& bet) {  // Receives reference to player an
 
             // Ask if they want to keep playing in a tie
             while (true) {
-                cout << "Do you want to keep playing? (Y/N): ";
+                cout << "Do you want to keep playing? (S/N): ";
                 cin >> going;
                 if (going == 'S' || going == 's' || going == 'N' || going == 'n') break;
                 cout << "Invalid option, please select 'S' or 'N'\n";
