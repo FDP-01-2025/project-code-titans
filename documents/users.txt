@@ -7,3 +7,12 @@ Gender: M
 DUI: 12345678-9
 =================
 
+====== User ======
+Name: sofia
+Password: 12345678
+Code: 392328
+Birthdate: 20/05/2006
+Gender: F
+DUI: 12345678-8
+=================
+

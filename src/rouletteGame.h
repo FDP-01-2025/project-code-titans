@@ -238,8 +238,8 @@ inline void playRoulette(Player& player) {  // Main function that handles the co
         saveBalance(player.name, player.money);  // Save balance to file
         player.updateStatistics();  // Update internal statistics
 
-        // Log the game played in history with result and balance
-        saveGame("Roulette", player.name, bet, won ? 1 : 0, player.money);
+        // I log the game session with the bet result and updated balance
+        registerGame("Roulette", player.name, won ? bet : -bet, player.money);
 
         if (!askToContinue()) break;  // Ask if they want to keep playing, if not, exit
     }

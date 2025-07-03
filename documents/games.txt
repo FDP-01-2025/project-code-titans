@@ -41,3 +41,16 @@ Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money
 Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1230
 Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1250
 Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1270
+Player: alonso | Event: Roulette | Amount: $10 | Result: Won | Remaining money: $1290
+[2025-07-02 22:28:50] Player: alonso | Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1270
+[2025-07-02 22:30:21] Player: alonso | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $1170
+[2025-07-02 22:31:05] Player: alonso | Event: Craps | Amount: $10 | Result: Lost | Remaining money: $1160
+[2025-07-02 22:31:41] Player: alonso | Event: Hi-Lo | Amount: $20 | Result: Won | Remaining money: $1180
+Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money: $1170
+Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money: $1160
+[2025-07-02 22:54:15] Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money: $1150
+[2025-07-02 23:00:57] Player: sofia | Event: Roulette | Amount: $10 | Result: Won | Remaining money: $120
+[2025-07-02 23:01:23] Player: sofia | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $110
+[2025-07-02 23:01:52] Player: sofia | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $10
+[2025-07-02 23:02:48] Player: sofia | Event: Craps | Amount: $10 | Result: Won | Remaining money: $20
+[2025-07-02 23:03:02] Player: sofia | Event: Hi-Lo | Amount: $20 | Result: Won | Remaining money: $40

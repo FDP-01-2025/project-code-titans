@@ -1,4 +1,4 @@
-Games played: 38
-Games won: 16
-Games lost: 26
+Games played: 46
+Games won: 18
+Games lost: 32
 Games tied: 1

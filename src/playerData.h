@@ -6,6 +6,7 @@
 #include <iostream>   // I include this for debugging or displaying messages if necessary
 #include <cmath>      // I use this in case I need mathematical functions like abs
 #include <limits>     // I use this to handle limits, such as file reading errors
+#include <ctime>      // I include this library to get the current date and time
 
 using namespace std; // I use the standard namespace to avoid writing std:: all the time
 
@@ -37,9 +38,26 @@ inline void registerMoneyMovement(const string& movementType, const string& play
 
 // This function allows me to record a game result (win, loss, or tie)
 inline void registerGame(const string& gameName, const string& player, int winLossAmount, int remainingMoney) {
-    int result = (winLossAmount > 0) ? 1 : (winLossAmount < 0) ? 0 : 2; // Determine if I won, lost, or tied
-    saveGame(gameName, player, abs(winLossAmount), result, remainingMoney); // Record the result
-}
+    // First, I determine if I won, lost, or tied based on the amount won or lost
+    int result = (winLossAmount > 0) ? 1 : (winLossAmount < 0) ? 0 : 2;
+    
+    // Now I get the current date and time to save when this event happened
+    time_t now = time(nullptr);                // I get the current time
+    tm* localTime = localtime(&now);           // I convert it to local time
+    char timestamp[20];                        // I create a buffer for the date and time
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime); // I format the date and time as YYYY-MM-DD HH:MM:SS
+    
+    // I open the file to append the information
+    ofstream file("./documents/games.txt", ios::app);  // I open the file in append mode
+    if (file.is_open()) {
+        // I write the line with all the info: date, player, event, amount, result, and remaining money
+        file << "[" << timestamp << "] "
+             << "Player: " << player << " | Event: " << gameName
+             << " | Amount: $" << abs(winLossAmount)
+             << " | Result: " << (result == 1 ? "Won" : (result == 0 ? "Lost" : "Tie"))
+             << " | Remaining money: $" << remainingMoney << "\n";
+    }
+}   
 
 // This function saves the player's current balance to their own text file
 inline void saveBalance(const string& player, int money) {
