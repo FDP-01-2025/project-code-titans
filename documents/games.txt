@@ -12,3 +12,32 @@ Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Rema
 Player: alonso | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $1800
 Player: alonso | Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $1600
 Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1300
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1290
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1280
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1270
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1280
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1270
+Player: alonso | Event: Blackjack | Amount: $0 | Result: Tie | Remaining money: $1270
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1260
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1250
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1240
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1230
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1220
+Player: alonso | Event: Blackjack | Amount: $10 | Result: Lost | Remaining money: $1210
+Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1230
+Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1250
+Player: alonso | Event: Blackjack | Amount: $20 | Result: Won | Remaining money: $1270
