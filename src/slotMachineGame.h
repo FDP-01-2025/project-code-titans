@@ -31,14 +31,24 @@ inline void showSlot() {
     cout << endl;
     cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
-    cout << "*                   -PLAY SLOT MACHINE-                    . " << endl;
+    cout << "*                  ";
+    setColor (36); //cian
+    cout << " -PLAY SLOT MACHINE-";
+    resetColor ();
+    cout << "                    . " << endl;
     cout << "|                                                          . " << endl;
     cout << "*    A slot machine is a game where a series of random     . " << endl;
     cout << "|    symbols are displayed on each spin. If all the        . " << endl;
     cout << ".    symbols on a line match, you win.                     | " << endl;
     cout << ".                                                          * " << endl;
     cout << ".                                                          | " << endl;
-    cout << ".    MENU (M)                                 PLAY (P)     * " << endl;
+    cout << ".    ";
+    setColor (31); //red
+    cout << "MENU (M)                 ";
+    setColor (32); //green
+    cout << "                PLAY (P)";
+    resetColor ();
+    cout << "     * " << endl;
     cout << ".                                                          | " << endl;
     cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
     cout << endl;
@@ -50,15 +60,35 @@ inline void showSlotMenu() {
     cout << endl;
     cout << "* - * - * - * - * - * - * - * -*. . . . . . . . . . . . . . " << endl;
     cout << "|                                                          . " << endl;
-    cout << "*                      -SLOT MACHINE-                      . " << endl;
+    cout << "*                     ";
+    setColor (36); //cian
+    cout << " -SLOT MACHINE-                    ";
+    resetColor ();
+    cout << "  . " << endl;
     cout << "|                                                          . " << endl;
     cout << "*                  Choose the difficulty:                  . " << endl;
     cout << "|                                                          . " << endl;
-    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)          | " << endl;
-    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)          * " << endl;
-    cout << ".   (H) HARD:      5 lines (Bet: $300, Win: $1500)         | " << endl;
+    cout << ".   ";
+    setColor(32); //green
+    cout << "(E) EASY:";
+    resetColor();
+    cout <<"      3 lines (Bet: $100, Win: $300)          | " << endl;
+    cout << ".   ";
+    setColor(32); 
+    cout << "(M) MEDIUM:";
+    resetColor();
+    cout << "    4 lines (Bet: $200, Win: $800)          * " << endl;
+    cout << ".   ";
+    setColor(32); 
+    cout << "(H) HARD:";
+    resetColor();
+    cout << "      5 lines (Bet: $300, Win: $1500)         | " << endl;
     cout << ".                                                          * " << endl;
-    cout << ".     BACK (B)                                             | " << endl;
+    cout << ".     ";
+    setColor(31); //red
+    cout << "BACK (B)";
+    resetColor();
+    cout << "                                             | " << endl;
     cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
     cout << endl;
 }
@@ -100,18 +130,27 @@ inline void losePhrases() {
 inline void emptySlotsE() {
     clearConsole(); // Clear when showing difficulty menu, because clarity is key.
     cout << endl;
-    cout << "* - * - * - * - * - * - * . . . .  " << endl;
-    cout << "|                               ." << endl;
-    cout << "*         Try your luck!        ." << endl;
-    cout << "|                               ." << endl;
-    cout << "*    -----------------------    ." << endl;
-    cout << ".   |       |       |       |   . " << endl;
-    cout << ".   |   -   |   -   |   -   |   *" << endl;
-    cout << ".   |       |       |       |   | " << endl;
-    cout << "*    -----------------------    *" << endl;
-    cout << ".   | Pull the lever (!)|       | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * " << endl;
-    cout << endl;
+    cout<<endl;
+    cout<<"* - * - * - * - * - *. . . . . . . "<<endl;
+    cout<<"|                                ."<<endl;
+    cout<<"*          ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"        ."<<endl;
+    cout<<"|                                ."<<endl;
+    cout<<"*    -----------------------     ."<<endl;
+    cout<<".   |       |       |       |    |"<< endl;
+    cout<<".   |   -   |   -   |   -   |    *" <<endl;
+    cout<<".   |       |       |       |    |"<< endl;
+    cout<<".    -----------------------     *"<<endl;
+    cout<<".   | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|        |"<<endl;
+    cout<<". . . . . . .* - * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline char randomSymbolE() {
@@ -151,20 +190,25 @@ inline void symbolColorE(char slots[3]) {
 }
 
 inline void finalSlotsE(char slots[3]) {
-    cout << "-----------------------------------" << endl; // Separator line, because we need a little drama.
-    cout << "* - * - * - * - * - * - * . . . .  " << endl;
-    cout << "|                                ." << endl;
-    cout << "*            RESULTS!            ." << endl;
-    cout << "|                                ." << endl;
-    cout << "*    -----------------------     ." << endl;
-    cout << ".   |       |       |       |    * " << endl;
-    cout << ".   |   ";
-    symbolColorE(slots); // Show the symbols in color, because life is more fun with color.
-    cout << " |" << endl;
-    cout << ".   |       |       |       |    * " << endl;
-    cout << ".    -----------------------     | " << endl;
-    cout << ". . . . . . .* - * - * - * - * - *" << endl;
-    cout << endl;
+    cout<<"-----------------------------------" << endl; // Separator line, because we need a little drama.
+    cout<<"* - * - * - * - * - *. . . . . . . "<<endl;
+    cout<<"|                                ."<<endl;
+    cout<<"*            ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"            ."<<endl;
+    cout<<"|                                ."<<endl;
+    cout<<"*    -----------------------     ."<<endl;
+    cout<<".   |       |       |       |    *"<< endl;
+    //Random symbols will be displayed on this line
+    cout<<".   |   ";
+    symbolColorE(slots); //Call the function to display the generated symbols with their respective colors
+    cout<<" |" <<endl;
+    cout<<".   |       |       |       |    *"<< endl;
+    cout<<".    -----------------------     |"<<endl;
+    cout<<". . . . . . .* - * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline bool jackpotE(char slots[3]) {
@@ -180,7 +224,9 @@ inline void easyMode(Player& player) {
     string anotherRound;
 
     if (player.money < BET) {
+        setColor (31); 
         cout << "You do not have enough money to play in Easy mode. You need $" << BET << ".\n";
+        resetColor ();
         return; // Exit, because nothing is sadder than a player without money.
     }
 
@@ -264,13 +310,20 @@ inline void easyMode(Player& player) {
         player.updateStatistics(); // Update statistics, because we need to keep track.
 
         if (player.money < BET) {
+            setColor(31);
             cout << "You do not have enough money for another round in Easy mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            resetColor();
             break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
         while (true) {
-            cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (S).        NO(N)" << endl;
+            setColor(36); //cian
+            cout<<"\nDo you want to play another round?\n"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin, anotherRound);
 
             if (anotherRound == "S" || anotherRound == "s") {
@@ -301,19 +354,27 @@ inline void easyMode(Player& player) {
 
 inline void emptySlotsM() {
     clearConsole(); // Clear when showing difficulty menu, because clarity is key.
-    cout << endl;
-    cout << "* - * - * - * - * - * - * . . . . . . . . " << endl;
-    cout << "|                                       ." << endl;
-    cout << "*             Try your luck!            ." << endl;
-    cout << "|                                       ." << endl;
-    cout << "*    -------------------------------    ." << endl;
-    cout << ".   |       |       |       |       |   . " << endl;
-    cout << ".   |   -   |   -   |   -   |   -   |   *" << endl;
-    cout << ".   |       |       |       |       |   | " << endl;
-    cout << ".    -------------------------------    *" << endl;
-    cout << ".    | Pull the lever (!)|              | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * - * - * " << endl;
-    cout << endl;
+    cout<<endl;
+    cout<<"* - * - * - * - * - . . . . . . . . . . ."<<endl;
+    cout<<"|                                       ."<<endl;
+    cout<<"*             ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"            ."<<endl;
+    cout<<"|                                       ."<<endl;
+    cout<<"*    -------------------------------    ."<<endl;
+    cout<<".   |       |       |       |       |   ."<< endl;
+    cout<<".   |   -   |   -   |   -   |   -   |   *" <<endl;
+    cout<<".   |       |       |       |       |   |"<< endl;
+    cout<<"*    -------------------------------    *"<<endl;
+    cout<<".    | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|              |"<<endl;
+    cout<<". . . . . . . . . . . . * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline char randomSymbolM() {
@@ -353,21 +414,27 @@ inline void symbolColorM(char slots[4]) {
 }
 
 inline void finalSlotsM(char slots[4]) {
-    cout << "-----------------------------------------" << endl; // Separator line, because we need a little drama.
-    cout << "* - * - * - * - * - * - * . . . . . . . " << endl;
-    cout << "|                                       ." << endl;
-    cout << "*                RESULTS!               ." << endl;
-    cout << "|                                       ." << endl;
-    cout << "*    -------------------------------    ." << endl;
-    cout << ".   |       |       |       |       |   . " << endl;
-    cout << ".   |   ";
-    symbolColorM(slots); // Show the symbols in color, because life is more fun with color.
-    cout << "." << endl;
-    cout << ".   |       |       |       |       |   | " << endl;
-    cout << ".    -------------------------------    *" << endl;
-    cout << ".    | Pull the lever (!)|              | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * - * - * " << endl;
-    cout << endl;
+    cout<<"-----------------------------------------" << endl; // Separator line, because we need a little drama.
+    cout<<endl;
+    cout<<"* - * - * - * - * - . . . . . . . . . . ."<<endl;
+    cout<<"|                                       ."<<endl;
+    cout<<"*                ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"               ."<<endl;
+    cout<<"|                                       ."<<endl;
+    cout<<"*    -------------------------------    ."<<endl;
+    cout<<".   |       |       |       |       |   ."<< endl;
+    //Random symbols will be displayed on this line
+    cout<<".   |   ";
+    symbolColorM(slots); //Call the function to display the generated symbols with their respective colors
+    cout<<"*" <<endl;
+    cout<<".   |       |       |       |       |   |"<< endl;
+    cout<<"*    -------------------------------    *"<<endl;
+    cout<<".                                       |"<<endl;
+    cout<<". . . . . . . . . . . . * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline bool jackpotM(char slots[4]) {
@@ -382,7 +449,9 @@ inline void mediumMode(Player& player) {
     string anotherRound;
 
     if (player.money < BET) {
+        setColor(31);
         cout << "You do not have enough money to play in Medium mode. You need $" << BET << ".\n";
+        resetColor();
         return; // Exit, because nothing is sadder than a player without money.
     }
 
@@ -465,13 +534,20 @@ inline void mediumMode(Player& player) {
         player.updateStatistics(); // Update statistics, because we need to keep track.
 
         if (player.money < BET) {
+            setColor(31);
             cout << "You do not have enough money for another round in Medium mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            resetColor();
             break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
         while (true) {
-            cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (S).        NO(N)" << endl;
+            setColor(36); //cian
+            cout<<"\nDo you want to play another round?\n"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin, anotherRound);
 
             if (anotherRound == "S" || anotherRound == "s") {
@@ -502,19 +578,27 @@ inline void mediumMode(Player& player) {
 
 inline void emptySlotsH() {
     clearConsole(); // Clear when showing difficulty menu, because clarity is key.
-    cout << endl;
-    cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
-    cout << "|                                               ." << endl;
-    cout << "*                 Try your luck!                ." << endl;
-    cout << "|                                               ." << endl;
-    cout << "*    ---------------------------------------    ." << endl;
-    cout << ".   |       |       |       |       |       |   . " << endl;
-    cout << ".   |   -   |   -   |   -   |   -   |   -   |   *" << endl;
-    cout << ".   |       |       |       |       |       |   | " << endl;
-    cout << ".    ---------------------------------------    *" << endl;
-    cout << ".    | Pull the lever (!)|                      | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * - * - * - * - * " << endl;
-    cout << endl;
+    cout<<endl;
+    cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
+    cout<<"|                                               ."<<endl;
+    cout<<"*                 ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"                ."<<endl;
+    cout<<"|                                               ."<<endl;
+    cout<<"*    ---------------------------------------    ."<<endl;
+    cout<<".   |       |       |       |       |       |   ."<< endl;
+    cout<<".   |   -   |   -   |   -   |   -   |   -   |   *" <<endl;
+    cout<<".   |       |       |       |       |       |   |"<< endl;
+    cout<<".    ---------------------------------------    *"<<endl;
+    cout<<".    | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|                      |"<<endl;
+    cout<<". . . . . . . . . . . . * - * - * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline char randomSymbolH() {
@@ -554,21 +638,27 @@ inline void symbolColorH(char slots[5]) {
 }
 
 inline void finalSlotsH(char slots[5]) {
-    cout << "--------------------------------------------------" << endl; // Separator line, because we need a little drama.
-    cout << "* - * - * - * - * - * - * . . . . . . . . . . . . " << endl;
-    cout << "|                                               ." << endl;
-    cout << "*                    RESULTS!                   ." << endl;
-    cout << "|                                               ." << endl;
-    cout << "*    ---------------------------------------    ." << endl;
-    cout << ".   |       |       |       |       |       |   . " << endl;
-    cout << ".   |   ";
-    symbolColorH(slots); // Show the symbols in color, because life is more fun with color.
-    cout << "*" << endl;
-    cout << ".   |       |       |       |       |       |   | " << endl;
-    cout << ".    ---------------------------------------    *" << endl;
-    cout << ".    | Pull the lever (!)|                      | " << endl;
-    cout << ". . . . . . . . . . . . * - * - * - * - * - * - * " << endl;
-    cout << endl;
+    cout<<"--------------------------------------------------" << endl; // Separator line, because we need a little drama.
+    cout<<endl;
+    cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
+    cout<<"|                                               ."<<endl;
+    cout<<"*                    ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"                   ."<<endl;
+    cout<<"|                                               ."<<endl;
+    cout<<"*    ---------------------------------------    ."<<endl;
+    cout<<".   |       |       |       |       |       |   ."<< endl;
+    //Random symbols will be displayed on this line
+    cout<<".   |   ";
+    symbolColorH(slots);
+    cout<<"." <<endl;
+    cout<<".   |       |       |       |       |       |   |"<< endl;
+    cout<<".    ---------------------------------------    *"<<endl;
+    cout<<".                                               |"<<endl;
+    cout<<". . . . . . . . . . . . * - * - * - * - * - * - *"<<endl;
+    cout<<endl;
 }
 
 inline bool jackpotH(char slots[5]) {
@@ -583,7 +673,9 @@ inline void hardMode(Player& player) {
     string anotherRound;
 
     if (player.money < BET) {
+        setColor(31);
         cout << "You do not have enough money to play in Hard mode. You need $" << BET << ".\n";
+        resetColor();
         return; // Exit, because nothing is sadder than a player without money.
     }
 
@@ -666,13 +758,20 @@ inline void hardMode(Player& player) {
         player.updateStatistics(); // Update statistics, because we need to keep track.
 
         if (player.money < BET) {
+            setColor(31);
             cout << "You do not have enough money for another round in Hard mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            resetColor();
             break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
         while (true) {
-            cout << "\nDo you want to play another round?" << endl;
-            cout << "     YES (S).        NO(N)" << endl;
+            setColor(36); //cian
+            cout<<"\nDo you want to play another round?"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin, anotherRound);
 
             if (anotherRound == "S" || anotherRound == "s") {

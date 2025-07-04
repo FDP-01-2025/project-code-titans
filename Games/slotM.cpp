@@ -4,50 +4,6 @@
 #include <ctime>       // To use time() as a random seed
 using namespace std;
 
-// Function to display the game instructions
-void showSlot()
-{
-
-    cout << endl;
-    cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
-    cout << "|                                                          . " << endl;
-    cout << "*                   -PLAY SLOT MACHINE-                    . " << endl;
-    cout << "|                                                          . " << endl;
-    cout << "*    A slot machine is a game where a series of random     . " << endl;
-    cout << "|    symbols are displayed on each spin. If all the        . " << endl;
-    cout << ".    symbols on a line match, you win.                     | " << endl;
-    cout << ".                                                          * " << endl;
-    cout << ".                                                          | " << endl;
-    cout << ".    MENU (M)                                 PLAY (P)     * " << endl;
-    cout << ".                                                          | " << endl;
-    cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
-    cout << endl;
-    //It is indicated that you must enter "M" to return to the menu or "P" to play
-}
-
-// Function to display the slot game difficulty menu
-void showSlotmenu()
-{
-
-    cout << endl;
-    cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
-    cout << "|                                                          . " << endl;
-    cout << "*                      -SLOT MACHINE-                      . " << endl;
-    cout << "|                                                          . " << endl;
-    cout << "*                  Choose the difficulty:                  . " << endl;
-    cout << "|                                                          . " << endl;
-    cout << ".   (E) EASY:      3 lines (Bet: $100, Win: $300)          | " << endl;
-    cout << ".   (M) MEDIUM:    4 lines (Bet: $200, Win: $800)          * " << endl;
-    cout << ".   (H) HARD:      5 lines (Bet: $100, Win: $1500)         | " << endl;
-    cout << ".                                                          * " << endl;
-    cout << ".     BACK (B)                                             | " << endl;
-    cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
-    cout << endl;
-//It indicates that you must enter "B" to return to the previous menu
-//"E" for easy mode, "M" for medium mode, "H" for hard mode
-
-}
-
 //GENERAL FUNCTIONS (For all games)
 
 //function to change the text color
@@ -57,6 +13,79 @@ void setColor(int colorCode) {
 //function to return to white color
 void resetColor() {
     cout << "\033[0m";
+}
+
+// Function to display the game instructions
+void showSlot()
+{
+
+    cout << endl;
+    cout << "* - * - * - * - * - * - * - * - *. . . . . . . . . . . . . . " << endl;
+    cout << "|                                                          . " << endl;
+    cout << "*                  ";
+    setColor (36); //cian
+    cout << " -PLAY SLOT MACHINE-";
+    resetColor ();
+    cout << "                    . " << endl;
+    cout << "|                                                          . " << endl;
+    cout << "*    A slot machine is a game where a series of random     . " << endl;
+    cout << "|    symbols are displayed on each spin. If all the        . " << endl;
+    cout << ".    symbols on a line match, you win.                     | " << endl;
+    cout << ".                                                          * " << endl;
+    cout << ".                                                          | " << endl;
+    cout << ".    ";
+    setColor (31); //red
+    cout << "MENU (M)                 ";
+    setColor (32); //green
+    cout << "                PLAY (P)";
+    resetColor ();
+    cout << "     * " << endl;
+    cout << ".                                                          | " << endl;
+    cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
+    cout << endl;
+    //It is indicated that you must enter "M" to return to the menu or "P" to play
+}
+
+// Function to display the slot game difficulty menu
+void showSlotmenu(){
+
+    cout << endl;
+    cout << "* - * - * - * - * - * - * - * -*. . . . . . . . . . . . . . " << endl;
+    cout << "|                                                          . " << endl;
+    cout << "*                     ";
+    setColor (36); //cian
+    cout << " -SLOT MACHINE-                    ";
+    resetColor ();
+    cout << "  . " << endl;
+    cout << "|                                                          . " << endl;
+    cout << "*                  Choose the difficulty:                  . " << endl;
+    cout << "|                                                          . " << endl;
+    cout << ".   ";
+    setColor(32); //green
+    cout << "(E) EASY:";
+    resetColor();
+    cout <<"      3 lines (Bet: $100, Win: $300)          | " << endl;
+    cout << ".   ";
+    setColor(33); //yellow
+    cout << "(M) MEDIUM:";
+    resetColor();
+    cout << "    4 lines (Bet: $200, Win: $800)          * " << endl;
+    cout << ".   ";
+    setColor(35); //magenta
+    cout << "(H) HARD:";
+    resetColor();
+    cout << "      5 lines (Bet: $300, Win: $1500)         | " << endl;
+    cout << ".                                                          * " << endl;
+    cout << ".     ";
+    setColor(31); //red
+    cout << "BACK (B)";
+    resetColor();
+    cout << "                                             | " << endl;
+    cout << ". . . . . . . . . . . . . .* - * - * - * - * - * - * - * - * " << endl;
+    cout << endl;
+//It indicates that you must enter "B" to return to the previous menu
+//"E" for easy mode, "M" for medium mode, "H" for hard mode
+
 }
 
 void losePhrases (){
@@ -102,14 +131,22 @@ void emptySlotsE(){
     cout<<endl;
     cout<<"* - * - * - * - * - *. . . . . . . "<<endl;
     cout<<"|                                ."<<endl;
-    cout<<"*          Try your luck!        ."<<endl;
+    cout<<"*          ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"        ."<<endl;
     cout<<"|                                ."<<endl;
     cout<<"*    -----------------------     ."<<endl;
     cout<<".   |       |       |       |    |"<< endl;
     cout<<".   |   -   |   -   |   -   |    *" <<endl;
     cout<<".   |       |       |       |    |"<< endl;
     cout<<".    -----------------------     *"<<endl;
-    cout<<".   | Pull the lever (!)|        |"<<endl;
+    cout<<".   | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|        |"<<endl;
     cout<<". . . . . . .* - * - * - * - * - *"<<endl;
     cout<<endl;
     //the player is instructed to press "!" to generate the random symbols
@@ -158,7 +195,11 @@ void finalSlotsE (char slots[3]) {
    //Show final slots to the player
     cout<<"* - * - * - * - * - *. . . . . . . "<<endl;
     cout<<"|                                ."<<endl;
-    cout<<"*            RESULTS!            ."<<endl;
+    cout<<"*            ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"            ."<<endl;
     cout<<"|                                ."<<endl;
     cout<<"*    -----------------------     ."<<endl;
     cout<<".   |       |       |       |    *"<< endl;
@@ -263,8 +304,13 @@ void easyMode(){
         }
 
         while(true){ //infinite while to validate that a valid character was entered
+            setColor(36); //cian
             cout<<"\nDo you want to play another round?"<<endl;
-            cout<<"     YES (Y).        NO(N)"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin,anotherRound); //player enters his choice and his answer is read
 
             if(anotherRound=="Y"||anotherRound=="y"){
@@ -302,14 +348,22 @@ void emptySlotsM(){
     cout<<endl;
     cout<<"* - * - * - * - * - . . . . . . . . . . ."<<endl;
     cout<<"|                                       ."<<endl;
-    cout<<"*             Try your luck!            ."<<endl;
+    cout<<"*             ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"            ."<<endl;
     cout<<"|                                       ."<<endl;
     cout<<"*    -------------------------------    ."<<endl;
     cout<<".   |       |       |       |       |   ."<< endl;
     cout<<".   |   -   |   -   |   -   |   -   |   *" <<endl;
     cout<<".   |       |       |       |       |   |"<< endl;
     cout<<"*    -------------------------------    *"<<endl;
-    cout<<".    | Pull the lever (!)|              |"<<endl;
+    cout<<".    | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|              |"<<endl;
     cout<<". . . . . . . . . . . . * - * - * - * - *"<<endl;
     cout<<endl;
     //the player is instructed to press "!" to generate the random symbols
@@ -359,7 +413,11 @@ void finalSlotsM (char slots[4]) {
     cout<<endl;
     cout<<"* - * - * - * - * - . . . . . . . . . . ."<<endl;
     cout<<"|                                       ."<<endl;
-    cout<<"*                RESULTS!               ."<<endl;
+    cout<<"*                ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"               ."<<endl;
     cout<<"|                                       ."<<endl;
     cout<<"*    -------------------------------    ."<<endl;
     cout<<".   |       |       |       |       |   ."<< endl;
@@ -369,7 +427,7 @@ void finalSlotsM (char slots[4]) {
     cout<<"*" <<endl;
     cout<<".   |       |       |       |       |   |"<< endl;
     cout<<"*    -------------------------------    *"<<endl;
-    cout<<".    | Pull the lever (!)|              |"<<endl;
+    cout<<".                                       |"<<endl;
     cout<<". . . . . . . . . . . . * - * - * - * - *"<<endl;
     cout<<endl;
 }
@@ -419,11 +477,11 @@ void mediumMode(){
                 if(pull=="!"){
                     //If "!" is entered the game continues.
                     for(int i=0;i<4;i++){            //locate the array
-                        symbols[i]= randomSymbolE(); //save each random symbol obtained
+                        symbols[i]= randomSymbolM(); //save each random symbol obtained
                     }
-                    finalSlotsE(symbols); //The function Show final slots to the player is called
+                    finalSlotsM(symbols); //The function Show final slots to the player is called
                 
-                    if(jackpotE(symbols)){ //calls the function to check if all symbols are equal
+                    if(jackpotM(symbols)){ //calls the function to check if all symbols are equal
                         //If true, the player wins
                         setColor(32); //green color
                         cout<<"            * JACKPOT!! *   "<<endl;
@@ -463,8 +521,13 @@ void mediumMode(){
         }
 
         while(true){ //infinite while to validate that a valid character was entered
+            setColor(36); //cian
             cout<<"\nDo you want to play another round?"<<endl;
-            cout<<"     YES (Y).        NO(N)"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin,anotherRound); //player enters his choice and his answer is read
 
             if(anotherRound=="Y"||anotherRound=="y"){
@@ -500,14 +563,22 @@ void emptySlotsH(){
     cout<<endl;
     cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
     cout<<"|                                               ."<<endl;
-    cout<<"*                 Try your luck!                ."<<endl;
+    cout<<"*                 ";
+    setColor (36); //cian
+    cout<< "Try your luck!";
+    resetColor ();
+    cout<<"                ."<<endl;
     cout<<"|                                               ."<<endl;
     cout<<"*    ---------------------------------------    ."<<endl;
     cout<<".   |       |       |       |       |       |   ."<< endl;
     cout<<".   |   -   |   -   |   -   |   -   |   -   |   *" <<endl;
     cout<<".   |       |       |       |       |       |   |"<< endl;
     cout<<".    ---------------------------------------    *"<<endl;
-    cout<<".    | Pull the lever (!)|                      |"<<endl;
+    cout<<".    | ";
+    setColor (32); //green
+    cout<<"Pull the lever (!)";
+    resetColor ();
+    cout<<"|                      |"<<endl;
     cout<<". . . . . . . . . . . . * - * - * - * - * - * - *"<<endl;
     cout<<endl;
     //the player is instructed to press "!" to generate the random symbols
@@ -558,7 +629,11 @@ void finalSlotsH (char slots[5]){
     cout<<endl;
     cout<<"* - * - * - * - * - * - * . . . . . . . . . . . ."<<endl;
     cout<<"|                                               ."<<endl;
-    cout<<"*                    RESULTS!                   ."<<endl;
+    cout<<"*                    ";
+    setColor(36); //cian
+    cout<<"RESULTS!";
+    resetColor();
+    cout<<"                   ."<<endl;
     cout<<"|                                               ."<<endl;
     cout<<"*    ---------------------------------------    ."<<endl;
     cout<<".   |       |       |       |       |       |   ."<< endl;
@@ -568,7 +643,7 @@ void finalSlotsH (char slots[5]){
     cout<<"." <<endl;
     cout<<".   |       |       |       |       |       |   |"<< endl;
     cout<<".    ---------------------------------------    *"<<endl;
-    cout<<".    | Pull the lever (!)|                      |"<<endl;
+    cout<<".                                               |"<<endl;
     cout<<". . . . . . . . . . . . * - * - * - * - * - * - *"<<endl;
     cout<<endl;
 
@@ -620,12 +695,12 @@ void hardMode(){
     
                 if(pull=="!"){
                     //If "!" is entered the game continues.
-                    for(int i=0;i<3;i++){            //locate the array
-                        symbols[i]= randomSymbolE(); //save each random symbol obtained
+                    for(int i=0;i<5;i++){            //locate the array
+                        symbols[i]= randomSymbolH(); //save each random symbol obtained
                     }
-                    finalSlotsE(symbols); //The function Show final slots to the player is called
+                    finalSlotsH(symbols); //The function Show final slots to the player is called
             
-                    if(jackpotE(symbols)){ //calls the function to check if all symbols are equal
+                    if(jackpotH(symbols)){ //calls the function to check if all symbols are equal
                         //If true, the player wins
                         setColor(32); //green color
                         cout<<"            * JACKPOT!! *   "<<endl;
@@ -665,8 +740,13 @@ void hardMode(){
         }
 
         while(true){ //infinite while to validate that a valid character was entered
+            setColor(36); //cian
             cout<<"\nDo you want to play another round?"<<endl;
-            cout<<"     YES (Y).        NO(N)"<<endl;
+            setColor(32); //green
+            cout<<"     YES (Y).";
+            setColor(31); //red
+            cout<<"        NO(N)"<<endl;
+            resetColor();
             getline(cin,anotherRound); //player enters his choice and his answer is read
 
             if(anotherRound=="Y"||anotherRound=="y"){
