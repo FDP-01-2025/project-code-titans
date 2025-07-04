@@ -14,11 +14,12 @@ using namespace std;
 Position positions[NUMBERS];
 
 // Define the Player structure with all the information I need to store about each player
-struct Player {
-    string name;                // Player's name
-    int money = 0;              // Current money the player has
+struct Player
+{
+    string name;                 // Player's name
+    int money = 0;               // Current money the player has
     Record history[MAX_RECORDS]; // History of movements and events
-    int numRecords = 0;         // How many records the history has
+    int numRecords = 0;          // How many records the history has
 
     // Player statistics for the games
     int gamesPlayed = 0;
@@ -27,14 +28,17 @@ struct Player {
     int gamesTied = 0;
 
     // Update the player's statistics by saving them to the file
-    inline void updateStatistics() {
+    inline void updateStatistics()
+    {
         saveStatistics(name, gamesPlayed, gamesWon, gamesLost, gamesTied);
     }
 
     // Load the player's statistics from the file
-    inline void loadPlayerStatistics() {
+    inline void loadPlayerStatistics()
+    {
         int j, g, p, e;
-        if (loadStatistics(name, j, g, p, e)) {
+        if (loadStatistics(name, j, g, p, e))
+        {
             gamesPlayed = j;
             gamesWon = g;
             gamesLost = p;
@@ -43,7 +47,8 @@ struct Player {
     }
 
     // Show the player's statistics in the console
-    inline void showStatistics() {
+    inline void showStatistics()
+    {
         loadPlayerStatistics(); // First load to show updated data
         clearConsole();
         cout << "+======================================+\n";
@@ -61,53 +66,65 @@ struct Player {
     }
 
     // Add a new record to the player's history (if there is space)
-    inline void addRecord(const string& text) {
-        if (numRecords < MAX_RECORDS) {
+    inline void addRecord(const string &text)
+    {
+        if (numRecords < MAX_RECORDS)
+        {
             history[numRecords++].description = text;
         }
     }
 
     // Method for the player to deposit money
-    inline void deposit(int amount) {
-        if (amount > 0) {
+    inline void deposit(int amount)
+    {
+        if (amount > 0)
+        {
             money += amount; // Increase balance
             cout << "You have deposited $" << amount << ". Current balance: $" << money << "\n";
             addRecord("Deposit: $" + to_string(amount)); // Record the movement
             registerMoneyMovement("Deposit", name, amount, money);
             saveBalance(name, money); // Save updated balance
-        } else {
+        }
+        else
+        {
             cout << "You cannot deposit a negative amount or zero.\n";
         }
     }
 
     // Method for the player to withdraw money
-    inline bool withdraw(int amount) {
-        if (amount > 0 && amount <= money) {
+    inline bool withdraw(int amount)
+    {
+        if (amount > 0 && amount <= money)
+        {
             money -= amount; // Decrease balance
             cout << "You have withdrawn $" << amount << ". Current balance: $" << money << "\n";
             addRecord("Withdrawal: $" + to_string(amount)); // Record movement
             registerMoneyMovement("Withdrawal", name, amount, money);
             saveBalance(name, money); // Save updated balance
-            return true; // Successful withdrawal
-        } else {
+            return true;              // Successful withdrawal
+        }
+        else
+        {
             cout << "Invalid withdrawal or insufficient balance.\n";
             return false; // Failed withdrawal
         }
     }
 
     // Method to show the complete history of the player
-    inline void showHistory() {
+    inline void showHistory()
+    {
         // Open the file that contains all registered game events
         ifstream file("./documents/games.txt");
 
         // Check if the file opened correctly
-        if (!file.is_open()) {
+        if (!file.is_open())
+        {
             // If it could not be opened, inform the player and exit the function
             cout << "Could not open the game history.\n";
             return;
         }
 
-        string line;        // Here I will store each line of the file while reading it
+        string line;             // Here I will store each line of the file while reading it
         bool hasHistory = false; // I create this flag to know if I found any line of the player
 
         clearConsole();
@@ -115,9 +132,11 @@ struct Player {
         cout << "\n===============  Game History =============== \n";
 
         // Read the file line by line using getline
-        while (getline(file, line)) {
+        while (getline(file, line))
+        {
             // Check if the line contains the player's name
-            if (line.find("Player: " + name) != string::npos) {
+            if (line.find("Player: " + name) != string::npos)
+            {
                 // If the line is from the player, show it on screen
                 cout << line << "\n";
                 hasHistory = true; // Change the flag to indicate that I found history
@@ -128,7 +147,8 @@ struct Player {
         file.close();
 
         // If I did not find any line for the player, inform them
-        if (!hasHistory) {
+        if (!hasHistory)
+        {
             cout << "There is no registered history for this player.\n";
         }
 

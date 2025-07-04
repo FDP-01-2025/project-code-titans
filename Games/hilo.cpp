@@ -3,35 +3,43 @@
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
-#include <fstream> 
-
+#include <fstream>
 
 using namespace std;
 
-//bring a random number between 1 - 13
-int RandomCard() {
+// bring a random number between 1 - 13
+int RandomCard()
+{
     return rand() % 13 + 1;
 }
 
-//makes random suits for the cards
-string RandomSuit() {
+// makes random suits for the cards
+string RandomSuit()
+{
     string suit[] = {"♠", "♥", "♦", "♣"};
     return suit[rand() % 4];
 }
 
-//change the card value to string
-string CardValue(int value) {
-    if (value == 1) return "A";
-    if (value == 11) return "J";
-    if (value == 12) return "Q";
-    if (value == 13) return "K";
+// change the card value to string
+string CardValue(int value)
+{
+    if (value == 1)
+        return "A";
+    if (value == 11)
+        return "J";
+    if (value == 12)
+        return "Q";
+    if (value == 13)
+        return "K";
     return to_string(value);
 }
 
-//makes a visual draw of the card
-void AsciiHiloCards(int value[], string suit[], int count) {
+// makes a visual draw of the card
+void AsciiHiloCards(int value[], string suit[], int count)
+{
     string line[7];
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++)
+    {
         string value2 = CardValue(value[i]);
         string izq = value2.length() == 1 ? value2 + " " : value2;
         string der = value2.length() == 1 ? " " + value2 : value2;
@@ -45,21 +53,21 @@ void AsciiHiloCards(int value[], string suit[], int count) {
         line[6] += "└─────────┘ ";
     }
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 7; i++)
+    {
         cout << line[i] << endl;
     }
 }
 
-
-
-//HILO game
-void hilo(int& bet, int& balance){
+// HILO game
+void hilo(int &bet, int &balance)
+{
     int card = RandomCard();
     char guess, going;
     bool keep = true;
     string suit1 = RandomSuit();
 
-    //Show the first card to start de game
+    // Show the first card to start de game
     cout << "the first card is: \n";
     int values1[] = {card};
     string suits1[] = {suit1};
@@ -67,19 +75,21 @@ void hilo(int& bet, int& balance){
     cout << "\n";
     while (keep == true)
     {
-        //generate a random "card2" in each loop
+        // generate a random "card2" in each loop
         int card2 = RandomCard();
         string suit2 = RandomSuit();
 
-        //the player try to guess 
-        while (true) {
+        // the player try to guess
+        while (true)
+        {
             cout << "The next card will be Higher (H) or Lower (L): ";
             cin >> guess;
-            if (guess == 'H' || guess == 'h' || guess == 'L' || guess == 'l') break;
+            if (guess == 'H' || guess == 'h' || guess == 'L' || guess == 'l')
+                break;
             cout << "Invalid option, please select 'H' or 'L'\n";
         }
 
-        //show the next card
+        // show the next card
         cout << "---------------------------------------------------\n";
         cout << "The next card is: \n";
         int values2[] = {card2};
@@ -87,44 +97,48 @@ void hilo(int& bet, int& balance){
         AsciiHiloCards(values2, suits2, 1);
         cout << endl;
 
-        //verify if the answer was correct
+        // verify if the answer was correct
         if ((guess == 'H' || guess == 'h') && card < card2 ||
             (guess == 'L' || guess == 'l') && card > card2)
         {
             card = card2;
             bet = bet * 2;
             cout << "Congratulations you win this round \n";
-            //make sure that the player select Y or N
-            while (true) {
-                        cout << "Do you want to keep playing ";
-                        cin >> going;
-                        if (going == 'Y' || going == 'y' || going == 'N' || going == 'n') break;
-                        cout << "Invalid option, please select 'Y' or 'N'\n";
+            // make sure that the player select Y or N
+            while (true)
+            {
+                cout << "Do you want to keep playing ";
+                cin >> going;
+                if (going == 'Y' || going == 'y' || going == 'N' || going == 'n')
+                    break;
+                cout << "Invalid option, please select 'Y' or 'N'\n";
             }
-            //Return to de HILO menu
+            // Return to de HILO menu
             if (going == 'N' || going == 'n')
             {
                 balance = balance + bet;
-                cout <<"Thanks for playing" << endl;
+                cout << "Thanks for playing" << endl;
                 keep = false;
             }
-            
-        }else if (card == card2)
+        }
+        else if (card == card2)
         {
             cout << "It was a tie \n";
             cout << "No one loses, no one wins \n";
-            //make sure that the player select Y or N
-            while (true) {
-                        cout << "Do you want to keep playing ";
-                        cin >> going;
-                        if (going == 'Y' || going == 'y' || going == 'N' || going == 'n') break;
-                        cout << "Invalid option, please select 'Y' or 'N'\n";
+            // make sure that the player select Y or N
+            while (true)
+            {
+                cout << "Do you want to keep playing ";
+                cin >> going;
+                if (going == 'Y' || going == 'y' || going == 'N' || going == 'n')
+                    break;
+                cout << "Invalid option, please select 'Y' or 'N'\n";
             }
-            //Return to de HILO menu
+            // Return to de HILO menu
             if (going == 'N' || going == 'n')
             {
                 balance = balance + bet;
-                cout <<"Thanks for playing" << endl;
+                cout << "Thanks for playing" << endl;
                 keep = false;
             }
         }
@@ -135,34 +149,36 @@ void hilo(int& bet, int& balance){
             bet = 0;
             keep = false;
         }
-        
-        
     }
-    
-    
 }
 
-//Confirm if the bet its valid
-void BetConfirm(int& bet, int& balance) {
+// Confirm if the bet its valid
+void BetConfirm(int &bet, int &balance)
+{
     cout << "How much will your bet be? \n";
 
-    while (true) {
+    while (true)
+    {
         cin >> bet;
 
-        if (cin.fail()) {
+        if (cin.fail())
+        {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Your bet is invalid, try entering a number\n";
         }
-        else if (bet <= 0) {
+        else if (bet <= 0)
+        {
             cout << "Your bet must be higher than 0\n";
         }
-        else if (bet > balance) {
+        else if (bet > balance)
+        {
             cout << "Your bet is higher than your balance\n";
-            cout <<"Your balance is: " << balance << endl;
+            cout << "Your balance is: " << balance << endl;
         }
-        else {
-            //If the bet its valid:
+        else
+        {
+            // If the bet its valid:
             balance = balance - bet;
             hilo(bet, balance);
             break;
@@ -173,9 +189,9 @@ void BetConfirm(int& bet, int& balance) {
     }
 }
 
-
-//HI-LO game main menu
-void PlayHilo(int& balance){
+// HI-LO game main menu
+void PlayHilo(int &balance)
+{
     srand(time(0));
 
     int bet;
@@ -183,7 +199,7 @@ void PlayHilo(int& balance){
 
     do
     {
-        //main menu
+        // main menu
         cout << "---- Welcome to HI-LO game ----\n";
         cout << "1. Game explanation \n";
         cout << "2. Play \n";
@@ -194,7 +210,7 @@ void PlayHilo(int& balance){
         switch (option)
         {
         case 1:
-            //Game explanation
+            // Game explanation
             cout << "Welcome to the HI-LO Game!\n\n";
             cout << "This one's super easy to play:\n\n";
             cout << "1. First, place your bet.\n";
@@ -205,21 +221,20 @@ void PlayHilo(int& balance){
             cout << "- You can keep playing to try and win even more, or cash out and take your reward.\n\n";
             cout << "If you guess wrong:\n";
             cout << "- You lose your bet \n\n";
-        break;
+            break;
         case 2:
-            //Game logic
-            BetConfirm (bet, balance);
-        break;
+            // Game logic
+            BetConfirm(bet, balance);
+            break;
         case 3:
             cout << "Your balance is: $" << balance << endl;
-        break;
+            break;
         case 4:
             cout << "Returning to the main menu... \n";
-        break;
+            break;
         default:
             cout << "Invalid option \n";
-        break;
+            break;
         }
     } while (option != 4);
-    
 }

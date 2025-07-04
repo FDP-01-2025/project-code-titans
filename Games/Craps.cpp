@@ -200,8 +200,8 @@ int gameplay(int maxAttempts = 0)
     // I validate the input to make sure it's a number and within the allowed range.
     while (cin.fail() || bet < 1 || bet > balance)
     {
-        cin.clear();                 // I clear the error state if input failed
-        cin.ignore(1000, '\n');      // I discard the rest of the input buffer
+        cin.clear();            // I clear the error state if input failed
+        cin.ignore(1000, '\n'); // I discard the rest of the input buffer
         cout << "Invalid bet. Enter a value between $1 and $" << balance << ": ";
         cin >> bet;
     }
@@ -461,11 +461,11 @@ void restartGame()
 int main()
 {
 
-    // UTF-8 encoding is a type of encoding that converts special characters so they can be read by computers.
-    // SetConsoleOutputCP is a function that allows displaying special characters, ASCII, UNICODE in the console using UTF-8 encoding.
-    #ifdef _WIN32
+// UTF-8 encoding is a type of encoding that converts special characters so they can be read by computers.
+// SetConsoleOutputCP is a function that allows displaying special characters, ASCII, UNICODE in the console using UTF-8 encoding.
+#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-     #endif
+#endif
 
     // Initialize the variable selection to 0 to ensure no previous values are stored.
     int selection = 0;

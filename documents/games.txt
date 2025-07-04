@@ -63,3 +63,5 @@ Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money:
 [2025-07-03 18:32:01] Player: alonso | Event: Slot Machine (Easy) | Amount: $100 | Result: Lost | Remaining money: $2450
 [2025-07-03 18:32:19] Player: alonso | Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $2250
 [2025-07-03 18:32:49] Player: alonso | Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $1950
+[2025-07-03 20:41:36] Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money: $1940
+[2025-07-03 20:51:15] Player: alonso | Event: Roulette | Amount: $10 | Result: Won | Remaining money: $1960

@@ -1,27 +1,34 @@
-#ifndef DATE_TIME_H    
-#define DATE_TIME_H  
+#ifndef DATE_TIME_H
+#define DATE_TIME_H
 
-#include <iostream>    // I include this library to use input/output functions like cout.
-#include <ctime>       // I include this library to work with the system's date and time.
+#include <iostream> // I include this library to use input/output functions like cout.
+#include <ctime>    // I include this library to work with the system's date and time.
 
-using namespace std;   // I use the standard namespace to avoid writing std:: every time.
+using namespace std; // I use the standard namespace to avoid writing std:: every time.
 
 // Function to get time of day as a greeting string
-inline string getTimeOfDayGreeting(int hour) {
-    if (hour >= 6 && hour < 12) {
+inline string getTimeOfDayGreeting(int hour)
+{
+    if (hour >= 6 && hour < 12)
+    {
         return "           Good Morning!";
-    } else if (hour >= 12 && hour < 18) {
+    }
+    else if (hour >= 12 && hour < 18)
+    {
         return "           Good Afternoon!";
-    } else {
+    }
+    else
+    {
         return "           Good Night!";
     }
 }
 
-inline void showDateTime() {  // I declare an inline function called showDateTime, so it can be used anywhere this header is included.
-    time_t now = time(0);     // I create a variable called 'now' and assign it the current system time.
-    tm* localTime = localtime(&now);  // I convert that time into a human-readable local time using localtime().
+inline void showDateTime()
+{                                    // I declare an inline function called showDateTime, so it can be used anywhere this header is included.
+    time_t now = time(0);            // I create a variable called 'now' and assign it the current system time.
+    tm *localTime = localtime(&now); // I convert that time into a human-readable local time using localtime().
 
-    string greeting = getTimeOfDayGreeting(localTime->tm_hour);  // Get the greeting based on the current hour
+    string greeting = getTimeOfDayGreeting(localTime->tm_hour); // Get the greeting based on the current hour
 
     // Print casino welcome message first
     cout << "+======================================+\n";

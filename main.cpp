@@ -8,11 +8,12 @@
 #include <windows.h> // For SetConsoleOutputCP on Windows
 #endif
 
-int main() {
-    // If we are on Windows, configure the console for UTF-8
-    #ifdef _WIN32
+int main()
+{
+// If we are on Windows, configure the console for UTF-8
+#ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-    #endif
+#endif
 
     // Initialize the random number generator with the current time seed
     srand(static_cast<unsigned int>(time(nullptr)));
