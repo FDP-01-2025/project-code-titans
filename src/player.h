@@ -159,6 +159,66 @@ struct Player
         // Show the footer of the history to close it visually
         cout << "=================================\n";
     }
+
+    inline void deleteHistory()
+    {
+        // Open the original game history file in read mode
+        ifstream inFile("./documents/games.txt");
+
+        // I open a temporary file in write mode where only the lines that do not belong to the current player are saved
+        ofstream outFile("./documents/temp.txt");
+
+        // Check if any of the files could not be opened correctly
+        if (!inFile.is_open() || !outFile.is_open())
+        {
+            // Display an error message if a problem occurs with the files
+            cout << "\033[31mError: Could not open game history file.\033[0m\n";
+            return;
+        }
+
+        string line;        // Variable to store each line read from the file
+        bool found = false; // bool to know if any line from the current player was found
+
+        // Loop through each line of the original file
+        while (getline(inFile, line))
+        {
+            // If the line does not contain the current player's name, copy it to the temporary file
+            if (line.find("Player: " + name) == string::npos)
+            {
+                outFile << line << "\n";
+            }
+            else
+            {
+                // If the line belongs to the player, it is not copied and is marked as found
+                found = true;
+            }
+        }
+
+        // I close the files once the process is finished
+        inFile.close();
+        outFile.close();
+
+        // Delete the original file and rename the temporary file to replace it
+        if (remove("./documents/games.txt") != 0 || rename("./documents/temp.txt", "./documents/games.txt") != 0)
+        {
+            // Display an error message if a problem occurs while replacing the files
+            cout << "\033[31mError: Could not update the history file.\033[0m\n";
+        }
+        else
+        {
+            // If player records were found, deletion is confirmed
+            if (found)
+                cout << "\033[33mYour game history has been deleted.\033[0m\n";
+            else
+                // If no records of the player were found, it is reported
+                cout << "No history was found for this player.\n";
+        }
+
+        // I expect the user to press Enter to continue.
+        cout << "\nPress Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+    }
 };
 
 #endif // PLAYER_H

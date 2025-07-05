@@ -40,6 +40,62 @@ inline void showMenu()
     cout << "+--------------------------------------+\n";
 }
 
+// This function displays a submenu to view or delete the player's game history
+inline void showHistoryMenu(Player &player)
+{
+    int subOption;             // Here I store the option chosen by the player
+    bool inHistoryMenu = true; // I use this flag to keep the submenu active until the player decides to exit
+
+    // While the flag is true, I keep showing the submenu
+    while (inHistoryMenu)
+    {
+        clearConsole(); // I clear the console to keep things tidy
+
+        // I display the title and submenu options in cyan color
+        cout << "\033[36m=========== HISTORY MENU ===========\033[0m\n";
+        cout << "1. View Game History\n";   // Option to view the player's history
+        cout << "2. Delete Game History\n"; // Option to delete the player's history
+        cout << "3. Return to Main Menu\n"; // Option to go back to the main menu
+        cout << "Choose an option: ";       // I ask the player to choose an option
+        cin >> subOption;                   // I read the selected option
+
+        // I check if there was an input error
+        if (cin.fail())
+        {
+            cin.clear();                                         // I clear the error state of cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // I clear the keyboard buffer
+            cout << "Invalid input.\n";                          // I inform the player about the invalid input
+            continue;                                            // I return to the beginning of the loop to show the menu again
+        }
+
+        // I clear any remaining characters in the buffer after reading the number
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        // Based on the option chosen by the player, I execute a different action
+        switch (subOption)
+        {
+        case 1:
+            player.showHistory(); // I show the player's game history
+            break;
+        case 2:
+            player.deleteHistory(); // I delete the player's game history
+            break;
+        case 3:
+            inHistoryMenu = false; // I exit the submenu
+            break;
+        default:
+            cout << "Invalid option.\n"; // I notify the player if the option is invalid
+        }
+
+        // If the submenu is still active, I wait for the player to press Enter before continuing
+        if (inHistoryMenu)
+        {
+            cout << "\nPress Enter to continue...";
+            cin.get(); // I pause the program until Enter is pressed
+        }
+    }
+}
+
 // This function starts the game once the user has logged in successfully
 inline void start(const string &username)
 {
@@ -132,7 +188,7 @@ inline void start(const string &username)
                 playHilo(player); // Hi-Lo game
             break;
         case 8:
-            player.showHistory(); // Show the game history
+            showHistoryMenu(player); // Submenu for viewing or deleting game history
             break;
         case 9:
             player.showStatistics(); // Show player statistics
