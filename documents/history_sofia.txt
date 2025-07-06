@@ -1,0 +1,5 @@
+[2025-07-06 11:59:44] Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $841
+[2025-07-06 12:00:08] Event: Slot Machine (Medium) | Amount: $200 | Result: Lost | Remaining money: $641
+[2025-07-06 12:00:39] Event: Slot Machine (Hard) | Amount: $1500 | Result: Won | Remaining money: $2141
+[2025-07-06 12:02:02] Event: Slot Machine (Hard) | Amount: $300 | Result: Lost | Remaining money: $1841
+[2025-07-06 12:07:52] Event: Blackjack | Amount: $40 | Result: Lost | Remaining money: $1801

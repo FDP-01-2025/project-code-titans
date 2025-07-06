@@ -612,7 +612,7 @@ inline void mediumMode(Player &player)
             cout << "\nDo you want to play another round?\n"
                  << endl;
             setColor(32); // green
-            cout << "     YES (Y).";
+            cout << "     YES (S).";
             setColor(31); // red
             cout << "        NO(N)" << endl;
             resetColor();

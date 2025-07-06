@@ -1,2 +1,7 @@
 Player: alonso | Event: Deposit | Amount: $400 | Remaining money: $400
 Player: sofia | Event: Deposit | Amount: $100 | Remaining money: $100
+Player: sofia | Event: Deposit | Amount: $1000 | Remaining money: $1040
+Player: sofia | Event: Deposit | Amount: $1 | Remaining money: $1041
+Player: sofia | Event: Deposit | Amount: $20 | Remaining money: $1821
+Player: sofia | Event: Deposit | Amount: $100 | Remaining money: $1921
+Player: sofia | Event: Withdrawal | Amount: $100 | Remaining money: $1821

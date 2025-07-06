@@ -52,12 +52,12 @@ struct Player
         loadPlayerStatistics(); // First load to show updated data
         clearConsole();
         cout << "+======================================+\n";
-        cout << "|         Your game statistics:        |\n";
+        cout << "|         \033[34mYour game statistics:\033[0m        |\n";
         cout << "║                                      ║\n";
-        cout << "| Games played: " << gamesPlayed << "                     |\n";
-        cout << "║ Games won: " << gamesWon << "                         ║\n";
-        cout << "| Games lost: " << gamesLost << "                        |\n";
-        cout << "║ Games tied: " << gamesTied << "                        ║\n";
+        cout << "| \033[36mGames played: " << gamesPlayed << "\033[0m                     |\n";
+        cout << "║ \033[32mGames won: " << gamesWon << "\033[0m                         ║\n";
+        cout << "| \033[31mGames lost: " << gamesLost << "\033[0m                        |\n";
+        cout << "║ \033[36mGames tied: " << gamesTied << "\033[0m                        ║\n";
         cout << "|                                      |\n";
         cout << "+--------------------------------------+\n";
     }

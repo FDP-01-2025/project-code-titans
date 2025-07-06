@@ -1,4 +1,4 @@
-Games played: 5
-Games won: 3
-Games lost: 2
+Games played: 10
+Games won: 4
+Games lost: 6
 Games tied: 0

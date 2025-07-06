@@ -27,18 +27,24 @@ inline void showMenu()
     clearConsole(); // Use the function I already have to clear the screen before showing the menu
 
     showDateTime();
+    setColor(36);
     cout << "       Main Menu - Virtual Casino\n\n";
+    resetColor();
     cout << "1) Deposit money\n";
     cout << "2) Withdraw money\n";
+    setColor(32);
     cout << "3) Roulette\n";
     cout << "4) Blackjack\n";
     cout << "5) Slot Machine\n";
     cout << "6) Craps (Dice)\n";
     cout << "7) Hi-Lo\n";
+    resetColor();
     cout << "8) Show history\n";
     cout << "9) Show statistics \n";
     cout << "10) Exit\n\n";
+    setColor(36);
     cout << "+--------------------------------------+\n";
+    resetColor();
 }
 
 // This function displays a submenu to view or delete the player's game history
@@ -53,11 +59,14 @@ inline void showHistoryMenu(Player &player)
         clearConsole(); // I clear the console to keep things tidy
 
         // I display the title and submenu options in cyan color
-        cout << "\033[36m=========== HISTORY MENU ===========\033[0m\n";
-        cout << "1. View Game History\n";   // Option to view the player's history
-        cout << "2. Delete Game History\n"; // Option to delete the player's history
-        cout << "3. Return to Main Menu\n"; // Option to go back to the main menu
-        cout << "Choose an option: ";       // I ask the player to choose an option
+        cout << "\033[36m+===========* HISTORY MENU *===========+\033[0m\n\n";
+        cout << "  1. View Game History\n";   // Option to view the player's history
+        cout << "  2. Delete Game History\n"; // Option to delete the player's history
+        cout << "  3. Return to Main Menu\n\n"; // Option to go back to the main menu
+        setColor(33);
+        cout << "+-----------------------\n";
+        cout << "| Choose an option: ";
+        resetColor();
         cin >> subOption;                   // I read the selected option
 
         // I check if there was an input error
@@ -106,11 +115,15 @@ inline void showStatisticsMenu(Player &player)
     while (inStatsMenu)
     {
         clearConsole(); // Limpio la pantalla
-        cout << "\033[36m=========== STATISTICS MENU ===========\033[0m\n";
-        cout << "1. View Text Statistics\n";
-        cout << "2. View Graphical Statistics\n";
-        cout << "3. Return to Main Menu\n";
-        cout << "Choose an option: ";
+        cout << "\033[36m+===========* STATISTICS MENU *===========+\033[0m\n\n";
+        cout << "  1. View Text Statistics\n";
+        cout << "  2. View Graphical Statistics\n";
+        cout << "  3. Return to Main Menu\n\n";
+        setColor(33);
+        cout << "+-----------------------\n";
+        cout << "| Choose an option: ";
+        resetColor();
+        
         cin >> subOption;
 
         // Verifico si hubo error al ingresar
@@ -165,8 +178,10 @@ inline void start(const string &username)
     while (playing)
     {
         showMenu(); // Show the menu on screen
+        setColor(36);
         cout << "| Current money: $" << player.money << "\n";
         cout << "║ Choose an option: ";
+        resetColor();
         cin >> option; // Read the user's option
 
         if (cin.fail())
@@ -185,6 +200,13 @@ inline void start(const string &username)
         {
             clearConsole();
             int amount;
+            setColor(32);
+            cout << "+-----------* VIRTUAL BANK *-------------\n";
+            cout << "|\n";
+            cout << "| Current money: $" << player.money << "\n";
+            cout << "|\n";
+            cout << "+----------------------------------------\n\n";
+            resetColor();
             cout << "How much do you want to deposit? $";
             cin >> amount;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -195,6 +217,13 @@ inline void start(const string &username)
         {
             clearConsole();
             int amount;
+            setColor(32);
+            cout << "+-----------* VIRTUAL BANK *-------------\n";
+            cout << "|\n";
+            cout << "| Current money: $" << player.money << "\n";
+            cout << "|\n";
+            cout << "+----------------------------------------\n\n";
+            resetColor();
             cout << "How much do you want to withdraw? $";
             cin >> amount;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -266,15 +295,19 @@ inline void startMenu()
     while (!session)
     {
         clearConsole(); // Use the function I already have to clear the screen before showing the menu
+        setColor(32);
         cout << "\n*============* START MENU *============*\n\n";
+        resetColor();
         showDateTime();
         cout << "1) Log in\n";
         cout << "2) Register\n";
         cout << "3) Recover password\n";
         cout << "4) Delete user\n";
         cout << "5) Exit\n\n";
+        setColor(32);
         cout << "+--------------------------------------+\n";
         cout << "| Choose an option: ";
+        resetColor();
         int option;
         cin >> option;
         if (cin.fail())
@@ -319,13 +352,17 @@ inline void gameModeMenu()
     clearConsole(); // Use the function I already have to clear the screen before showing the menu
     while (true)
     {
+        setColor(32);
         cout << "\n*============* GAME MODE *=============*\n\n";
+        resetColor();
         showDateTime();
         cout << "1) Play solo\n";
         cout << "2) Local multiplayer\n";
         cout << "3) Exit the game\n\n";
+        setColor(32);
         cout << "+--------------------------------------+\n";
         cout << "| Choose an option: ";
+        resetColor();
         cin >> option;
 
         if (cin.fail())

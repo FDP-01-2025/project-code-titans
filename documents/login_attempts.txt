@@ -1,2 +1,2 @@
-sofia|2|1751763319
+sofia|0|0
 alonso|0|0

@@ -31,36 +31,47 @@ inline void showDateTime()
     string greeting = getTimeOfDayGreeting(localTime->tm_hour); // Get the greeting based on the current hour
 
     // Print casino welcome message first
+    setColor(31);
     cout << "+======================================+\n";
     cout << "|                                      |\n";
-    cout << "║    WELCOME TO THE VIRTUAL CASINO     ║\n";
+    cout << "║    ";
+    setColor(34);
+    cout << "WELCOME TO THE VIRTUAL CASINO";
+    setColor(31);
+    cout << "     ║\n";
     cout << "|                                      |\n";
     // I start printing the decorative frame using pseudographic characters:
     cout << "+--------------------------------------+\n";
 
     // Print greeting centered-ish
-    cout << "| " << greeting;
+    cout << "| ";
+    setColor(34);
+    cout << greeting;
+    setColor(31);
     cout << string(38 - 2 - greeting.length(), ' ') << " |\n";
-    cout << "║                                      ║\n";
+    cout << "║                                      ║\n|";
 
     // I print the date line:
-    cout << "| Date : ";
+    resetColor();
+    cout << " Date : ";
     cout << (localTime->tm_mday < 10 ? "0" : "") << localTime->tm_mday << "/"
          << (localTime->tm_mon + 1 < 10 ? "0" : "") << localTime->tm_mon + 1 << "/"
          << localTime->tm_year + 1900;
 
-    cout << string(38 - 8 - 10, ' ') << "|\n";
+    cout << string(38 - 8 - 10, ' ') << "\033[31m|\n║";
 
     // I print the time line:
-    cout << "║ Time : ";
+    resetColor();
+    cout << " Time : ";
     cout << (localTime->tm_hour < 10 ? "0" : "") << localTime->tm_hour << ":"
          << (localTime->tm_min < 10 ? "0" : "") << localTime->tm_min << ":"
          << (localTime->tm_sec < 10 ? "0" : "") << localTime->tm_sec;
 
-    cout << string(38 - 8 - 8, ' ') << "║\n";
+    cout << string(38 - 8 - 8, ' ') << "\033[31m║\n";
 
     // I finally print the bottom of the frame.
     cout << "+======================================+\n\n";
+    resetColor();
 }
 
 #endif // DATE_TIME_H
