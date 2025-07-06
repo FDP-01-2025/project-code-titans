@@ -60,9 +60,6 @@ struct Player
         cout << "║ Games tied: " << gamesTied << "                        ║\n";
         cout << "|                                      |\n";
         cout << "+--------------------------------------+\n";
-        cout << "\nPress Enter to continue...";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
     }
 
     // Add a new record to the player's history (if there is space)

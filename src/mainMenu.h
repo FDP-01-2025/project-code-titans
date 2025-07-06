@@ -17,6 +17,7 @@
 #include "slotMachineGame.h" // Include the slot machine game
 #include "utils.h"           // Include clearConsole
 #include "date_time.h"       // This includes the current date and time display function
+#include "asciiGraphics.h"
 
 using namespace std; // Use the standard namespace to avoid writing std:: all the time
 
@@ -92,6 +93,58 @@ inline void showHistoryMenu(Player &player)
         {
             cout << "\nPress Enter to continue...";
             cin.get(); // I pause the program until Enter is pressed
+        }
+    }
+}
+
+// Muestro el menú de estadísticas para el jugador
+inline void showStatisticsMenu(Player &player)
+{
+    int subOption;           // Guardo la opción elegida
+    bool inStatsMenu = true; // Me mantengo en el menú mientras sea true
+
+    while (inStatsMenu)
+    {
+        clearConsole(); // Limpio la pantalla
+        cout << "\033[36m=========== STATISTICS MENU ===========\033[0m\n";
+        cout << "1. View Text Statistics\n";
+        cout << "2. View Graphical Statistics\n";
+        cout << "3. Return to Main Menu\n";
+        cout << "Choose an option: ";
+        cin >> subOption;
+
+        // Verifico si hubo error al ingresar
+        if (cin.fail())
+        {
+            cin.clear();                                         // Quito el error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio entrada
+            cout << "Invalid input.\n";
+            continue; // Vuelvo a mostrar el menú
+        }
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio el buffer
+
+        switch (subOption)
+        {
+        case 1:
+            player.showStatistics(); // Muestro estadísticas en texto
+            break;
+        case 2:
+            clearConsole();
+            showStatistics(player.name); // Muestro estadísticas con barras
+            break;
+        case 3:
+            inStatsMenu = false; // Salgo del menú
+            break;
+        default:
+            cout << "Invalid option.\n"; // Si escribe algo fuera del rango
+        }
+
+        // Pauso hasta que presione Enter
+        if (inStatsMenu)
+        {
+            cout << "\nPress Enter to continue...";
+            cin.get();
         }
     }
 }
@@ -191,7 +244,7 @@ inline void start(const string &username)
             showHistoryMenu(player); // Submenu for viewing or deleting game history
             break;
         case 9:
-            player.showStatistics(); // Show player statistics
+            showStatisticsMenu(player); // Show player statistics
             break;
         case 10:
             cout << "Thank you for playing. See you later!\n";
