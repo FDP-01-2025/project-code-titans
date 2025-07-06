@@ -8,6 +8,7 @@
 #include <ctime>    // I use it to know the current date and time, to calculate if the user is of legal age.
 #include <limits>   // This library helps me control limits when receiving data, although I don't use it directly here.
 #include "utils.h"  // Here I have my own functions to clear and validate text, keeping the code more organized.
+#include "loginAttempts.h"
 
 // I use the std namespace to avoid writing std:: every time I use standard functions or classes
 using namespace std;
@@ -474,6 +475,15 @@ inline bool logIn(string &player)
     // Normalize the entered name for comparison
     string normalizedEnteredName = normalize(enteredName);
 
+    // Check if the user is blocked due to failed attempts
+    if (isUserBlocked(normalizedEnteredName))
+    {
+        cout << "\033[31mYour account is temporarily locked due to multiple failed login attempts. Please try again later.\033[0m\n";
+        cout << "\nPress Enter to continue...";
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return false;
+    }
+
     // Variable to read lines from the file
     string line;
 
@@ -505,16 +515,25 @@ inline bool logIn(string &player)
                 cout << "Welcome, " << player << "!\n";
                 cout << "==========================\n";
 
+                // Reset login attempts after successful login
+                resetLoginAttempts(normalizedEnteredName);
+
                 // Return true because the login was successful
                 return true;
             }
         }
     }
 
-    // If I finished searching and found no matches, notify error
-    cout << "Incorrect credentials.\n";
+    // Increase login attempts counter and update last attempt time
+    int attempts;
+    time_t lastAttempt;
+    getLoginAttempt(normalizedEnteredName, attempts, lastAttempt);
+    attempts++;
+    updateLoginAttempt(normalizedEnteredName, attempts, time(nullptr));
 
     // Clear the player variable because there is no valid user
+    cout << "\033[31mIncorrect credentials.\033[0m\n";
+    showAttemptWarning(normalizedEnteredName);
     player.clear();
 
     // Return false because the login was not successful
