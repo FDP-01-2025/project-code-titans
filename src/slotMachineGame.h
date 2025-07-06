@@ -9,7 +9,7 @@
 #include <limits>       // For numeric_limits, because sometimes numbers are bigger than our hopes.
 #include "player.h"     // For the Player structure, because we need to know who is losing.
 #include "utils.h"      // For setColor, resetColor, clearConsole, waitMs, because life is more colorful with colors.
-#include "playerData.h" // For saveGame, saveBalance, because we need to keep track of our misfortunes.
+#include "playerData.h" // For registerGame, saveBalance, because we need to keep track of our misfortunes.
 
 using namespace std;
 

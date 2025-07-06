@@ -22,18 +22,31 @@ inline void saveMovement(const string &movementType, const string &player, int a
     }
 }
 
-// This function is used to record what happens in the games: if I win, lose, or tie
+// This function is used to save the game result into the player's personal history file
 inline void saveGame(const string &eventType, const string &player, int amount, int result, int remainingMoney)
 {
-    ofstream file("./documents/games.txt", ios::app); // Open the file to add game events
+    // Get current timestamp
+    time_t now = time(nullptr);
+    tm *localTime = localtime(&now);
+    char timestamp[20];
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", localTime);
+
+    // Build path to player's personal history file
+    string filePath = "./documents/history_" + player + ".txt";
+
+    // Open file in append mode
+    ofstream file(filePath, ios::app);
     if (file.is_open())
     {
-        file << "Player: " << player << " | Event: " << eventType
+        // Write the game record with all info
+        file << "[" << timestamp << "] "
+             << "Event: " << eventType
              << " | Amount: $" << amount
              << " | Result: " << (result == 1 ? "Won" : (result == 0 ? "Lost" : "Tie"))
-             << " | Remaining money: $" << remainingMoney << "\n"; // Write all the event information
+             << " | Remaining money: $" << remainingMoney << "\n";
     }
 }
+
 
 // This function is a wrapper that simply calls saveMovement to record a deposit or withdrawal
 inline void registerMoneyMovement(const string &movementType, const string &player, int amount, int remainingMoney)
@@ -65,6 +78,9 @@ inline void registerGame(const string &gameName, const string &player, int winLo
              << " | Result: " << (result == 1 ? "Won" : (result == 0 ? "Lost" : "Tie"))
              << " | Remaining money: $" << remainingMoney << "\n";
     }
+
+    // También guardo una copia en el archivo personal del jugador para tener su historial separado
+    saveGame(gameName, player, abs(winLossAmount), result, remainingMoney);
 }
 
 // This function saves the player's current balance to their own text file

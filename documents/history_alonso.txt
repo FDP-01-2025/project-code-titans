@@ -1,0 +1,1 @@
+[2025-07-05 18:07:06] Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1940
