@@ -14,36 +14,6 @@
 
 using namespace std; // To avoid writing std:: every time
 
-inline void Yellow(const string &text)
-{
-    cout << "\033[33m" << text << "\033[0m"; // Yellow
-}
-
-inline void Green(const string &text)
-{
-    cout << "\033[32m" << text << "\033[0m";
-}
-
-inline void Magenta(const string &text)
-{
-    cout << "\033[35m" << text << "\033[0m"; // Magenta
-}
-
-inline void Red(const string &text)
-{
-    cout << "\033[31m" << text << "\033[0m"; // Red
-}
-
-inline void Cyan(const string &text)
-{
-    cout << "\033[36m" << text << "\033[0m"; // Cyan
-}
-
-inline void Blue(const string &text)
-{
-    cout << "\033[34m" << text << "\033[0m"; // Blue
-}
-
 inline void calculatePositions()
 { // Function that calculates the X, Y position of each number on the roulette
     for (int i = 0; i < NUMBERS; i++)
@@ -113,20 +83,23 @@ inline string requestBetType()
     while (true)
     { // Loop until the user enters a valid option
         clearConsole();
-        Blue("======================================\n");
-        Green("           BETTING MENU               \n");
-        Magenta(" 1. Exact number      →  pays 35x     \n");
-        Red(" 2. Color (Red/Black) →  pays 2x      \n");
-        Cyan(" 3. Even or Odd       →  pays 2x      \n");
-        Blue("======================================\n");
+        cout << "\033[34m======================================\n";
+        cout << "\033[32m           BETTING MENU               \n";
+        cout << "\033[35m 1. Exact number      →  pays 35x     \n";
+        cout << "\033[31m 2. Color (Red/Black) →  pays 2x      \n";
+        cout << "\033[36m 3. Even or Odd       →  pays 2x      \n";
+        cout << "\033[33m 4. Exit game                         \n";
+        cout << "\033[34m======================================\n";
         cout << "→ Choose an option: "; // Request the option
         cin >> type;                    // Read the user's option
         type = toLower(type);           // Convert to lowercase to avoid errors
 
         if (type == "1" || type == "2" || type == "3") // If it's a valid option
             return type;                               // Return it and exit
+        else if (type == "4" || type == "exit")
+            return "exit";
         else
-            Red("Invalid option, please try again.\n"); // Error message and repeat
+            cout << "\033[31mInvalid option, please try again.\n\033[0m";
     }
 }
 
@@ -134,20 +107,20 @@ inline int requestNumber()
 {            // Function to request a valid betting number (0-36)
     int num; // Variable to store the number
     while (true)
-    {                                         // Until it's valid
-        Magenta("Enter the number (0-36): "); // Request the number
+    {                                                       // Until it's valid
+        cout << "\033[35mEnter the number (0-36): \033[0m"; // Request the number
         if (cin >> num)
         {                              // If the user entered an integer
             if (num >= 0 && num <= 36) // If it's within the valid range
                 return num;            // Return the number
             else
-                Red("Invalid number. It must be between 0 and 36.\n"); // If not, show error
+                cout << "\033[31mInvalid number. It must be between 0 and 36.\n\033[0m"; // If not, show error
         }
         else
         {
-            Red("Invalid input. Please enter an integer.\n");    // If they didn't enter a number
-            cin.clear();                                         // Clear the error state of cin
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore the rest of the line
+            cout << "\033[31mInvalid input. Please enter an integer.\n\033[0m"; // If they didn't enter a number
+            cin.clear();                                                        // Clear the error state of cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');                // Ignore the rest of the line
         }
     }
 }
@@ -156,16 +129,16 @@ inline char requestColor()
 {                 // Function to request the color of the bet (red or black)
     string color; // Temporary variable to read text
     while (true)
-    {                                            // Repeat until receiving a valid response
-        Blue("Enter the color (Red / Black): "); // Request the color
-        cin >> color;                            // Read the input
-        color = toLower(color);                  // Convert to lowercase for comparison
-        if (color == "red")                      // If it's red
-            return 'R';                          // Return code 'R'
-        else if (color == "black")               // If it's black
-            return 'N';                          // Return code 'N'
+    {                                                             // Repeat until receiving a valid response
+        cout << "\033[34mEnter the color (Red / Black): \033[0m"; // Request the color
+        cin >> color;                                             // Read the input
+        color = toLower(color);                                   // Convert to lowercase for comparison
+        if (color == "red")                                       // If it's red
+            return 'R';                                           // Return code 'R'
+        else if (color == "black")                                // If it's black
+            return 'N';                                           // Return code 'N'
         else
-            Red("Invalid color. Only 'Red' or 'Black'.\n"); // Error message
+            cout << "\033[31mInvalid color. Only 'Red' or 'Black'.\n\033[0m"; // Error message
     }
 }
 
@@ -173,16 +146,16 @@ inline char requestParity()
 {                  // Function to request if betting on even or odd
     string parity; // Temporary variable for the response
     while (true)
-    {                             // Until a valid response
-        Yellow("Even or Odd?: "); // Request the option
-        cin >> parity;            // Read input
-        parity = toLower(parity); // Convert to lowercase
-        if (parity == "even")     // If it's even
-            return 'P';           // Return code 'P'
-        else if (parity == "odd") // If it's odd
-            return 'I';           // Return code 'I'
+    {                                            // Until a valid response
+        cout << "\033[33mEven or Odd?: \033[0m"; // Request the option
+        cin >> parity;                           // Read input
+        parity = toLower(parity);                // Convert to lowercase
+        if (parity == "even")                    // If it's even
+            return 'P';                          // Return code 'P'
+        else if (parity == "odd")                // If it's odd
+            return 'I';                          // Return code 'I'
         else
-            Red("Invalid option. Only 'Even' or 'Odd'.\n"); // Error message
+            cout << "\033[31mInvalid option. Only 'Even' or 'Odd'.\n\033[0m"; // Error message
     }
 }
 
@@ -193,18 +166,18 @@ inline void playRoulette(Player &player)
     while (player.money > 0)
     { // While the player has money to bet
         if (player.money <= 0)
-        {                                                 // Check again if they have run out of money
-            Red("You have no money to play Roulette.\n"); // Warning message
-            return;                                       // Exit the function because they cannot continue
+        {                                                                   // Check again if they have run out of money
+            cout << "\033[31mYou have no money to play Roulette.\n\033[0m"; // Warning message
+            return;                                                         // Exit the function because they cannot continue
         }
 
-        Yellow("\n======================================\n");
-        Yellow("     WELCOME TO ROULETTE!\n");
-        Yellow("======================================\n");
+        cout << "\033[33m\n======================================\n\033[0m";
+        cout << "\033[33m     WELCOME TO ROULETTE!\n\033[0m";
+        cout << "\033[33m======================================\n\033[0m";
         cout << "Your current money: \033[32m$" << player.money << "\033[0m\n";
 
         int bet; // Variable for the player's bet
-        Blue("Enter your bet (minimum $10, maximum $500): $");
+        cout << "\033[34mEnter your bet (minimum $10, maximum $500): $\033[0m";
 
         while (true)
         {               // Validate that the bet is correct
@@ -214,7 +187,7 @@ inline void playRoulette(Player &player)
             {
                 cin.clear();                                         // Clear cin error
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore buffer
-                Red("Invalid bet. It must be between $10 and $500 and cannot exceed your current balance.\n");
+                cout << "\033[31mInvalid bet. It must be between $10 and $500 and cannot exceed your current balance.\n\033[0m";
                 cout << "Your current money is $" << player.money << ". Enter your bet: $";
                 continue; // Ask for the bet again
             }
@@ -283,14 +256,14 @@ inline void playRoulette(Player &player)
         // Check if the player won based on their type of bet
         if (type == "1" && winningNumber == choice)
         { // Bet on exact number and it matches
-            Green("You won 35 times your bet!\n");
+            cout << "\033[32mYou won 35 times your bet!\n\033[0m";
             player.money += bet * 35; // Pay 35 times the bet
             player.gamesWon++;        // Increment games won
             won = true;
         }
         else if (type == "2" && winningColor == chosenColor)
         { // Bet on color and it matches
-            Green("You won 2 times your bet!\n");
+            cout << "\033[32mYou won 2 times your bet!\n\033[0m";
             player.money += bet * 2; // Pay 2 times the bet
             player.gamesWon++;
             won = true;
@@ -302,7 +275,7 @@ inline void playRoulette(Player &player)
                 if ((chosenParity == 'P' && winningNumber % 2 == 0) ||
                     (chosenParity == 'I' && winningNumber % 2 != 0))
                 {
-                    Green("You won 2 times your bet!\n");
+                    cout << "\033[32mYou won 2 times your bet!\n\033[0m";
                     player.money += bet * 2;
                     player.gamesWon++;
                     won = true;
@@ -336,7 +309,7 @@ inline void playRoulette(Player &player)
         player.updateStatistics();                           // Update statistics
     }
 
-    Yellow("\nThank you for playing. Your final balance was: $" + to_string(player.money) + "\n"); // Farewell message
+    cout << "\033[33m\nThank you for playing. Your final balance was: $" << player.money << "\n\033[0m"; // Farewell message
 }
 
 #endif // ROULETTE_GAME_H

@@ -26,27 +26,6 @@ inline string getRandomSuit()
     return suits[rand() % 4];              // Return one at random
 }
 
-// Funciones para imprimir texto en colores
-inline void printRed(const string &text)
-{
-    cout << "\033[31m" << text << "\033[0m"; // Red
-}
-
-inline void printGreen(const string &text)
-{
-    cout << "\033[32m" << text << "\033[0m"; // Green
-}
-
-inline void printBlue(const string &text)
-{
-    cout << "\033[34m" << text << "\033[0m"; // Blue
-}
-
-inline void printYellow(const string &text)
-{
-    cout << "\033[33m" << text << "\033[0m"; // Yellow
-}
-
 // Function to convert the numeric value of the card to its textual representation
 inline string adjustValue(int value)
 {
@@ -215,9 +194,9 @@ inline void playBlackjack(Player &player)
             return;                                                            // Exit the function because they cannot play
         }
         clearConsole();
-        printYellow("\n======================================\n");
-        printYellow("     WELCOME TO BLACKJACK!\n");
-        printYellow("======================================\n");
+        cout << "\033[33m\n======================================\n\033[0m";
+        cout << "\033[33m     WELCOME TO BLACKJACK!\n\033[0m";
+        cout << "\033[33m======================================\n\033[0m";
         cout << "Your current money: \033[32m$" << player.money << "\033[0m\n";
 
         int bet; // Variable for the player's bet
@@ -259,14 +238,16 @@ inline void playBlackjack(Player &player)
         while (true)
         { // Loop to ask and validate difficulty
             clearConsole();
-            printYellow("\n======================================\n");
-            printYellow("     Select the difficulty level\n");
-            printYellow("--------------------------------------\n");
+            cout << "\033[33m" << "\n======================================\n"
+                 << "\033[0m";
+            cout << "\033[33m     Select the difficulty level\n\033[0m";
+            cout << "\033[33m--------------------------------------\n\033[0m";
             cout << "  1. Normal  (2 cards)\n";
             cout << "  2. Medium  (3 cards)\n";
             cout << "  3. Hard    (4 cards)\n";
             cout << "  4. Exit\n";
-            printYellow("======================================\n");
+            cout << "\033[33m" << "======================================\n"
+                 << "\033[0m";
             cout << "Option: ";
 
             cin >> difficultyLevel;
@@ -281,11 +262,14 @@ inline void playBlackjack(Player &player)
                 clearConsole(); // Clear screen for better presentation
                 cout << "You have selected the ";
                 if (difficultyLevel == 1)
-                    printBlue("Normal level.\n");
+                    cout << "\033[34m" << "Normal level.\n"
+                         << "\033[0m";
                 else if (difficultyLevel == 2)
-                    printYellow("Medium level.\n");
+                    cout << "\033[33m" << "Medium level.\n"
+                         << "\033[0m";
                 else
-                    printRed("Hard level.\n");
+                    cout << "\033[31m" << "Hard level.\n"
+                         << "\033[0m";
                 break; // Exit the loop
             }
 
