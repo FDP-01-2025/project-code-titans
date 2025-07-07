@@ -265,13 +265,19 @@ inline void playBlackjack(Player &player)
             cout << "  1. Normal  (2 cards)\n";
             cout << "  2. Medium  (3 cards)\n";
             cout << "  3. Hard    (4 cards)\n";
+            cout << "  4. Exit\n";
             printYellow("======================================\n");
             cout << "Option: ";
 
             cin >> difficultyLevel;
 
-            if (!cin.fail() && difficultyLevel >= 1 && difficultyLevel <= 3)
-            {                   // If valid
+            if (!cin.fail() && difficultyLevel >= 1 && difficultyLevel <= 4)
+            { // If valid
+                if (difficultyLevel == 4)
+                {
+                    cout << "\n\033[36mYou chose to exit the Blackjack table. See you next time!\033[0m\n";
+                    return;
+                }
                 clearConsole(); // Clear screen for better presentation
                 cout << "You have selected the ";
                 if (difficultyLevel == 1)
