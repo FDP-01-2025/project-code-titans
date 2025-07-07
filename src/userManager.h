@@ -216,6 +216,9 @@ inline bool isOfLegalAge(const string &birthDate)
     if (sscanf(birthDate.c_str(), "%d/%d/%d", &day, &month, &year) != 3)
         return false;
 
+    if (day <= 0 || month <= 0 || year <= 0)
+        return false;
+
     // Validate that the year is in a reasonable range (for example, between 1900 and 2100)
     // If the year is out of range, return false because it's not valid
     if (year < 1900 || year > 2100)
@@ -325,6 +328,12 @@ inline bool validDUI(const string &dui)
     if (duiRepeated(dui))
     {
         cout << "That DUI has already been registered.\n";
+        return false;
+    }
+
+        if (dui.substr(0, 8) == "00000000" && dui[9] == '0')
+    {
+        cout << "Invalid DUI: cannot be all zeros.\n";
         return false;
     }
 
@@ -617,19 +626,25 @@ inline void updatePassword(const string &name, const string &newPassword)
 
             // Read name
             getline(file, line);
-            string fileName = trim(line.substr(8));
+            string fileName = trim(line.substr(6));
             temp << "Name: " << fileName << '\n';
 
             // Read password (I will change it if it corresponds)
             getline(file, line);
-            string passwordFile = trim(line.substr(13));
+            string passwordFile = trim(line.substr(10));
 
             // Read recovery code
             getline(file, line);
-            string codeFile = trim(line.substr(8));
+            string codeFile = trim(line.substr(6));
 
             // Read closing empty line
-            getline(file, line);
+            string extraLines;
+            while (getline(file, line))
+            {
+                extraLines += line + "\n";
+                if (line == "=================")
+                    break;
+            }
 
             // If this is the user I want to update, write the new password
             if (fileName == name)
@@ -644,6 +659,7 @@ inline void updatePassword(const string &name, const string &newPassword)
 
             // Write the original code and the closing line
             temp << "Code: " << codeFile << '\n';
+            temp << extraLines;
         }
         else
         {

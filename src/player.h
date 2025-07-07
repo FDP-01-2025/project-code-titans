@@ -149,10 +149,6 @@ struct Player
             cout << "There is no registered history for this player.\n";
         }
 
-        cout << "\nPress Enter to continue...";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
-
         // Show the footer of the history to close it visually
         cout << "=================================\n";
     }
@@ -210,11 +206,7 @@ struct Player
                 // If no records of the player were found, it is reported
                 cout << "No history was found for this player.\n";
         }
-
-        // I expect the user to press Enter to continue.
-        cout << "\nPress Enter to continue...";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cin.get();
+        
     }
 };
 
