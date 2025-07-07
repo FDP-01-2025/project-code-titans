@@ -79,19 +79,19 @@ inline int validateCrapsInput()
     cin >> choice; // Read input
 
     // While the input is invalid (not a number, not in range, or buffer not cleared)
-    while (cin.fail() || cin.peek() != '\n' || choice < 1 || choice > 3)
+    while (cin.fail() || cin.peek() != '\n' || choice < 1 || choice > 4)
     {
         cin.clear();            // Clear input error state
         cin.ignore(1000, '\n'); // Ignore what remains in the buffer
         // Show message in a decorative box indicating the error and how to correct it
-        cout << "╔══════════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║                                                                                                      ║\n";
-        cout << "║                                            ♠ ♥ Message ♥ ♣                                           ║\n";
-        cout << "║                                                                                                      ║\n";
-        cout << "║           Please do not enter letters or special characters, only numbers between 1 and 3            ║\n";
-        cout << "║                                                                                                      ║\n";
-        cout << "║                     Select your difficulty level:                                               ║\n";
-        cout << "╚══════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n===============================================================================================\n";
+        cout << "                                                                                                      \n";
+        cout << "\033[36m                                            ♠ ♥ Message ♥ ♣                                           \033[0m\n";
+        cout << "                                                                                                      \n";
+        cout << "\033[33m           Please do not enter letters or special characters, only numbers between 1 and 4            \033[0m\n";
+        cout << "                                                                                                      \n";
+        cout << "\033[36m                     Select your difficulty level:                                                    \033[0m\n";
+        cout << "\033[33m\n==============================================================================================\n";
         cin >> choice; // Try to read again
     }
     return choice; // Return the valid option
@@ -111,12 +111,12 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
     if (comeOutRoll == 2 || comeOutRoll == 3 || comeOutRoll == 12)
     {
         // Loss message if Craps (2, 3, or 12) comes out
-        cout << "╔═══════════════════════════════════════════════════╗\n";
-        cout << "║                 ♠ ♥ You Lost ♥ ♣               ║\n";
-        cout << "║                                                   ║\n";
-        cout << "║           Craps! You lost the game.           ║\n";
-        cout << "║                                                   ║\n";
-        cout << "╚═══════════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n===============================================\n";
+        cout << "\033[31m                 ♠ ♥ You Lost ♥ ♣               \033[0m\n";
+        cout << "                                                   \n";
+        cout << "\033[31m           Craps! You lost the game.           \033[0m\n";
+        cout << "                                                   \n";
+        cout << "\033[33m\n===============================================\n";
         registerGame("Craps", player.name, -bet, player.money - bet); // Record loss
         player.gamesLost++;                                           // Increment lost games
         return -bet;                                                  // Return loss
@@ -124,12 +124,12 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
     else if (comeOutRoll == 7 || comeOutRoll == 11)
     {
         // Instant win message if 7 or 11 comes out
-        cout << "╔═══════════════════════════════════════════════╗\n";
-        cout << "║                 ♠ ♥ You Won ♥ ♣            ║\n";
-        cout << "║                                               ║\n";
-        cout << "║     Congratulations, you won the round!        ║\n";
-        cout << "║                                               ║\n";
-        cout << "╚═══════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n===============================================\n";
+        cout << "\033[32m                 ♠ ♥ You Won ♥ ♣            \033[0m\n";
+        cout << "                                               \n";
+        cout << "\033[32m     Congratulations, you won the round!        \033[0m\n";
+        cout << "                                               \n";
+        cout << "\033[33m\n===============================================\n";
         registerGame("Craps", player.name, bet, player.money + bet); // Record win
         player.gamesWon++;                                           // Increment won games
         return bet;                                                  // Return win
@@ -138,15 +138,15 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
     {
         // If another number comes out, a point is established for the next round
         int point = comeOutRoll;
-        cout << "╔═════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║                                                                                                             ║\n";
-        cout << "║                                            ♠ ♥ Message ♥ ♣                                                  ║\n";
-        cout << "║                                                                                                             ║\n";
-        cout << "║                              The point is established, the shooter will roll again...                      ║\n";
-        cout << "║                                                                                                             ║\n";
-        cout << "║                                                                                                             ║\n";
-        cout << "║                      If the roll is: " << comeOutRoll << ", the shooter wins; if it's 7, the shooter loses                      ║\n";
-        cout << "╚═════════════════════════════════════════════════════════════════════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n=====================================================================================================\n";
+        cout << "                                                                                                             \n";
+        cout << "\033[35m                                            ♠ ♥ Message ♥ ♣                                                  \033[0m\n";
+        cout << "                                                                                                             \n";
+        cout << "\033[36m                              The point is established, the shooter will roll again...                      \033[0m\n";
+        cout << "                                                                                                             \n";
+        cout << "                                                                                                             \n";
+        cout << "\033[33m                     If the roll is: " << comeOutRoll << ", the shooter wins; if it's 7, the shooter loses    \033[0m\n";
+        cout << "\033[33m\n=====================================================================================================\n";
         waitMs(3000); // Wait 3 seconds for suspense
 
         int attempts = 0; // Counter for attempts made
@@ -160,24 +160,24 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
 
             if (comeOutRoll == point)
             { // If the point comes out, the player wins
-                cout << "╔═════════════════════════════════════════════════════╗\n";
-                cout << "║                    ♠ ♥ You Won ♥ ♣               ║\n";
-                cout << "║                                                     ║\n";
-                cout << "║                Congratulations, you won!            ║\n";
-                cout << "║                                                     ║\n";
-                cout << "╚═════════════════════════════════════════════════════╝\n";
+                cout << "\033[33m\n===============================================\n";
+                cout << "\033[32m                   ♠ ♥ You Won ♥ ♣               \033[0m\n";
+                cout << "                                                    \n";
+                cout << "\033[32m                Congratulations, you won!            \033[0m\n";
+                cout << "                                                    \n";
+                cout << "\033[33m\n===============================================\n";
                 registerGame("Craps", player.name, bet, player.money + bet);
                 player.gamesWon++;
                 return bet;
             }
             else if (comeOutRoll == 7)
             { // If 7 comes out, the player loses
-                cout << "╔═════════════════════════════════════════════════════╗\n";
-                cout << "║                   ♠ ♥ You Lost ♥ ♣               ║\n";
-                cout << "║                                                     ║\n";
-                cout << "║               Sorry, you lost the game.      ║\n";
-                cout << "║                                                     ║\n";
-                cout << "╚═════════════════════════════════════════════════════╝\n";
+                cout << "\033[33m\n===============================================\n";
+                cout << "\033[31m                   ♠ ♥ You Lost ♥ ♣               \033[0m\n";
+                cout << "                                                     \n";
+                cout << "\033[31m               Sorry, you lost the game.      \033[0m\n";
+                cout << "                                                     \n";
+                cout << "\033[33m\n===============================================\n";
                 registerGame("Craps", player.name, -bet, player.money - bet);
                 player.gamesLost++;
                 return -bet;
@@ -185,12 +185,12 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
         }
 
         // If attempts run out without winning or losing, the player loses due to limit of attempts
-        cout << "╔═══════════════════════════════════════════════════╗\n";
-        cout << "║                  ♠ ♥ Message ♥ ♣                  ║\n";
-        cout << "║                                                   ║\n";
-        cout << "║       Sorry, you have run out of attempts.     ║\n";
-        cout << "║                                                   ║\n";
-        cout << "╚═══════════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n===============================================\n";
+        cout << "\033[35m                ♠ ♥ Message ♥ ♣                  \033[0m\n";
+        cout << "                                                  \n";
+        cout << "\033[33m       Sorry, you have run out of attempts.     \033[0m\n";
+        cout << "                                                  \n";
+        cout << "\033[33m\n===============================================\n";
         registerGame("Craps", player.name, -bet, player.money - bet);
         player.gamesLost++;
         return -bet;
@@ -210,44 +210,60 @@ inline void playCraps(Player &player)
     do
     {
         clearConsole();
-        int bet; // Variable for bet
-        cout << "\nYour current money is $" << player.money << ". Enter your bet (minimum $10, maximum $500): $";
+        if (player.money <= 0)
+        {                                                                  // Check if they have money to bet
+            cout << "\n\033[31mYou have no money to play Craps.\033[0m\n"; // Message if no balance
+            return;                                                        // Exit the function because they cannot play
+        }
+        clearConsole();
+        cout << "\033[33m\n======================================\n";
+        cout << "     WELCOME TO CRAPS!\n";
+        cout << "======================================\n\033[0m";
+        cout << "Your current money: \033[32m$" << player.money << "\033[0m\n";
 
+        int bet; // Variable for the player's bet
+        cout << "Enter your bet (minimum $10, maximum $500): $";
+
+        // Improved bet validation loop with better error handling
         while (true)
-        { // Loop to validate bet
+        {
             cin >> bet;
-            if (bet == 0)
-            { // If they enter 0, cancel bet
-                cout << "Bet canceled.\n";
-                return;
-            }
-            if (cin.fail() || bet < 10 || bet > 500)
-            { // Validate range and input
+
+            // Clear any error flags and discard bad input
+            if (cin.fail())
+            {
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                cout << "Invalid bet. It must be between $10 and $500.\n";
-                cout << "Enter your bet: $";
+                cout << "\033[31mInvalid input. Please enter a number between 10 and 500: $\033[0m ";
                 continue;
             }
+
+            if (bet < 10 || bet > 500)
+            {
+                cout << "\033[31mBet must be between $10 and $500. Try again: $\033[0m ";
+                continue;
+            }
+
             if (bet > player.money)
-            { // Validate sufficient balance
-                cout << "Insufficient balance. Your current balance is $" << player.money << ".\n";
-                cout << "Enter your bet: $";
+            {
+                cout << "\033[31mYou don't have enough money. Your balance: $" << player.money
+                     << ". Enter a valid amount: $\033[0m ";
                 continue;
             }
+
             break; // Exit the loop if the bet is valid
         }
 
         // Show welcome menu with levels to select
-        cout << "\n╔═══════════════════════════════════════════════════════════════════════╗\n";
-        cout << "║                       ♠ ♥ Welcome to Craps ♥ ♣                      ║\n";
-        cout << "║                                                                       ║\n";
-        cout << "║          Select the difficulty level to start:                      ║\n";
-        cout << "║                                                                       ║\n";
-        cout << "║                  1. Easy     ♣     2. Medium     ♦                    ║\n";
-        cout << "║                            3. Hard       ♠                         ║\n";
-        cout << "║                                                                       ║\n";
-        cout << "╚═══════════════════════════════════════════════════════════════════════╝\n";
+        clearConsole();
+        cout << "\033[33m\n======================================\n";
+        cout << "\033[33m     Select the difficulty level\n";
+        cout << "--------------------------------------\033[0m\n";
+        cout << "  1. Easy (infinite)  ♣\n";
+        cout << "  2. Medium (5 attempts) ♦\n";
+        cout << "  3. Hard (3 attempts) ♠ \n";
+        cout << "  4. Exit\n";
+        cout << "\033[33m======================================\033[0m\n";
 
         int selection = validateCrapsInput(); // Ask and validate difficulty level
 
@@ -268,18 +284,21 @@ inline void playCraps(Player &player)
             cout << "You have selected the hard level (3 attempts)\n";
             result = executeCrapsGame(player, 3, bet);
             break;
+        case 4:
+            cout << "Exiting Craps. Thanks for playing!\n";
+            return;
         }
 
         player.money += result;                 // Update money according to result
         saveBalance(player.name, player.money); // Save balance to file
         player.updateStatistics();              // Update internal statistics
 
-        cout << "╔═══════════════════════════════════════════════════╗\n";
-        cout << "║                Do you want to keep playing?             ║\n";
-        cout << "║                                                   ║\n";
-        cout << "║   Yes (Y)                               No (N)     ║\n";
-        cout << "║                                                   ║\n";
-        cout << "╚═══════════════════════════════════════════════════╝\n";
+        cout << "\033[33m\n===========================================\\n";
+        cout << "                Do you want to keep playing?           \n";
+        cout << "                                                   \n";
+        cout << "  Yes (Y)                               No (N)     \n";
+        cout << "                                                  \n";
+        cout << "\033[33m\n===========================================\\n";
 
         cin >> playAgain;
         clearConsole();
