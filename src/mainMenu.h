@@ -60,14 +60,14 @@ inline void showHistoryMenu(Player &player)
 
         // I display the title and submenu options in cyan color
         cout << "\033[36m+===========* HISTORY MENU *===========+\033[0m\n\n";
-        cout << "  1. View Game History\n";   // Option to view the player's history
-        cout << "  2. Delete Game History\n"; // Option to delete the player's history
+        cout << "  1. View Game History\n";     // Option to view the player's history
+        cout << "  2. Delete Game History\n";   // Option to delete the player's history
         cout << "  3. Return to Main Menu\n\n"; // Option to go back to the main menu
         setColor(33);
         cout << "+-----------------------\n";
         cout << "| Choose an option: ";
         resetColor();
-        cin >> subOption;                   // I read the selected option
+        cin >> subOption; // I read the selected option
 
         // I check if there was an input error
         if (cin.fail())
@@ -106,15 +106,14 @@ inline void showHistoryMenu(Player &player)
     }
 }
 
-// Muestro el menú de estadísticas para el jugador
+// Show the statistics menu for the player
 inline void showStatisticsMenu(Player &player)
 {
-    int subOption;           // Guardo la opción elegida
-    bool inStatsMenu = true; // Me mantengo en el menú mientras sea true
-
+    int subOption;           // I save the chosen option
+    bool inStatsMenu = true; // I stay in the menu as long as it is true
     while (inStatsMenu)
     {
-        clearConsole(); // Limpio la pantalla
+        clearConsole(); // Clear the screen
         cout << "\033[36m+===========* STATISTICS MENU *===========+\033[0m\n\n";
         cout << "  1. View Text Statistics\n";
         cout << "  2. View Graphical Statistics\n";
@@ -123,37 +122,39 @@ inline void showStatisticsMenu(Player &player)
         cout << "+-----------------------\n";
         cout << "| Choose an option: ";
         resetColor();
-        
+
         cin >> subOption;
 
-        // Verifico si hubo error al ingresar
+        // Check if there was an error when entering
         if (cin.fail())
         {
-            cin.clear();                                         // Quito el error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio entrada
+            cin.clear();                                         // Remove the error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clean input
             cout << "Invalid input.\n";
-            continue; // Vuelvo a mostrar el menú
+            cout << "Press Enter to continue...";
+            cin.get();
+            continue; // Show the menu again
         }
 
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpio el buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the buffer
 
         switch (subOption)
         {
         case 1:
-            player.showStatistics(); // Muestro estadísticas en texto
+            player.showStatistics(); // Show statistics in text
             break;
         case 2:
             clearConsole();
-            showStatistics(player.name); // Muestro estadísticas con barras
+            showStatistics(player.name); // Sampling statistics with bars
             break;
         case 3:
-            inStatsMenu = false; // Salgo del menú
+            inStatsMenu = false; // I exit the menu
             break;
         default:
-            cout << "Invalid option.\n"; // Si escribe algo fuera del rango
+            cout << "Invalid option.\n"; // If you write something outside the range
         }
 
-        // Pauso hasta que presione Enter
+        // Pause until you press Enter
         if (inStatsMenu)
         {
             cout << "\nPress Enter to continue...";
@@ -189,6 +190,8 @@ inline void start(const string &username)
             cin.clear();                                         // Clear the error
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the buffer
             cout << "Invalid input.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
             continue; // Return to the start of the loop
         }
 
@@ -281,6 +284,8 @@ inline void start(const string &username)
             break;
         default:
             cout << "Invalid option.\n"; // Capture any invalid option
+            cout << "Press Enter to continue...";
+            cin.get();
         }
         cout << endl; // Make a line break after each cycle
     }
@@ -315,6 +320,8 @@ inline void startMenu()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Please enter a number.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
             continue;
         }
 
@@ -339,6 +346,8 @@ inline void startMenu()
             return; // Exit the function
         default:
             cout << "Invalid option. Please try again.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
         }
     }
 
@@ -388,6 +397,8 @@ inline void gameModeMenu()
             return;
         default:
             cout << "Invalid option. Try again.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
         }
     }
 }

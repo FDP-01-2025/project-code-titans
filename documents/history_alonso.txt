@@ -4,3 +4,5 @@
 [2025-07-06 19:14:51] Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1930
 [2025-07-06 19:16:44] Event: Hi-Lo | Amount: $0 | Result: Tie | Remaining money: $1940
 [2025-07-06 21:25:36] Event: Craps | Amount: $10 | Result: Lost | Remaining money: $1930
+[2025-07-07 08:17:23] Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1940
+[2025-07-07 08:30:00] Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1920

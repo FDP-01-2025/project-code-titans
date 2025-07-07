@@ -167,6 +167,9 @@ bool playHandFunction(Player &player, int values[], string suits[], int &numCard
         if (numCards >= 10)
         {
             cout << "\033[31mYou cannot draw more cards, maximum reached.\033[0m\n";
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             break;
         }
 
@@ -192,7 +195,11 @@ inline void playBlackjack(Player &player)
         {                                                                      // Check if they have money to bet
             cout << "\n\033[31mYou have no money to play Blackjack.\033[0m\n"; // Message if no balance
             return;                                                            // Exit the function because they cannot play
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
         }
+
         clearConsole();
         cout << "\033[33m\n======================================\n\033[0m";
         cout << "\033[33m     WELCOME TO BLACKJACK!\n\033[0m";
@@ -237,6 +244,9 @@ inline void playBlackjack(Player &player)
         int difficultyLevel; // Variable for the difficulty the player will choose
         while (true)
         { // Loop to ask and validate difficulty
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             clearConsole();
             cout << "\033[33m" << "\n======================================\n"
                  << "\033[0m";
@@ -330,6 +340,9 @@ inline void playBlackjack(Player &player)
             // I show the player's new balance after the loss
             cout << "Your current balance: \033[32m$" << player.money << "\033[0m\n";
 
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             // I ask the player if they want to play Blackjack again
             cout << "\n\033[33mDo you want to play Blackjack again? (y/n): \033[0m";
             while (true)
@@ -436,7 +449,9 @@ inline void playBlackjack(Player &player)
             cout << "Your current balance: \033[32m$" << player.money << "\033[0m\n";
             // I ask the player if they want to play another round of Blackjack
             cout << "\n\033[33mDo you want to play Blackjack again? (y/n): \033[0m";
-
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
             // I start a loop to validate the user's input
             while (true)
             {
@@ -521,6 +536,10 @@ inline void playBlackjack(Player &player)
         // Show updated balance after resolving all hands
         cout << "\nYour current balance: \033[32m$" << player.money << "\033[0m\n";
 
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+
         // Check if player still has money to continue
         if (player.money <= 0)
         {
@@ -538,6 +557,11 @@ inline void playBlackjack(Player &player)
                 break;
             cout << "\033[31mInvalid input. Please enter 'y' or 'n': \033[0m";
         }
+
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+        clearConsole();
 
     } while (playAgain == 'y');
 }

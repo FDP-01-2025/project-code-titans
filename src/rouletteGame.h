@@ -100,6 +100,9 @@ inline string requestBetType()
             return "exit";
         else
             cout << "\033[31mInvalid option, please try again.\n\033[0m";
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer
+        cin.get();
     }
 }
 
@@ -115,12 +118,17 @@ inline int requestNumber()
                 return num;            // Return the number
             else
                 cout << "\033[31mInvalid number. It must be between 0 and 36.\n\033[0m"; // If not, show error
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cin.get();
         }
         else
         {
             cout << "\033[31mInvalid input. Please enter an integer.\n\033[0m"; // If they didn't enter a number
             cin.clear();                                                        // Clear the error state of cin
             cin.ignore(numeric_limits<streamsize>::max(), '\n');                // Ignore the rest of the line
+            cout << "Press Enter to continue...";
+            cin.get();
         }
     }
 }
@@ -139,6 +147,9 @@ inline char requestColor()
             return 'N';                                           // Return code 'N'
         else
             cout << "\033[31mInvalid color. Only 'Red' or 'Black'.\n\033[0m"; // Error message
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
 }
 
@@ -156,6 +167,9 @@ inline char requestParity()
             return 'I';                          // Return code 'I'
         else
             cout << "\033[31mInvalid option. Only 'Even' or 'Odd'.\n\033[0m"; // Error message
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
 }
 
@@ -189,6 +203,8 @@ inline void playRoulette(Player &player)
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore buffer
                 cout << "\033[31mInvalid bet. It must be between $10 and $500 and cannot exceed your current balance.\n\033[0m";
                 cout << "Your current money is $" << player.money << ". Enter your bet: $";
+                cout << "Press Enter to continue...";
+                cin.get();
                 continue; // Ask for the bet again
             }
             break; // Exit if it's valid

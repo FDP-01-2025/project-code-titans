@@ -83,6 +83,7 @@ inline int validateCrapsInput()
     {
         cin.clear();            // Clear input error state
         cin.ignore(1000, '\n'); // Ignore what remains in the buffer
+        clearConsole();
         // Show message in a decorative box indicating the error and how to correct it
         cout << "\033[33m\n===============================================================================================\n";
         cout << "                                                                                                      \n";
@@ -120,6 +121,10 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
         registerGame("Craps", player.name, -bet, player.money - bet); // Record loss
         player.gamesLost++;                                           // Increment lost games
         return -bet;                                                  // Return loss
+
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
     else if (comeOutRoll == 7 || comeOutRoll == 11)
     {
@@ -133,6 +138,10 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
         registerGame("Craps", player.name, bet, player.money + bet); // Record win
         player.gamesWon++;                                           // Increment won games
         return bet;                                                  // Return win
+
+        cout << "Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
     }
     else
     {
@@ -169,6 +178,10 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
                 registerGame("Craps", player.name, bet, player.money + bet);
                 player.gamesWon++;
                 return bet;
+
+                cout << "Press Enter to continue...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
             }
             else if (comeOutRoll == 7)
             { // If 7 comes out, the player loses
@@ -181,6 +194,9 @@ inline int executeCrapsGame(Player &player, int maxAttempts, int bet)
                 registerGame("Craps", player.name, -bet, player.money - bet);
                 player.gamesLost++;
                 return -bet;
+                cout << "Press Enter to continue...";
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cin.get();
             }
         }
 
@@ -301,8 +317,11 @@ inline void playCraps(Player &player)
         cout << "\033[33m\n===========================================\\n";
 
         cin >> playAgain;
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Press Enter to continue...";
+        cin.get();
         clearConsole();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear buffer to avoid errors
 
     } while (tolower(playAgain) == 'y'); // Repeat while they answer 'y'
 }

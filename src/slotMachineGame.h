@@ -242,6 +242,9 @@ inline void easyMode(Player &player)
         setColor(31);
         cout << "You do not have enough money to play in Easy mode. You need $" << BET << ".\n";
         resetColor();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Press Enter to continue...";
+        cin.get();
         return; // Exit, because nothing is sadder than a player without money.
     }
 
@@ -334,6 +337,9 @@ inline void easyMode(Player &player)
             player.money -= BET;                                                  // Subtract the bet if they didn't win, because we need to learn to lose.
             player.gamesLost++;                                                   // Count the loss, because we need to be realistic.
             registerGame("Slot Machine (Easy)", player.name, -BET, player.money); // Save the record, because history must be told.
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Press Enter to continue...";
+            cin.get();
         }
 
         // Save balance and statistics after each game
@@ -345,6 +351,9 @@ inline void easyMode(Player &player)
             setColor(31);
             cout << "You do not have enough money for another round in Easy mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
             resetColor();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Press Enter to continue...";
+            cin.get();
             break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
 
@@ -500,6 +509,9 @@ inline void mediumMode(Player &player)
     {
         setColor(31);
         cout << "You do not have enough money to play in Medium mode. You need $" << BET << ".\n";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Press Enter to continue...";
+        cin.get();
         resetColor();
         return; // Exit, because nothing is sadder than a player without money.
     }
@@ -530,6 +542,9 @@ inline void mediumMode(Player &player)
                     cout << endl;
                     setColor(31);
                     cout << "Please enter a valid option (P), try again." << endl; // Error message, because we all need one.
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Press Enter to continue...";
+                    cin.get();
                     resetColor();
                 }
             }
@@ -577,6 +592,9 @@ inline void mediumMode(Player &player)
                     cout << endl;
                     setColor(31);
                     cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need one.
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Press Enter to continue...";
+                    cin.get();
                     resetColor();
                 }
             }
@@ -602,6 +620,9 @@ inline void mediumMode(Player &player)
         {
             setColor(31);
             cout << "You do not have enough money for another round in Medium mode. You need $" << BET << ".\n"; // Farewell message, because sometimes you need to know when to stop.
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Press Enter to continue...";
+            cin.get();
             resetColor();
             break; // Exit if there's no money for another bet, because we shouldn't be stubborn.
         }
@@ -637,6 +658,9 @@ inline void mediumMode(Player &player)
                 cout << endl;
                 setColor(31);
                 cout << "Please enter a valid option (S) or (N), try again." << endl; // Error message, because we all need one.
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Press Enter to continue...";
+                cin.get();
                 resetColor();
             }
         }
@@ -758,6 +782,9 @@ inline void hardMode(Player &player)
     {
         setColor(31);
         cout << "You do not have enough money to play in Hard mode. You need $" << BET << ".\n";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Press Enter to continue...";
+        cin.get();
         resetColor();
         return; // Exit, because nothing is sadder than a player without money.
     }
@@ -835,6 +862,9 @@ inline void hardMode(Player &player)
                     cout << endl;
                     setColor(31);
                     cout << "Please enter a valid option (!), try again." << endl; // Error message, because we all need one.
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Press Enter to continue...";
+                    cin.get();
                     resetColor();
                 }
             }
@@ -955,6 +985,9 @@ inline void playSlotMachine(Player &player)
                 {
                     setColor(31);
                     cout << "Please enter a valid option (E), (M), (H) or (B), try again." << endl; // Error message, because we all need one.
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    cout << "Press Enter to continue...";
+                    cin.get();
                     resetColor();
                 }
             }
