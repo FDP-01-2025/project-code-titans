@@ -449,9 +449,6 @@ inline void playBlackjack(Player &player)
             cout << "Your current balance: \033[32m$" << player.money << "\033[0m\n";
             // I ask the player if they want to play another round of Blackjack
             cout << "\n\033[33mDo you want to play Blackjack again? (y/n): \033[0m";
-            cout << "Press Enter to continue...";
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cin.get();
             // I start a loop to validate the user's input
             while (true)
             {

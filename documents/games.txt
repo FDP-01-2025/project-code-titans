@@ -65,3 +65,4 @@ Player: alonso | Event: Roulette | Amount: $10 | Result: Lost | Remaining money:
 [2025-07-06 21:25:36] Player: alonso | Event: Craps | Amount: $10 | Result: Lost | Remaining money: $1930
 [2025-07-07 08:17:23] Player: alonso | Event: Blackjack | Amount: $10 | Result: Won | Remaining money: $1940
 [2025-07-07 08:30:00] Player: alonso | Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1920
+[2025-07-07 21:18:00] Player: alonso | Event: Blackjack | Amount: $20 | Result: Lost | Remaining money: $1900
