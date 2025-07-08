@@ -761,9 +761,11 @@ int main()
 
 # Equipo
 
-# Equipo "Code Titans" 
+Equipo "Code Titans" 
 
-# Roles y Responsabilidades
+Roles y Responsabilidades
+
+
 
 # Fernando Alonso Moreno Flores (00000125) - Rol: Líder de equipo y Arquitecto de Software / Desarrollador Backend
 
@@ -850,13 +852,14 @@ Comunicar avances y necesidades del equipo a los stakeholders.
 
 # Desarrollado por:
 
-# 🔥 Code Titans
+ 🔥 Code Titans
 
 # Bajo el sello de:
 
-# ⚔️ "Code Titans"
+⚔️ "Code Titans"
 
-# "Donde el código se convierte en leyenda."
+
+# 🧠  "Forjando software, conquistando límites."
 
 # Instrucciones de Ejecución
 
