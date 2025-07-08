@@ -3,6 +3,7 @@
 > Un proyecto del equipo **Code Titans**, desarrollado con pasión bajo el sello de **Code Titans**  
 > 🧠 "Forjando software, conquistando límites."
 
+# Diagrama de flujo
 
 # Nombre del juego
 Casino Virtual: Consola Edición
