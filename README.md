@@ -74,18 +74,28 @@ Persistencia de Datos: El saldo, el historial y las estadísticas del jugador se
 El proyecto "Casino Virtual: Consola Edición" es una implementación robusta de un casino en C++ utilizando la consola como interfaz principal.
 
 Modularidad: El código está altamente modularizado, con cada juego y funcionalidad principal (gestión de usuarios, datos, utilidades) encapsulada en sus propios archivos de cabecera (.h) y, presumiblemente, archivos de implementación (.cpp) asociados. Esto facilita la lectura, el mantenimiento y la escalabilidad del proyecto.
+
 Uso de Estructuras y Clases: Se utilizan estructuras como Player para encapsular los datos y métodos relacionados con el jugador (saldo, estadísticas, historial, depósitos, retiros). También se observa el uso de MiniGamePlayer para el modo multijugador.
+
 Manejo de Archivos: El proyecto hace un uso extensivo de fstream para la persistencia de datos. Se guardan y cargan balances, historiales de juego, estadísticas y datos de usuario en archivos de texto (.txt). Esto incluye la creación de archivos específicos por jugador (ej. balance_nombre.txt, history_nombre.txt).
+
 Validación de Entradas: Se implementan validaciones rigurosas para las entradas del usuario (apuestas, opciones de menú, datos de registro como fechas de nacimiento y DUI), utilizando cin.fail(), cin.ignore(), numeric_limits y funciones personalizadas (toLower, trim, normalize, isNameValid, isOfLegalAge, validDUI).
+
 Interfaz de Usuario en Consola: Se aprovechan las capacidades de la consola para crear una experiencia visual atractiva dentro de sus limitaciones. Esto incluye:
 Colores ANSI: Uso de códigos de escape ANSI para cambiar el color del texto y el fondo, mejorando la legibilidad y el atractivo visual.
+
 Gráficos ASCII: Representaciones detalladas de elementos del juego (cartas, dados, ruleta, barras de estadísticas) utilizando caracteres ASCII.
+
 Animaciones: Implementación de animaciones simples pero efectivas (ruleta girando, dados rodando, barras de carga) mediante la limpieza de la consola y pausas (waitMs).
 Funcionalidades Avanzadas:
 Sistema de Bloqueo de Cuenta: Implementación de un sistema de seguridad para bloquear cuentas temporalmente después de múltiples intentos de inicio de sesión fallidos, registrando los intentos y el tiempo del último intento.
+
 Recuperación de Contraseña: Un sistema para recuperar contraseñas utilizando un código de recuperación generado automáticamente durante el registro.
+
 Gestión de Estadísticas: Seguimiento detallado de las estadísticas de juego del jugador y su visualización en diferentes formatos.
+
 Generación de Números Aleatorios: Uso de rand() y srand(time(nullptr)) para asegurar la aleatoriedad en los juegos de azar.
+
 Portabilidad: El uso de directivas #ifdef _WIN32 permite adaptar funciones específicas del sistema operativo (como Sleep o system("cls")) para que el código sea compatible tanto con Windows como con sistemas Unix-like (Linux/macOS).
 
 
