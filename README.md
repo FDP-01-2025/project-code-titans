@@ -5,7 +5,7 @@
 
 # Diagrama de flujo
 
-
+https://drive.google.com/file/d/1cbhSLoVVZakRj1YW4V8uGoEr-cXaHJEl/view?usp=sharing
 
 # Nombre del juego
 Casino Virtual: Consola Edición
