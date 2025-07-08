@@ -767,62 +767,96 @@ Equipo "Code Titans" -
 
 Fernando Alonso Moreno Flores (00000125)
 
+
 Rol: Líder Técnico y Arquitecto de Software / Desarrollador Backend
 Responsabilidades Clave:
 
+
 Liderazgo Técnico: Definir la arquitectura del software y supervisar la implementación de las mejores prácticas de desarrollo.
+
 
 Desarrollo Backend: Implementar la lógica de los juegos (Blackjack, Ruleta, Craps) y desarrollar el sistema de persistencia de datos.
 
+
 Integración: Asegurar que la lógica del juego se integre correctamente con la interfaz de usuario.
 
+
 Mentoría: Proporcionar orientación y apoyo a los miembros del equipo, ayudando a resolver problemas técnicos.
+
 
 Marcos Noe Vásquez Guardado (00114825)
 
 Rol: Analista
 Responsabilidades Clave:
 
+
 Recopilar y analizar los requisitos del proyecto y las necesidades del usuario.
+
 
 Diseñar y documentar las especificaciones funcionales y técnicas.
 
+
 Colaborar con el equipo de desarrollo para asegurar que se cumplan los requisitos.
+
 
 Realizar pruebas de aceptación y validar que el producto final cumpla con las expectativas.
 
 Camila Alessandra Menjívar Martínez (00095825)
 
+
 Rol: Especialista en Calidad y Pruebas
 Responsabilidades Clave:
 
+
 Diseñar y ejecutar casos de prueba para asegurar la calidad del software.
+
 
 Realizar depuración y validación de entradas.
 
+
 Documentar los resultados de las pruebas y sugerir mejoras.
+
 
 Lizbeth Sofia Menjívar Castillo (00074525)
 
 Rol: Desarrolladora Frontend de Consola
 Responsabilidades Clave:
 
+
 Diseñar la interfaz utilizando gráficos ASCII/ANSI.
+
 
 Implementar animaciones y mejorar la experiencia del usuario.
 
+
 Crear gráficos estadísticos para mostrar el rendimiento del jugador.
 
+
 Carlos Eduardo Martínez Velasquez (00207024)
+
 
 Rol: Gestor de Proyecto y Documentación
 Responsabilidades Clave:
 
+
 Planificar sprints y gestionar el cronograma del proyecto.
+
 
 Mantener la documentación técnica actualizada.
 
 Comunicar avances y necesidades del equipo a los stakeholders.
+
+🤝 Créditos
+
+Desarrollado por:
+
+🔥 Code Titans
+
+Bajo el sello de:
+
+⚔️ "Code Titans"
+
+Lema: "Donde el código se convierte en leyenda."
 
 ## Instrucciones de Ejecución
 
