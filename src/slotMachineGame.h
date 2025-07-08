@@ -899,7 +899,7 @@ inline void hardMode(Player &player)
             setColor(36); // cian
             cout << "\nDo you want to play another round?" << endl;
             setColor(32); // green
-            cout << "     YES (Y).";
+            cout << "     YES (S).";
             setColor(31); // red
             cout << "        NO(N)" << endl;
             resetColor();
