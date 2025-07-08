@@ -748,18 +748,24 @@ inline void recoverPassword()
             {
                 // If they don't match or are empty, notify that nothing was updated
                 cout << "The passwords do not match or are empty. Nothing was updated.\n";
+                cout << "Press Enter to continue...";
+                cin.get();
             }
         }
         else
         {
             // If they do not want to change, notify that they continue with the same password
             cout << "No changes were made. You can continue using your current password.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
         }
     }
     else
     {
         // If the code or name do not match, notify error
         cout << "User  or code incorrect.\n";
+        cout << "Press Enter to continue...";
+        cin.get();
     }
 }
 

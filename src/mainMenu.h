@@ -75,6 +75,8 @@ inline void showHistoryMenu(Player &player)
             cin.clear();                                         // I clear the error state of cin
             cin.ignore(numeric_limits<streamsize>::max(), '\n'); // I clear the keyboard buffer
             cout << "Invalid input.\n";                          // I inform the player about the invalid input
+            cout << "Press Enter to continue...";
+        cin.get();
             continue;                                            // I return to the beginning of the loop to show the menu again
         }
 
@@ -362,6 +364,7 @@ inline void gameModeMenu()
     while (true)
     {
         setColor(32);
+        clearConsole();
         cout << "\n*============* GAME MODE *=============*\n\n";
         resetColor();
         showDateTime();
@@ -379,6 +382,8 @@ inline void gameModeMenu()
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid input. Enter a number from 1 to 3.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
             continue;
         }
 

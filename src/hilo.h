@@ -216,6 +216,7 @@ inline void playHilo(Player &player)
     do
     {
         // Show menu options
+        clearConsole();
         cout << "\n---- Welcome to the HI-LO game! ----\n";
         cout << "1. Game explanation \n";
         cout << "2. Play \n";
@@ -229,6 +230,8 @@ inline void playHilo(Player &player)
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             cout << "Invalid option. Please enter a number.\n";
+            cout << "Press Enter to continue...";
+            cin.get();
             continue;
         }
 
@@ -248,6 +251,9 @@ inline void playHilo(Player &player)
             cout << "- You can keep playing to try to win even more, or cash out and take your reward.\n\n";
             cout << "If you guess incorrectly:\n";
             cout << "- You lose your bet.\n\n";
+            cout << "Press Enter to continue...";
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer
+            cin.get();
             break;
         case 2:
             clearConsole();

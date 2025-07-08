@@ -96,10 +96,13 @@ inline string requestBetType()
 
         if (type == "1" || type == "2" || type == "3") // If it's a valid option
             return type;                               // Return it and exit
-        else if (type == "4" || type == "exit")
+        else if (type == "4")
+        {
+            cout << "\033[33mExiting the roulette game...\033[0m\n";
             return "exit";
-        else
-            cout << "\033[31mInvalid option, please try again.\n\033[0m";
+        }
+
+        cout << "\033[31mInvalid option, please try again.\n\033[0m";
         cout << "Press Enter to continue...";
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); // clear buffer
         cin.get();
@@ -203,8 +206,6 @@ inline void playRoulette(Player &player)
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore buffer
                 cout << "\033[31mInvalid bet. It must be between $10 and $500 and cannot exceed your current balance.\n\033[0m";
                 cout << "Your current money is $" << player.money << ". Enter your bet: $";
-                cout << "Press Enter to continue...";
-                cin.get();
                 continue; // Ask for the bet again
             }
             break; // Exit if it's valid
@@ -228,12 +229,15 @@ inline void playRoulette(Player &player)
             chosenColor = requestColor(); // Ask for the chosen color
             summary = "Bet: on color " + string((chosenColor == 'R') ? "Red" : "Black") + " | Amount: $" + to_string(bet);
         }
-        else
+        else if (type == "3")
         {                                   // If betting on even or odd
             chosenParity = requestParity(); // Ask for the chosen parity
             summary = "Bet: on " + string((chosenParity == 'P') ? "even" : "odd") + " | Amount: $" + to_string(bet);
         }
-
+        if (type == "exit")
+        {
+            return;
+        }
         cout << "\n"
              << summary << "\nSpinning the roulette...\n"; // Show summary and notify spinning
 
