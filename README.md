@@ -1,5 +1,9 @@
 # Proyecto de Code Titans C++ - casino virtual
 
+> Un proyecto del equipo **Code Titans**, desarrollado con pasión bajo el sello de **Code Titans**  
+> 🧠 "Forjando software, conquistando límites."
+
+
 # Nombre del juego
 Casino Virtual: Consola Edición
 
@@ -848,7 +852,7 @@ Implementar animaciones y mejorar la experiencia del usuario.
 
 Comunicar avances y necesidades del equipo a los stakeholders.
 
-# 🤝 Créditos
+🤝 Créditos
 
 # Desarrollado por:
 
