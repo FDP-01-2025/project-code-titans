@@ -858,8 +858,10 @@ Comunicar avances y necesidades del equipo a los stakeholders.
 
 ⚔️ "Code Titans"
 
+# Lema del equipo 
 
-# 🧠  "Forjando software, conquistando límites."
+🧠  "Forjando software, conquistando límites."
+ 
 
 # Instrucciones de Ejecución
 
