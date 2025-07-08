@@ -759,106 +759,106 @@ int main()
   return 0;
 }
 
-## Equipo
+# Equipo
 
-##Equipo "Code Titans" 
+# Equipo "Code Titans" 
 
-##Roles y Responsabilidades
+# Roles y Responsabilidades
 
-##Fernando Alonso Moreno Flores (00000125)
-
-
-Rol: Líder Técnico y Arquitecto de Software / Desarrollador Backend
-Responsabilidades Clave:
+# Fernando Alonso Moreno Flores (00000125)
 
 
-Liderazgo Técnico: Definir la arquitectura del software y supervisar la implementación de las mejores prácticas de desarrollo.
+# Rol: Líder Técnico y Arquitecto de Software / Desarrollador Backend
+# Responsabilidades Clave:
 
 
-Desarrollo Backend: Implementar la lógica de los juegos (Blackjack, Ruleta, Craps) y desarrollar el sistema de persistencia de datos.
+# Liderazgo Técnico: Definir la arquitectura del software y supervisar la implementación de las mejores prácticas de desarrollo.
 
 
-Integración: Asegurar que la lógica del juego se integre correctamente con la interfaz de usuario.
+# Desarrollo Backend: Implementar la lógica de los juegos (Blackjack, Ruleta, Craps) y desarrollar el sistema de persistencia de datos.
+
+
+# Integración: Asegurar que la lógica del juego se integre correctamente con la interfaz de usuario.
 
 
 Mentoría: Proporcionar orientación y apoyo a los miembros del equipo, ayudando a resolver problemas técnicos.
 
 
-##Marcos Noe Vásquez Guardado (00114825)
+# Marcos Noe Vásquez Guardado (00114825)
 
-##Rol: Analista
-##Responsabilidades Clave:
-
-
-Recopilar y analizar los requisitos del proyecto y las necesidades del usuario.
+# Rol: Analista
+# Responsabilidades Clave:
 
 
-Diseñar y documentar las especificaciones funcionales y técnicas.
+# Recopilar y analizar los requisitos del proyecto y las necesidades del usuario.
 
 
-Colaborar con el equipo de desarrollo para asegurar que se cumplan los requisitos.
+# Diseñar y documentar las especificaciones funcionales y técnicas.
 
 
-Realizar pruebas de aceptación y validar que el producto final cumpla con las expectativas.
-
-##Camila Alessandra Menjívar Martínez (00095825)
+# Colaborar con el equipo de desarrollo para asegurar que se cumplan los requisitos.
 
 
-##Rol: Especialista en Calidad y Pruebas
-##Responsabilidades Clave:
+# Realizar pruebas de aceptación y validar que el producto final cumpla con las expectativas.
+
+# Camila Alessandra Menjívar Martínez (00095825)
 
 
-Diseñar y ejecutar casos de prueba para asegurar la calidad del software.
+# Rol: Especialista en Calidad y Pruebas
+# Responsabilidades Clave:
 
 
-Realizar depuración y validación de entradas.
+# Diseñar y ejecutar casos de prueba para asegurar la calidad del software.
 
 
-Documentar los resultados de las pruebas y sugerir mejoras.
+# Realizar depuración y validación de entradas.
 
 
-##Lizbeth Sofia Menjívar Castillo (00074525)
-
-##Rol: Desarrolladora Frontend de Consola
-##Responsabilidades Clave:
+# Documentar los resultados de las pruebas y sugerir mejoras.
 
 
-Diseñar la interfaz utilizando gráficos ASCII/ANSI.
+# Lizbeth Sofia Menjívar Castillo (00074525)
+
+# Rol: Desarrolladora Frontend de Consola
+# Responsabilidades Clave:
 
 
-Implementar animaciones y mejorar la experiencia del usuario.
+# Diseñar la interfaz utilizando gráficos ASCII/ANSI.
 
 
-Crear gráficos estadísticos para mostrar el rendimiento del jugador.
+# Implementar animaciones y mejorar la experiencia del usuario.
 
 
-##Carlos Eduardo Martínez Velasquez (00207024)
+# Crear gráficos estadísticos para mostrar el rendimiento del jugador.
 
 
-##Rol: Gestor de Proyecto y Documentación
-##Responsabilidades Clave:
+# Carlos Eduardo Martínez Velasquez (00207024)
 
 
-Planificar sprints y gestionar el cronograma del proyecto.
+# Rol: Gestor de Proyecto y Documentación
+# Responsabilidades Clave:
 
 
-Mantener la documentación técnica actualizada.
+# Planificar sprints y gestionar el cronograma del proyecto.
 
-Comunicar avances y necesidades del equipo a los stakeholders.
 
-##🤝 Créditos
+# Mantener la documentación técnica actualizada.
 
-##Desarrollado por:
+# Comunicar avances y necesidades del equipo a los stakeholders.
 
-##🔥 Code Titans
+# 🤝 Créditos
 
-##Bajo el sello de:
+# Desarrollado por:
 
-##⚔️ "Code Titans"
+# 🔥 Code Titans
 
-##Lema: "Donde el código se convierte en leyenda."
+# Bajo el sello de:
 
-## Instrucciones de Ejecución
+# ⚔️ "Code Titans"
+
+# "Donde el código se convierte en leyenda."
+
+# Instrucciones de Ejecución
 
 1. Clona este repositorio en tu máquina local:
    ```bash
