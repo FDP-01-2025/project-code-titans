@@ -331,7 +331,7 @@ inline bool validDUI(const string &dui)
         return false;
     }
 
-        if (dui.substr(0, 8) == "00000000" && dui[9] == '0')
+    if (dui.substr(0, 8) == "00000000" && dui[9] == '0')
     {
         cout << "Invalid DUI: cannot be all zeros.\n";
         return false;
@@ -485,11 +485,19 @@ inline bool logIn(string &player)
     string normalizedEnteredName = normalize(enteredName);
 
     // Check if the user is blocked due to failed attempts
+    if (!userExists(normalizedEnteredName))
+    {
+        cout << "\033[31mThis user is not registered.\033[0m\n";
+        cout << "\nPress Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return false;
+    }
+
     if (isUserBlocked(normalizedEnteredName))
     {
         cout << "\033[31mYour account is temporarily locked due to multiple failed login attempts. Please try again later.\033[0m\n";
         cout << "\nPress Enter to continue...";
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return false;
     }
 
