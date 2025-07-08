@@ -765,86 +765,86 @@ int main()
 
 # Roles y Responsabilidades
 
-# Fernando Alonso Moreno Flores (00000125)
+# Fernando Alonso Moreno Flores (00000125) - Rol: Líder de equipo y Arquitecto de Software / Desarrollador Backend
 
 
-# Rol: Líder Técnico y Arquitecto de Software / Desarrollador Backend
-# Responsabilidades Clave:
+
+ Responsabilidades Clave:
 
 
-# Liderazgo Técnico: Definir la arquitectura del software y supervisar la implementación de las mejores prácticas de desarrollo.
+Liderazgo Técnico: Definir la arquitectura del software y supervisar la implementación de las mejores prácticas de desarrollo.
 
 
-# Desarrollo Backend: Implementar la lógica de los juegos (Blackjack, Ruleta, Craps) y desarrollar el sistema de persistencia de datos.
+Desarrollo Backend: Implementar la lógica de los juegos (Blackjack, Ruleta, Craps) y desarrollar el sistema de persistencia de datos.
 
 
-# Integración: Asegurar que la lógica del juego se integre correctamente con la interfaz de usuario.
+ Integración: Asegurar que la lógica del juego se integre correctamente con la interfaz de usuario.
 
 
 Mentoría: Proporcionar orientación y apoyo a los miembros del equipo, ayudando a resolver problemas técnicos.
 
 
-# Marcos Noe Vásquez Guardado (00114825)
+# Marcos Noe Vásquez Guardado (00114825) - Rol: Analista
 
-# Rol: Analista
-# Responsabilidades Clave:
-
-
-# Recopilar y analizar los requisitos del proyecto y las necesidades del usuario.
+Responsabilidades Clave:
 
 
-# Diseñar y documentar las especificaciones funcionales y técnicas.
+Recopilar y analizar los requisitos del proyecto y las necesidades del usuario.
 
 
-# Colaborar con el equipo de desarrollo para asegurar que se cumplan los requisitos.
+ Diseñar y documentar las especificaciones funcionales y técnicas.
 
 
-# Realizar pruebas de aceptación y validar que el producto final cumpla con las expectativas.
-
-# Camila Alessandra Menjívar Martínez (00095825)
+ Colaborar con el equipo de desarrollo para asegurar que se cumplan los requisitos.
 
 
-# Rol: Especialista en Calidad y Pruebas
-# Responsabilidades Clave:
+Realizar pruebas de aceptación y validar que el producto final cumpla con las expectativas.
 
 
-# Diseñar y ejecutar casos de prueba para asegurar la calidad del software.
+# Camila Alessandra Menjívar Martínez (00095825)- Rol: Especialista en Calidad y Pruebas
 
 
-# Realizar depuración y validación de entradas.
+ Responsabilidades Clave:
 
 
-# Documentar los resultados de las pruebas y sugerir mejoras.
+ Diseñar y ejecutar casos de prueba para asegurar la calidad del software.
 
 
-# Lizbeth Sofia Menjívar Castillo (00074525)
-
-# Rol: Desarrolladora Frontend de Consola
-# Responsabilidades Clave:
+Realizar depuración y validación de entradas.
 
 
-# Diseñar la interfaz utilizando gráficos ASCII/ANSI.
+ Documentar los resultados de las pruebas y sugerir mejoras.
 
 
-# Implementar animaciones y mejorar la experiencia del usuario.
+
+# Lizbeth Sofia Menjívar Castillo (00074525) - Rol: Desarrolladora Frontend de Consola
 
 
-# Crear gráficos estadísticos para mostrar el rendimiento del jugador.
+ Responsabilidades Clave:
 
 
-# Carlos Eduardo Martínez Velasquez (00207024)
+ Diseñar la interfaz utilizando gráficos ASCII/ANSI.
 
 
-# Rol: Gestor de Proyecto y Documentación
-# Responsabilidades Clave:
+Implementar animaciones y mejorar la experiencia del usuario.
 
 
-# Planificar sprints y gestionar el cronograma del proyecto.
+ Crear gráficos estadísticos para mostrar el rendimiento del jugador.
 
 
-# Mantener la documentación técnica actualizada.
+# Carlos Eduardo Martínez Velasquez (00207024) - Rol: Gestor de Proyecto y Documentación
 
-# Comunicar avances y necesidades del equipo a los stakeholders.
+
+ Rol: Gestor de Proyecto y Documentación
+ Responsabilidades Clave:
+
+
+ Planificar sprints y gestionar el cronograma del proyecto.
+
+
+ Mantener la documentación técnica actualizada.
+
+Comunicar avances y necesidades del equipo a los stakeholders.
 
 # 🤝 Créditos
 
