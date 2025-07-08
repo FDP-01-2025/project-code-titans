@@ -5,7 +5,6 @@
 
 # Diagrama de flujo
 
-https://drive.google.com/file/d/1cbhSLoVVZakRj1YW4V8uGoEr-cXaHJEl/view?usp=drive_link
 
 
 # Nombre del juego
